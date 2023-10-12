@@ -1,0 +1,3 @@
+name: single-vm-infra
+runtime: nodejs
+description: A TypeScript program to deploy a virtual machine on Google Cloud

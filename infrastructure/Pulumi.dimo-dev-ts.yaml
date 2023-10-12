@@ -1,0 +1,4 @@
+config:
+  gcp:project: dimo-dev
+  gcp:region: us-east1
+  gcp:zone: us-east1-a

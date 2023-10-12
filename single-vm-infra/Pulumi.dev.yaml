@@ -1,0 +1,8 @@
+config:
+  gcp:project: dimo-dev
+  gcp:region: us-central1
+  gcp:zone: us-central1-a
+  single-vm-infra:instanceTag: webserver
+  single-vm-infra:machineType: e2-medium
+  single-vm-infra:osImage: debian-11
+  single-vm-infra:servicePort: "80"

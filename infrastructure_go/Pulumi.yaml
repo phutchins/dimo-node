@@ -1,0 +1,3 @@
+name: infrastructure
+runtime: go
+description: Infrastructure required to run a DIMO node
