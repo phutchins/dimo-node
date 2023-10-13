@@ -5,12 +5,30 @@ This repository brings together all of the components required to deploy and man
 
 ## Directory Structure
 ```
-├── example
+├── infrastructure
+│   ├── cloud
+│   │   ├── aws
+│   │   ├── azure
+│   │   └── gcp
+│   └── local
+├── dependencies
+│   ├── postgres-operator
+│   ├── postgres-operator-ui
+├── applications
+│   ├── dimo-identity
+├── node
+├── scripts
+├── README.md
+├── Makefile
+└── .gitignore
+
 ```
 
 ## Prerequisites
-Prequisites are handled by the deployment management scripts automatically for both local and cloud deployments.
+Prequisites will be handled by the deployment management scripts automatically for both local and cloud deployments but for now, please ensure you have the following installed:
+- [Pulumi](https://www.pulumi.com/docs/install/)
 
+### Educate Yourself
 To better understand the DIMO node and its components, please review the following documentation:
 - [DIMO Node Cluster Architecture](https://asdf.com/asdf.html)
 - [DIMO Core Concepts](https://asdf.com/asdf.html)

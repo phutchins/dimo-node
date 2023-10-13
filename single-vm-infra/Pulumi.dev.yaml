@@ -1,5 +1,5 @@
 config:
-  gcp:project: dimo-dev
+  gcp:project: dimo-dev-401815
   gcp:region: us-central1
   gcp:zone: us-central1-a
   single-vm-infra:instanceTag: webserver
