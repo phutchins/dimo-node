@@ -1,13 +1,23 @@
+import { interpolate, Config, Input, Output } from "@pulumi/pulumi";
 import * as pulumi from "@pulumi/pulumi";
+import * as tls from "@pulumi/tls";
 import * as gcp from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
+import { local, remote, types } from "@pulumi/command";
+import * as fs from "fs";
+import * as os from "os";
 
 // Import the program's configuration settings.
-const config = new pulumi.Config();
+const config = new Config();
 const machineType = config.get("machineType") || "f1-micro";
 const osImage = config.get("osImage") || "debian-11";
-const instanceTag = config.get("instanceTag") || "webserver";
-const servicePort = config.get("servicePort") || "80";
+const instanceTag = config.get("instanceTag") || "k3s";
+const kubePort = config.get("kubePort") || "6443";
+const credentialsPath = "./keys";
+const publicKeyPath = `${credentialsPath}/id_rsa.pub`;
+const privateKeyPath = `${credentialsPath}/id_rsa`;
+const privateKey = fs.readFileSync(privateKeyPath, "utf-8");
+const publicKey = fs.readFileSync(publicKeyPath, "utf-8");
 
 // Create a new network for the virtual machine.
 const network = new gcp.compute.Network("network", {
@@ -28,7 +38,7 @@ const firewall = new gcp.compute.Firewall("firewall", {
             protocol: "tcp",
             ports: [
                 "22",
-                servicePort,
+                kubePort,
             ],
         },
     ],
@@ -41,16 +51,18 @@ const firewall = new gcp.compute.Firewall("firewall", {
     ],
 });
 
-const mySshKey = new gcp.compute.ProjectMetadata("mySshKey", {metadata: {
-  "ssh-keys": `      philip:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYkAVnwBSnzYv+kDykNrAD3CxFSFUo5lXNGJecUMFs4VKva0DpNQ9wAjI5EhapTkr8tW0faD3iCZRR3w4/c/+jxVTJ3fiLBKjL3AAujsBeQV7m9n6cWxlKuZlgUFF7B50by9aHXaLOTAM6jqEdtVAau0WSYiz5IoDt8GgMw9k2mJBKWv6vWaQ9sfU9LHOym9AAS5ksPhV4q26Fy4J9IoTasGoXcaJQw+wojtqm4Ws3lAA5bhxnTrkxRH38MHHY0UQU2lj5MAisB4lQMWn0gxZtHpc+tlTEte226jEq+b48LSITcgjl/tD1eWYVZxnWWcffQijnTOB4hpvDDOGVV1Rn philip
-  `,
+const instanceSSHKeys = new gcp.compute.ProjectMetadata("instanceSSHKeys", {metadata: {
+    "ssh-keys": `pulumi:${publicKey}
+                `,
 }});
 
 // Define a script to be run when the VM starts up.
+// Can also use: curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--tls-san x.x.x.x" sh -s -
 const metadataStartupScript = `#!/bin/bash
-                               sudo apt-get update
-                               curl -sfL https://get.k3s.io | sh -`;
+    sudo apt-get update`;
 
+    // TODO: Separate creatio of VM from installation of k3s then can use the instanceIP easier
+    // or can get instanceIP from the instance itself
 
 // Create the virtual machine.
 const instance = new gcp.compute.Instance("instance", {
@@ -75,20 +87,80 @@ const instance = new gcp.compute.Instance("instance", {
         ],
     },
     allowStoppingForUpdate: true,
-    metadataStartupScript,
+    //metadataStartupScript,
     tags: [
         instanceTag,
     ],
-}, { dependsOn: firewall });
+}, { dependsOn: [ firewall, instanceSSHKeys ] });
 
-const instanceIP = instance.networkInterfaces.apply(interfaces => {
+export const instanceIP = instance.networkInterfaces.apply(interfaces => {
     return interfaces[0].accessConfigs![0].natIp;
 });
 
-// Export the instance's name, public IP address, and HTTP URL.
-export const name = instance.name;
-export const ip = instanceIP;
-export const url = pulumi.interpolate`http://${instanceIP}:${servicePort}`;
+export const instanceName = instance.name
+// TODO: Set this to the correct port for k3s
+export const kubeMaster = interpolate`${instanceIP}:${kubePort}`;
+
+const sshUser: Input<string> = "pulumi";
+const sshHost: Input<string> = instanceIP;
+
+const k3sCommand = pulumi.all({instanceIP}).apply(({instanceIP}) => {
+    console.log('Instance IP is: ', instanceIP.toString());
+
+    //return "curl -sfL https://get.k3s.io | sh -s -- --bind-address 0.0.0.0 --tls-san " + instanceIP.toString();
+    return "curl -sfL https://get.k3s.io | sh -s -- --bind-address 0.0.0.0 --tls-san " + sshHost.apply(host => host.toString());
+});
+
+const connection: types.input.remote.ConnectionArgs = {
+    host: sshHost,
+    user: sshUser,
+    privateKey: privateKey,
+};
+
+function GetValue<T>(output: Output<T>) {
+    return new Promise<T>((resolve, reject)=>{
+        output.apply(value=>{
+            resolve(value);
+        });
+    });
+}
+
+const installK3s = new remote.Command("install-k3s", {
+    connection,
+    create: "curl -sfL https://get.k3s.io | sh -s -- --bind-address 0.0.0.0 --tls-san " + instance.networkInterfaces.apply(interfaces => { return interfaces[0].accessConfigs![0].natIp }),
+}, { dependsOn: [ instance ] });
+
+const fetchKubeconfig = new remote.Command("fetch-kubeconfig", {
+    connection,
+    create: "sudo cat /etc/rancher/k3s/k3s.yaml | sed 's/127\.0\.0\.1/${instanceIP}/g'",
+}, { dependsOn: [ instance, installK3s ] });
+
+/*
+const kubeConfig = pulumi.all([fetchKubeconfig.stdout, instanceIP]).apply(([config, ip]) => {
+    let tmpConfig = config;
+    tmpConfig.replace(/127\.0\.0\.1/g, ip);
+    console.log('Kubeconfig is: ', tmpConfig);
+    return tmpConfig;
+});
+*/
+
+const kubeConfig = fetchKubeconfig.stdout;
+
+// Define a kubernetes provider instance that uses our cluster from above.
+const kubeProvider = new k8s.Provider("k3s", {
+    kubeconfig: kubeConfig,
+}, { dependsOn: [ fetchKubeconfig ] });
+
+// Create namespace for postgres-operator
+const postgresOperatorNamespace = new k8s.core.v1.Namespace("postgres-operator", {
+    metadata: {
+        name: "postgres-operator",
+    }},
+    {
+        provider: kubeProvider,
+        dependsOn: [ kubeProvider ],
+    },
+);
 
 // Deploy a helm chart to the cluster.
 const pgOperator = new k8s.helm.v3.Chart("postgres-operator", {
@@ -96,10 +168,10 @@ const pgOperator = new k8s.helm.v3.Chart("postgres-operator", {
     fetchOpts: {
         repo: "https://opensource.zalando.com/postgres-operator/charts/postgres-operator",
     },
-    namespace: "default",
+    namespace: "postgres-operator",
     values: {
         service: {
             type: "LoadBalancer",
         },
     },
-}, { provider: clusterProvider });
+}, { provider: kubeProvider });

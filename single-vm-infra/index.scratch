@@ -1,0 +1,231 @@
+import { interpolate, Config, Input, Output } from "@pulumi/pulumi";
+import * as pulumi from "@pulumi/pulumi";
+import * as tls from "@pulumi/tls";
+import * as gcp from "@pulumi/gcp";
+import * as k8s from "@pulumi/kubernetes";
+import { local, remote, types } from "@pulumi/command";
+import * as fs from "fs";
+import * as os from "os";
+
+// Import the program's configuration settings.
+const config = new Config();
+const machineType = config.get("machineType") || "f1-micro";
+const osImage = config.get("osImage") || "debian-11";
+const instanceTag = config.get("instanceTag") || "webserver";
+const servicePort = config.get("servicePort") || "80";
+const philipPubKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYkAVnwBSnzYv+kDykNrAD3CxFSFUo5lXNGJecUMFs4VKva0DpNQ9wAjI5EhapTkr8tW0faD3iCZRR3w4/c/+jxVTJ3fiLBKjL3AAujsBeQV7m9n6cWxlKuZlgUFF7B50by9aHXaLOTAM6jqEdtVAau0WSYiz5IoDt8GgMw9k2mJBKWv6vWaQ9sfU9LHOym9AAS5ksPhV4q26Fy4J9IoTasGoXcaJQw+wojtqm4Ws3lAA5bhxnTrkxRH38MHHY0UQU2lj5MAisB4lQMWn0gxZtHpc+tlTEte226jEq+b48LSITcgjl/tD1eWYVZxnWWcffQijnTOB4hpvDDOGVV1Rn";
+
+// Create a new network for the virtual machine.
+const network = new gcp.compute.Network("network", {
+    autoCreateSubnetworks: false,
+});
+
+// Create a subnet on the network.
+const subnet = new gcp.compute.Subnetwork("subnet", {
+    ipCidrRange: "10.0.1.0/24",
+    network: network.id,
+});
+
+// Create a firewall allowing inbound access over ports 80 (for HTTP) and 22 (for SSH).
+const firewall = new gcp.compute.Firewall("firewall", {
+    network: network.selfLink,
+    allows: [
+        {
+            protocol: "tcp",
+            ports: [
+                "22",
+                servicePort,
+            ],
+        },
+    ],
+    direction: "INGRESS",
+    sourceRanges: [
+        "0.0.0.0/0",
+    ],
+    targetTags: [
+        instanceTag,
+    ],
+});
+
+// Load gcp credentials from credentials.json file in the keys directory
+//const credentialsPath = "./keys/credentials.json";
+//gcp.config.credentials = pulumi.interpolate`file://${credentialsPath}`;
+
+
+const credentials = new gcp.serviceaccount.Key("credentials", {
+    serviceAccountId: "2394d9f4dd2a2696089a21c2477614a2f8e48913",
+});
+
+
+const sshKey = new tls.PrivateKey("sshKey", {
+    algorithm: "RSA",
+    rsaBits: 4096,
+});
+
+
+/*
+const sshKeys = pulumi.all([sshKey.privateKeyPem, sshKey.publicKeyOpenssh]).apply(([privateKey, publicKey]) => {
+    //console.log('privateKey is: ', privateKey);
+    //console.log('publicKey is: ', publicKey);
+
+    return {
+        privateKey: privateKey, 
+        publicKey: publicKey 
+    };
+});
+*/
+
+/*
+pulumi.all([sshKeys]).apply(([sshKeys]) => {
+    console.log('sshPrivateKey is: ', sshKeys.privateKey);
+    console.log('sshPublicKey is: ', sshKeys.publicKey);
+
+    // Add the public key from sshKey to the project's metadata.
+    const generatedSshKey = new gcp.compute.ProjectMetadata('generatedSshKey', {metadata: {
+        "ssh-keys": "pulumi: " + sshKey.publicKeyOpenssh,
+    }});
+});
+*/
+
+/*
+function GetValue<T>(output: Output<T>) {
+    return new Promise<T>((resolve, reject) => {
+        output.apply(value => {
+            resolve(value)
+        });
+    });
+}*/
+
+pulumi.all([sshKey.privateKeyPem, sshKey.publicKeyOpenssh]).apply(([privateKey, publicKey]) => {
+    const instanceSSHKeys = new gcp.compute.ProjectMetadata("instanceSSHKeys", {metadata: {
+        "ssh-keys": `pulumi:${publicKey}
+                    philip:${philipPubKey}
+                    `,
+    }});
+    const generatedSshKey = new gcp.compute.ProjectMetadata('generatedSshKey', {metadata: {
+        "ssh-keys": "pulumi: " + publicKey,
+    }});
+
+    // Define a script to be run when the VM starts up.
+    const metadataStartupScript = `#!/bin/bash
+        sudo apt-get update
+        curl -sfL https://get.k3s.io | sh -`;
+
+    // Create the virtual machine.
+    const instance = new gcp.compute.Instance("instance", {
+        machineType,
+        bootDisk: {
+            initializeParams: {
+                image: osImage,
+            },
+        },
+        networkInterfaces: [
+            {
+                network: network.id,
+                subnetwork: subnet.id,
+                accessConfigs: [
+                    {},
+                ],
+            },
+        ],
+        serviceAccount: {
+            scopes: [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ],
+        },
+        allowStoppingForUpdate: true,
+        metadataStartupScript,
+        tags: [
+            instanceTag,
+        ],
+    }, { dependsOn: [ firewall, generatedSshKey, instanceSSHKeys ] });
+
+    const instanceIP = instance.networkInterfaces.apply(interfaces => {
+        return interfaces[0].accessConfigs![0].natIp;
+    });
+
+    // Export the instance's name, public IP address, and HTTP URL.
+    const name = instance.name;
+    const ip = instanceIP;
+    const url = interpolate`http://${instanceIP}:${servicePort}`;
+    const sshUser: Input<string> = "pulumi";
+    const sshHost: Input<string> = instanceIP;
+
+    const connection1: types.input.remote.ConnectionArgs = {
+        host: sshHost,
+        user: sshUser,
+        privateKey: credentials.privateKey,
+    };
+    
+    const command = new remote.Command("my-command", {
+        connection: connection1,
+        create: "echo 'Hello, world!'",
+    });
+    
+    const output = command.stdout;
+
+
+
+
+
+
+    const connection: types.input.remote.ConnectionArgs = {
+        host: sshHost,
+        user: sshUser,
+        privateKey: privateKey,
+        //privateKey: fs.readFileSync(`${os.homedir()}/.ssh/id_rsa`, "utf-8"),
+    }
+
+    // console.log('Connection host is: ', sshHost.toString());
+    // console.log('Connection user is: ', sshUser.toString());
+    // console.log('Connection privateKey is: ', sshPrivKey.toString());
+
+    /*
+    // Run a command on instance to cat the kubeconfig file and save it to a local variable
+    const kubeconfig = instance.connection.apply(async (conn) => {
+        const result = await conn.exec("sudo cat /etc/rancher/k3s/k3s.yaml");
+        return result.stdout;
+    });*/
+
+    const fetchKubeconfig = new remote.Command("fetch-kubeconfig", {
+        connection: {
+            host: sshHost,
+            user: sshUser,
+            privateKey: privateKey,
+        },
+        create: "sudo cat /etc/rancher/k3s/k3s.yaml",
+    }, { dependsOn: [ instance ] });
+
+    pulumi.all({fetchKubeconfig}).apply(({fetchKubeconfig}) => {
+        const kubeConfig = fetchKubeconfig.stdout;
+        console.log(kubeConfig);
+    });
+
+    /*
+    // Define a kubernetes provider instance that uses our cluster from above.
+    const kubeProvider = new k8s.Provider("k3s", {
+        kubeconfig: kubeConfig,
+    });
+
+    // Create namespace for postgres-operator
+    const postgresOperatorNamespace = new k8s.core.v1.Namespace("postgres-operator", {
+        metadata: {
+            name: "postgres-operator",
+        },
+    });
+
+    // Deploy a helm chart to the cluster.
+    const pgOperator = new k8s.helm.v3.Chart("postgres-operator", {
+        chart: "postgres-operator",
+        fetchOpts: {
+            repo: "https://opensource.zalando.com/postgres-operator/charts/postgres-operator",
+        },
+        namespace: "postgres-operator",
+        values: {
+            service: {
+                type: "LoadBalancer",
+            },
+        },
+    }, { providers: { kubernetes: kubeProvider } });
+    */
+});

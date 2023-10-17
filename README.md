@@ -14,9 +14,10 @@ This repository brings together all of the components required to deploy and man
 ├── dependencies
 │   ├── postgres-operator
 │   ├── postgres-operator-ui
+│   ├── monitoring (stuff)
 ├── applications
 │   ├── dimo-identity
-├── node
+├── node (maybe we don't need this)
 ├── scripts
 ├── README.md
 ├── Makefile
