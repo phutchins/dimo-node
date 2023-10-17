@@ -1,11 +1,10 @@
 import { interpolate, Config, Input, Output } from "@pulumi/pulumi";
 import * as pulumi from "@pulumi/pulumi";
-import * as tls from "@pulumi/tls";
 import * as gcp from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
-import { local, remote, types } from "@pulumi/command";
+import { remote, types } from "@pulumi/command";
 import * as fs from "fs";
-import * as os from "os";
+
 
 // Import the program's configuration settings.
 const config = new Config();
@@ -61,9 +60,6 @@ const instanceSSHKeys = new gcp.compute.ProjectMetadata("instanceSSHKeys", {meta
 const metadataStartupScript = `#!/bin/bash
     sudo apt-get update`;
 
-    // TODO: Separate creatio of VM from installation of k3s then can use the instanceIP easier
-    // or can get instanceIP from the instance itself
-
 // Create the virtual machine.
 const instance = new gcp.compute.Instance("instance", {
     machineType,
@@ -93,22 +89,30 @@ const instance = new gcp.compute.Instance("instance", {
     ],
 }, { dependsOn: [ firewall, instanceSSHKeys ] });
 
-export const instanceIP = instance.networkInterfaces.apply(interfaces => {
+export const instanceExtIP = instance.networkInterfaces.apply(interfaces => {
     return interfaces[0].accessConfigs![0].natIp;
+});
+
+export const instanceIntIP = instance.networkInterfaces.apply(interfaces => {
+    return interfaces[0].networkIp;
 });
 
 export const instanceName = instance.name
 // TODO: Set this to the correct port for k3s
-export const kubeMaster = interpolate`${instanceIP}:${kubePort}`;
+export const kubeMaster = interpolate`${instanceIntIP}:${kubePort}`;
 
 const sshUser: Input<string> = "pulumi";
-const sshHost: Input<string> = instanceIP;
+const sshHost: Input<string> = instanceExtIP;
 
-const k3sCommand = pulumi.all({instanceIP}).apply(({instanceIP}) => {
-    console.log('Instance IP is: ', instanceIP.toString());
+const k3sCommand = pulumi.all({instanceIntIP, instanceExtIP}).apply(({instanceIntIP, instanceExtIP}) => {
+    console.log('Instance External IP is: ', instanceExtIP.toString());
+    console.log('Instance Internal IP is: ', instanceIntIP.toString());
 
-    //return "curl -sfL https://get.k3s.io | sh -s -- --bind-address 0.0.0.0 --tls-san " + instanceIP.toString();
-    return "curl -sfL https://get.k3s.io | sh -s -- --bind-address 0.0.0.0 --tls-san " + sshHost.apply(host => host.toString());
+    return 'curl -sfL https://get.k3s.io | sh -s -- --bind-address ' + instanceIntIP.toString() + ' --tls-san ' + instanceExtIP.toString() + ' --advertise-address ' + instanceIntIP.toString() + ' --advertise-address ' + instanceIntIP.toString();
+});
+
+const getKubeConfigCmd = pulumi.all({instanceIntIP, instanceExtIP}).apply(({instanceIntIP, instanceExtIP}) => {
+    return `sudo cat /etc/rancher/k3s/k3s.yaml | sed 's/.*server: .*/    server: https:\\/\\/${instanceExtIP}:6443/g'`;
 });
 
 const connection: types.input.remote.ConnectionArgs = {
@@ -127,22 +131,13 @@ function GetValue<T>(output: Output<T>) {
 
 const installK3s = new remote.Command("install-k3s", {
     connection,
-    create: "curl -sfL https://get.k3s.io | sh -s -- --bind-address 0.0.0.0 --tls-san " + instance.networkInterfaces.apply(interfaces => { return interfaces[0].accessConfigs![0].natIp }),
+    create: k3sCommand,
 }, { dependsOn: [ instance ] });
 
 const fetchKubeconfig = new remote.Command("fetch-kubeconfig", {
     connection,
-    create: "sudo cat /etc/rancher/k3s/k3s.yaml | sed 's/127\.0\.0\.1/${instanceIP}/g'",
+    create: getKubeConfigCmd,
 }, { dependsOn: [ instance, installK3s ] });
-
-/*
-const kubeConfig = pulumi.all([fetchKubeconfig.stdout, instanceIP]).apply(([config, ip]) => {
-    let tmpConfig = config;
-    tmpConfig.replace(/127\.0\.0\.1/g, ip);
-    console.log('Kubeconfig is: ', tmpConfig);
-    return tmpConfig;
-});
-*/
 
 const kubeConfig = fetchKubeconfig.stdout;
 
