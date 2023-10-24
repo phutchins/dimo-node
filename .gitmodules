@@ -1,0 +1,3 @@
+[submodule "single-vm-infra/dimo-apps/devices-api"]
+	path = single-vm-infra/dimo-apps/devices-api
+	url = https://github.com/DIMO-Network/devices-api.git

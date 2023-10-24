@@ -6,9 +6,9 @@
     },
     "dependencies": {
         "@pulumi/command": "^0.9.1",
-        "@pulumi/gcp": "^6.0.0",
-        "@pulumi/kubernetes": "^4.4.0",
-        "@pulumi/pulumi": "^3.88.1",
+        "@pulumi/gcp": "^6.67.0",
+        "@pulumi/kubernetes": "^4.5.0",
+        "@pulumi/pulumi": "^3.90.0",
         "@pulumi/tls": "^4.11.0"
     }
 }
