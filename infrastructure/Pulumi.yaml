@@ -1,3 +1,3 @@
-name: infrastructure
-runtime: nodejs
-description: DIMO Node infrasturcture
+name: dimo-infrastructure
+runtime: go
+description: A Pulumi to create the infrastructure for dimo

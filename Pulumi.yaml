@@ -1,0 +1,3 @@
+name: dimo-node
+runtime: go
+description: A Pulumi to run a DIMO node

@@ -17,8 +17,8 @@ This repository brings together all of the components required to deploy and man
 │   ├── monitoring (stuff)
 ├── applications
 │   ├── dimo-identity
-├── node (maybe we don't need this)
 ├── scripts
+├── keys
 ├── README.md
 ├── Makefile
 └── .gitignore
@@ -37,18 +37,49 @@ To better understand the DIMO node and its components, please review the followi
 ## Getting Started
 You have a few options for getting started with this repository. You can either clone the repository and run the deployment management scripts locally, or you can use the deployment management scripts to deploy a DIMO node to a cloud provider.
 
-### Local Deployment
+### Local Deployment (coming soon)
 To get started, clone this repository and run the following commands:
 ```
-asdf install
-asdf reshim
+[coming soon]
 ```
 
-### Cloud Deployment
+### Cloud Dev Deployment
+To get started, clone this repository and run the following commands:
+
+Generate ssh keys for the DIMO node
+```
+ssh-keygen -t rsa -b 4096 -C "pulumi" -f keys/pulumi_key -N ""
+```
+
+#### Google Cloud
+Authenticate to Google Cloud
+```
+gcloud auth login
+gcloud config set project <project-name>
+gcloud auth application-default login
+```
+
+Initialize Pulumi
+```
+pulumi stack init
+```
+
+Set the following Pulumi configuration variables:
+```
+pulumi config set gcp:project <project-name>
+pulumi config set gcp:zone <zone>
+pulumi config set gcp:region <region>
+```
+
+Deploy the DIMO node
+```
+pulumi up
+```
+
+### Cloud Production Deployment (coming soon)
 To get started, clone this repository and run the following commands:
 ```
-asdf install
-asdf reshim
+[coming soon]
 ```
 
 ## Deployment Management Scripts

@@ -5,6 +5,9 @@ import * as k8s from "@pulumi/kubernetes";
 import { remote, types } from "@pulumi/command";
 import * as resource from "@pulumi/pulumi/dynamic";
 import * as fs from "fs";
+import * as k8s from "@kubernetes/client-node";
+
+
 
 
 // Import the program's configuration settings.
@@ -191,6 +194,14 @@ const fetchKubeconfig = new remote.Command("fetch-kubeconfig", {
 
 const kubeConfig = fetchKubeconfig.stdout;
 
+
+
+
+
+
+
+
+
 export const fetchKubeNodes = new remote.Command("fetch-kube-nodes", {
     connection,
     create: getKubeNodesCmd,
@@ -208,19 +219,33 @@ const kubeProvider = new k8s.Provider("k3s", {
     kubeconfig: kubeConfig,
 }, { dependsOn: [ fetchKubeconfig ] });
 
+
+
+// TODO: Figure out how to get a client
+//const kubeConfig = new k8s.KubeConfig();
+//kubeConfig.loadFromDefault();
+
+const myKubeConfig = kubeProvider.kubeconfig;
+
+
+const k8sApi = myKubeConfig.makeApiClient(k8s.CoreV1Api);
+
+k8sApi.listNode().then((res) => {
+    console.log(res.body);
+});
+
+
+
+
 //const nodeList = new NodeListResource("node-list", kubeConfig);
 
 //export const nodeNames = nodeList.nodeNames;
 
 //let nodes: k8s.core.v1.NodeList;
-/*
-export const nodes = pulumi.all({kubeProvider}).apply(({kubeProvider}) => {
-    return kubeConfig.apply(kc => {
-        return k8s.core.v1.NodeList.get("nodes", kubeProvider.id, { provider: kubeProvider });
-    })
-});
-*/
 
+export const nodes = pulumi.all({kubeProvider}).apply(({kubeProvider}) => {
+    return k8s.core.v1.NodeList.get("nodes", kubeProvider.id, { provider: kubeProvider });
+});
 
 //let nodes = k8s.core.v1.NodeList.get("nodes", "k3s", { provider: kubeProvider, dependsOn: [ kubeProvider ] });
 //export const nodeNames = nodes.items;
@@ -392,9 +417,10 @@ const pgCluster = new k8s.helm.v3.Chart("zalando-postgres-cluster", {
         },
         persistentVolumes: {
             accessModes: ["ReadWriteOnce"],
-            replicaNodes: kubeNodes,
+            //replicaNodes: kubeNodes,
             //replicaNodes: 1,
-                //"instance-144a62b", // TODO: Make this dynamic and get the name of nodes from the cluster
+            replicaNodes: [ "instance-10e4e90"],
+                //"instance-10e4e90", // TODO: Make this dynamic and get the name of nodes from the cluster
             hostPathPrefix: "/mnt/data",
         },
         setup: {
@@ -404,6 +430,7 @@ const pgCluster = new k8s.helm.v3.Chart("zalando-postgres-cluster", {
     dependsOn: [ pgOperator, pgOperatorUI, postgresOperatorNamespace ] });
 
 // Install Kafka with Helm
+// Pass bootstrap URL to the app
 const kafka = new k8s.helm.v3.Chart("kafka", {
     chart: "kafka",
     fetchOpts: {
@@ -421,9 +448,9 @@ const kafka = new k8s.helm.v3.Chart("kafka", {
 }, { provider: kubeProvider,
     dependsOn: [ kafkaNamespace ] });
 
-const devicesApi = new k8s.helm.v3.Chart("devices-api", {
-    chart: "devices-api",
-    path: "./dimo-apps/devices-api/charts",
-    namespace: "devices-api",
+const devicesApi = new k8s.helm.v3.Chart("identity-api", {
+    chart: "identity-api",
+    path: "./dimo-apps/identity-api/charts",
+    namespace: "identity-api",
 }, { provider: kubeProvider,
     dependsOn: [ pgCluster, kafka ] });
