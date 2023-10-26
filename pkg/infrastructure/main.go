@@ -1,6 +1,7 @@
 package infrastructure
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/compute"
@@ -24,13 +25,15 @@ func Run() {
 
 	// Create a GCP network
 	pulumi.Run(func(ctx *pulumi.Context) error {
+		fmt.Printf("HI\n")
+		fmt.Printf("HI\n")
 		_, err := compute.NewProjectMetadata(ctx, "ssh-keys", &compute.ProjectMetadataArgs{
 			Metadata: pulumi.StringMap{
 				"ssh-keys": pulumi.String(sshKeys),
 			},
 		})
 
-		network, err := compute.NewNetwork(ctx, "network", &compute.NetworkArgs{
+		network, err := compute.NewNetwork(ctx, "network-1", &compute.NetworkArgs{
 			AutoCreateSubnetworks: pulumi.Bool(false),
 		})
 		if err != nil {
@@ -38,9 +41,9 @@ func Run() {
 		}
 
 		// Create a GCP Subnetwork
-		subnetwork, err := compute.NewSubnetwork(ctx, "subnetwork", &compute.SubnetworkArgs{
+		subnetwork, err := compute.NewSubnetwork(ctx, "subnetwork-1", &compute.SubnetworkArgs{
 			IpCidrRange: pulumi.String("10.0.1.0/24"),
-			Network:     pulumi.String("network"),
+			Network:     network.ID(),
 			Region:      pulumi.String("us-central1"),
 		}, pulumi.DependsOn([]pulumi.Resource{network}))
 
@@ -49,8 +52,9 @@ func Run() {
 		}
 
 		// Create firewall rule to allow appropriate traffic in
-		firewall, err := compute.NewFirewall(ctx, "firewall", &compute.FirewallArgs{
-			Network: network.Name,
+		firewall, err := compute.NewFirewall(ctx, "firewall-1", &compute.FirewallArgs{
+			Network:    network.ID(),
+			Subnetwork: subnetwork.ID(),
 			Allows: compute.FirewallAllowArray{
 				&compute.FirewallAllowArgs{
 					Protocol: pulumi.String("tcp"),
@@ -73,28 +77,33 @@ func Run() {
 			"app": pulumi.String("dimo"),
 		}
 
-		// Create a GCP Instance
-		inst, err := compute.NewInstance(ctx, "instance", &compute.InstanceArgs{
-			Zone: pulumi.String(zone),
-			BootDisk: &compute.InstanceBootDiskArgs{
-				InitializeParams: &compute.InstanceBootDiskInitializeParamsArgs{
-					Image:  pulumi.String(osImage),
-					Labels: instanceLabels, // <- This shows an error in IDE but seems to work fine
-				},
-			},
-			MachineType: pulumi.String(machineType),
-			NetworkInterfaces: &compute.InstanceNetworkInterfaceArray{
-				&compute.InstanceNetworkInterfaceArgs{
-					Network:    network.ID(),
-					Subnetwork: subnetwork.ID(),
-				},
-			},
-		}, pulumi.DependsOn([]pulumi.Resource{subnetwork, firewall}))
-		if err != nil {
-			return err
-		}
+		fmt.Printf("HI")
 
-		ctx.Export("instanceName", inst.Name)
+		/*
+			// Create a GCP Instance
+			inst, err := compute.NewInstance(ctx, "instance", &compute.InstanceArgs{
+				Zone: pulumi.String(zone),
+				BootDisk: &compute.InstanceBootDiskArgs{
+					InitializeParams: &compute.InstanceBootDiskInitializeParamsArgs{
+						Image:  pulumi.String(osImage),
+						Labels: instanceLabels, // <- This shows an error in IDE but seems to work fine
+					},
+				},
+				MachineType: pulumi.String(machineType),
+				NetworkInterfaces: &compute.InstanceNetworkInterfaceArray{
+					&compute.InstanceNetworkInterfaceArgs{
+						//Subnetwork: subnetwork.SelfLink.ToStringOutput(),
+						Subnetwork: pulumi.String("default"),
+						Network:    pulumi.String("default"),
+					},
+				},
+			}, pulumi.DependsOn([]pulumi.Resource{subnetwork, firewall}))
+			if err != nil {
+				return err
+			}
+		*/
+
+		/* ctx.Export("instanceName", inst.Name)*/
 		ctx.Export("networkName", network.Name)
 		ctx.Export("subnetworkName", subnetwork.Name)
 		ctx.Export("firewallName", firewall.Name)

@@ -1,0 +1,170 @@
+I1025 21:40:57.207459   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:40:57.207850   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:40:57.208205   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:40:57.208318   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:40:57.208444   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:40:57.208542   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:40:57.208714   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:40:57.208815   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:40:57.208931   27520 log.go:81] Waiting for state to become: [success]
+I1025 21:40:57.209076   27520 log.go:81] Waiting for state to become: [success]
+I1025 21:40:57.526290   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1025 21:40:57.569002   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1025 21:40:57.584696   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:40:57.584874   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:40:57.585148   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:40:57.585266   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:40:57.585421   27520 log.go:81] Waiting for state to become: [success]
+I1025 21:40:57.585860   27520 log.go:81] Waiting for state to become: [success]
+I1025 21:40:57.704403   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1025 21:41:02.315638   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:41:02.315823   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:41:02.316062   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:41:02.316242   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:41:02.316439   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:41:02.316586   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:41:02.316772   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:41:02.316916   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:41:02.317064   27520 log.go:81] Waiting for state to become: [success]
+I1025 21:41:02.317288   27520 log.go:81] Waiting for state to become: [success]
+I1025 21:41:02.575463   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1025 21:41:02.619956   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1025 21:41:02.630657   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:41:02.630987   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:41:02.631201   27520 log.go:81] Waiting for state to become: [success]
+I1025 21:41:02.631412   27520 log.go:81] Authenticating using DefaultClient...
+I1025 21:41:02.631621   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1025 21:41:02.631852   27520 log.go:81] Waiting for state to become: [success]
+I1025 21:41:02.753227   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1025 21:41:02.992035   27520 log.go:81] Loading zone: us-central1-a
+I1025 21:41:02.992301   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
+I1025 21:41:02.993030   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
+I1025 21:41:02.993141   27520 log.go:81] Retry Transport: request attempt 0
+I1025 21:41:03.353006   27520 log.go:81] Retry Transport: Stopping retries, last request was successful
+I1025 21:41:03.354444   27520 log.go:81] Retry Transport: Returning after 1 attempts
+I1025 21:41:03.355452   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
+I1025 21:41:03.356146   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
+I1025 21:41:03.356300   27520 log.go:81] Retry Transport: request attempt 0
+I1025 21:41:03.571749   27520 log.go:81] Retry Transport: Stopping retries, last request failed with non-retryable error: googleapi: got HTTP response code 404 with body: HTTP/2.0 404 Not Found
+I1025 21:41:03.572349   27520 log.go:81] Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+I1025 21:41:03.572799   27520 log.go:81] Cache-Control: private
+I1025 21:41:03.573173   27520 log.go:81] Content-Type: application/json; charset=UTF-8
+I1025 21:41:03.573538   27520 log.go:81] Date: Thu, 26 Oct 2023 01:41:03 GMT
+I1025 21:41:03.573846   27520 log.go:81] Server: ESF
+I1025 21:41:03.574158   27520 log.go:81] Vary: Origin
+I1025 21:41:03.574363   27520 log.go:81] Vary: X-Origin
+I1025 21:41:03.574540   27520 log.go:81] Vary: Referer
+I1025 21:41:03.574722   27520 log.go:81] X-Content-Type-Options: nosniff
+I1025 21:41:03.574906   27520 log.go:81] X-Frame-Options: SAMEORIGIN
+I1025 21:41:03.575072   27520 log.go:81] X-Xss-Protection: 0
+I1025 21:41:03.575228   27520 log.go:81] 
+I1025 21:41:03.575413   27520 log.go:81] {
+I1025 21:41:03.575604   27520 log.go:81]   "error": {
+I1025 21:41:03.575776   27520 log.go:81]     "code": 404,
+I1025 21:41:03.575955   27520 log.go:81]     "message": "The resource 'projects/dimo-dev-401815/global/images/debian-11' was not found",
+I1025 21:41:03.576275   27520 log.go:81]     "errors": [
+I1025 21:41:03.576518   27520 log.go:81]       {
+I1025 21:41:03.576652   27520 log.go:81]         "message": "The resource 'projects/dimo-dev-401815/global/images/debian-11' was not found",
+I1025 21:41:03.576801   27520 log.go:81]         "domain": "global",
+I1025 21:41:03.576915   27520 log.go:81]         "reason": "notFound"
+I1025 21:41:03.577062   27520 log.go:81]       }
+I1025 21:41:03.577184   27520 log.go:81]     ]
+I1025 21:41:03.577286   27520 log.go:81]   }
+I1025 21:41:03.577380   27520 log.go:81] }
+I1025 21:41:03.577514   27520 log.go:81] Retry Transport: Returning after 1 attempts
+I1025 21:41:03.578192   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
+I1025 21:41:03.578406   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
+I1025 21:41:03.578505   27520 log.go:81] Retry Transport: request attempt 0
+I1025 21:41:03.843669   27520 log.go:81] Retry Transport: Stopping retries, last request failed with non-retryable error: googleapi: got HTTP response code 404 with body: HTTP/2.0 404 Not Found
+I1025 21:41:03.851750   27520 log.go:81] Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+I1025 21:41:03.855858   27520 log.go:81] Cache-Control: private
+I1025 21:41:03.856182   27520 log.go:81] Content-Type: application/json; charset=UTF-8
+I1025 21:41:03.856423   27520 log.go:81] Date: Thu, 26 Oct 2023 01:41:03 GMT
+I1025 21:41:03.856698   27520 log.go:81] Server: ESF
+I1025 21:41:03.856893   27520 log.go:81] Vary: Origin
+I1025 21:41:03.857116   27520 log.go:81] Vary: X-Origin
+I1025 21:41:03.857333   27520 log.go:81] Vary: Referer
+I1025 21:41:03.857498   27520 log.go:81] X-Content-Type-Options: nosniff
+I1025 21:41:03.857670   27520 log.go:81] X-Frame-Options: SAMEORIGIN
+I1025 21:41:03.857877   27520 log.go:81] X-Xss-Protection: 0
+I1025 21:41:03.858112   27520 log.go:81] 
+I1025 21:41:03.858278   27520 log.go:81] {
+I1025 21:41:03.858472   27520 log.go:81]   "error": {
+I1025 21:41:03.858890   27520 log.go:81]     "code": 404,
+I1025 21:41:03.859190   27520 log.go:81]     "message": "The resource 'projects/debian-cloud/global/images/debian-11' was not found",
+I1025 21:41:03.864001   27520 log.go:81]     "errors": [
+I1025 21:41:03.864289   27520 log.go:81]       {
+I1025 21:41:03.864560   27520 log.go:81]         "message": "The resource 'projects/debian-cloud/global/images/debian-11' was not found",
+I1025 21:41:03.864835   27520 log.go:81]         "domain": "global",
+I1025 21:41:03.865154   27520 log.go:81]         "reason": "notFound"
+I1025 21:41:03.865355   27520 log.go:81]       }
+I1025 21:41:03.865558   27520 log.go:81]     ]
+I1025 21:41:03.865762   27520 log.go:81]   }
+I1025 21:41:03.866009   27520 log.go:81] }
+I1025 21:41:03.866213   27520 log.go:81] Retry Transport: Returning after 1 attempts
+I1025 21:41:03.866478   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
+I1025 21:41:03.866804   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
+I1025 21:41:03.867141   27520 log.go:81] Retry Transport: request attempt 0
+I1025 21:41:04.050711   27520 log.go:81] Retry Transport: Stopping retries, last request failed with non-retryable error: googleapi: got HTTP response code 404 with body: HTTP/2.0 404 Not Found
+I1025 21:41:04.051361   27520 log.go:81] Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+I1025 21:41:04.051779   27520 log.go:81] Cache-Control: private
+I1025 21:41:04.052122   27520 log.go:81] Content-Type: application/json; charset=UTF-8
+I1025 21:41:04.052470   27520 log.go:81] Date: Thu, 26 Oct 2023 01:41:04 GMT
+I1025 21:41:04.052808   27520 log.go:81] Server: ESF
+I1025 21:41:04.053048   27520 log.go:81] Vary: Origin
+I1025 21:41:04.053251   27520 log.go:81] Vary: X-Origin
+I1025 21:41:04.053446   27520 log.go:81] Vary: Referer
+I1025 21:41:04.053673   27520 log.go:81] X-Content-Type-Options: nosniff
+I1025 21:41:04.053868   27520 log.go:81] X-Frame-Options: SAMEORIGIN
+I1025 21:41:04.054048   27520 log.go:81] X-Xss-Protection: 0
+I1025 21:41:04.054210   27520 log.go:81] 
+I1025 21:41:04.054390   27520 log.go:81] {
+I1025 21:41:04.054605   27520 log.go:81]   "error": {
+I1025 21:41:04.054748   27520 log.go:81]     "code": 404,
+I1025 21:41:04.054937   27520 log.go:81]     "message": "The resource 'projects/dimo-dev-401815/global/images/family/debian-11' was not found",
+I1025 21:41:04.055144   27520 log.go:81]     "errors": [
+I1025 21:41:04.055377   27520 log.go:81]       {
+I1025 21:41:04.055594   27520 log.go:81]         "message": "The resource 'projects/dimo-dev-401815/global/images/family/debian-11' was not found",
+I1025 21:41:04.055802   27520 log.go:81]         "domain": "global",
+I1025 21:41:04.055956   27520 log.go:81]         "reason": "notFound"
+I1025 21:41:04.056160   27520 log.go:81]       }
+I1025 21:41:04.056323   27520 log.go:81]     ]
+I1025 21:41:04.056883   27520 log.go:81]   }
+I1025 21:41:04.057176   27520 log.go:81] }
+I1025 21:41:04.057504   27520 log.go:81] Retry Transport: Returning after 1 attempts
+I1025 21:41:04.057921   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
+I1025 21:41:04.058406   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
+I1025 21:41:04.058646   27520 log.go:81] Retry Transport: request attempt 0
+I1025 21:41:04.267025   27520 log.go:81] Retry Transport: Stopping retries, last request was successful
+I1025 21:41:04.267527   27520 log.go:81] Retry Transport: Returning after 1 attempts
+I1025 21:41:04.268751   27520 log.go:81] Requesting instance creation
+I1025 21:41:04.269033   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
+I1025 21:41:04.271442   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
+I1025 21:41:04.271612   27520 log.go:81] Retry Transport: request attempt 0
+I1025 21:41:04.585084   27520 log.go:81] Retry Transport: Stopping retries, last request failed with non-retryable error: googleapi: got HTTP response code 400 with body: HTTP/2.0 400 Bad Request
+I1025 21:41:04.585354   27520 log.go:81] Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+I1025 21:41:04.585558   27520 log.go:81] Cache-Control: private
+I1025 21:41:04.585791   27520 log.go:81] Content-Type: application/json; charset=UTF-8
+I1025 21:41:04.585926   27520 log.go:81] Date: Thu, 26 Oct 2023 01:41:04 GMT
+I1025 21:41:04.586055   27520 log.go:81] Server: ESF
+I1025 21:41:04.586209   27520 log.go:81] Vary: Origin
+I1025 21:41:04.586353   27520 log.go:81] Vary: X-Origin
+I1025 21:41:04.586485   27520 log.go:81] Vary: Referer
+I1025 21:41:04.586622   27520 log.go:81] X-Content-Type-Options: nosniff
+I1025 21:41:04.586756   27520 log.go:81] X-Frame-Options: SAMEORIGIN
+I1025 21:41:04.586901   27520 log.go:81] X-Xss-Protection: 0
+I1025 21:41:04.587049   27520 log.go:81] 
+I1025 21:41:04.587206   27520 log.go:81] {
+I1025 21:41:04.587360   27520 log.go:81]   "error": {
+I1025 21:41:04.587488   27520 log.go:81]     "code": 400,
+I1025 21:41:04.587626   27520 log.go:81]     "message": "Invalid value for field 'resource.networkInterfaces[0]': '{  \"network\": \"projects/dimo-dev-401815/global/networks/network-de89bb0\"}'. Subnetwork should be specified for custom subnetmode network",
+I1025 21:41:04.587865   27520 log.go:81]     "errors": [
+I1025 21:41:04.588019   27520 log.go:81]       {
+I1025 21:41:04.588180   27520 log.go:81]         "message": "Invalid value for field 'resource.networkInterfaces[0]': '{  \"network\": \"projects/dimo-dev-401815/global/networks/network-de89bb0\"}'. Subnetwork should be specified for custom subnetmode network",
+I1025 21:41:04.588328   27520 log.go:81]         "domain": "global",
+I1025 21:41:04.588469   27520 log.go:81]         "reason": "invalid"
+I1025 21:41:04.588630   27520 log.go:81]       }
+I1025 21:41:04.588788   27520 log.go:81]     ]
+I1025 21:41:04.588930   27520 log.go:81]   }
+I1025 21:41:04.589067   27520 log.go:81] }
+I1025 21:41:04.589195   27520 log.go:81] Retry Transport: Returning after 1 attempts

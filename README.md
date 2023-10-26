@@ -84,3 +84,9 @@ To get started, clone this repository and run the following commands:
 
 ## Deployment Management Scripts
 
+# Troubleshooting & Debugging
+## Pulumi
+Running Pulumi in debug mode
+```
+pulumi up --logtostderr --logflow -v=10 2> out.txt
+```
