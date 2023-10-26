@@ -16,6 +16,7 @@ const instanceTag = pulumi.String("dimo")
 const zone = pulumi.String("us-central1-a")
 const region = pulumi.String("us-central1")
 const kubePort = pulumi.Int(6443)
+const sshUser = "pulumi"
 
 func ConvertString(s *string) pulumi.String {
 	return pulumi.String(fmt.Sprintf("%v", s))
@@ -35,7 +36,7 @@ func Run() {
 	if err != nil {
 		panic(err)
 	}
-	sshKeys := pulumi.String(string(pubKey))
+	sshKey := pulumi.String(string(pubKey))
 
 	privKey, err := os.ReadFile("./keys/pulumi_key")
 	if err != nil {
@@ -47,7 +48,7 @@ func Run() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		_, err := compute.NewProjectMetadata(ctx, "ssh-keys", &compute.ProjectMetadataArgs{
 			Metadata: pulumi.StringMap{
-				"ssh-keys": pulumi.String(sshKeys),
+				"ssh-keys": pulumi.Sprintf("%s:%s", sshUser, sshKey),
 			},
 		})
 
@@ -141,38 +142,67 @@ func Run() {
 			return err
 		}
 
-		internalIP := inst.NetworkInterfaces.Index(pulumi.Int(0)).NetworkIp()
-		publicIP := publicAddress.Address
+		// Note that .Elem() essentially dereferences the output pointer to give us an unwrapped value we can use
+		internalIp := inst.NetworkInterfaces.Index(pulumi.Int(0)).NetworkIp().Elem()
+		accessConfigs := inst.NetworkInterfaces.Index(pulumi.Int(0)).AccessConfigs()
+		publicIp := accessConfigs.Index(pulumi.Int(0)).NatIp().Elem()
+
 		/*
-			publicIP := inst.NetworkInterfaces.ApplyT(
-				func(ni []compute.InstanceNetworkInterface) *string {
-					return ni[0].AccessConfigs[0].NatIp
+			publicIp := pulumi.All(inst.NetworkInterfaces).ApplyT(
+				func(ni []compute.InstanceNetworkInterface) pulumi.StringOutput {
+					ip := ni[0].AccessConfigs[0].NatIp
+					return pulumi.Sprintf("%s", ip)
 				})
+		*/
+
+		//publicIp := pulumi.String("23.23.23.23")
+		//publicIp := inst.NetworkInterfaces.Index(pulumi.Int(0)).AccessConfigs().Index(pulumi.Int(0)).NatIp()
+		//publicIp := publicAddress.Address
+
+		/*publicIp := inst.NetworkInterfaces.ApplyT(
+		func(ni []compute.InstanceNetworkInterface) *string {
+			return ni[0].AccessConfigs[0].NatIp
+		})
 		*/
 
 		ctx.Export("instanceName", inst.Name)
 		ctx.Export("subnetworkName", subnetwork.Name)
 		ctx.Export("firewallName", firewall.Name)
-		ctx.Export("publicIp", publicIP)
-		ctx.Export("internalIp", internalIP)
+		ctx.Export("publicIp", publicIp)
+		ctx.Export("internalIp", internalIp)
 
 		// Create remote connection
 		connection := remote.ConnectionArgs{
-			Host:       publicAddress.Address,
+			Host:       publicIp,
 			PrivateKey: pulumi.String(string(sshPrivKey)),
 			User:       pulumi.String("pulumi"),
 		}
 
-		k3sCmdString := pulumi.All(publicIP, kubePort, internalIP).ApplyT(
-			func(args []interface{}) string {
+		k3sCmdString := pulumi.Sprintf("curl -sfL https://get.k3s.io | sh -s -- --bind-address %s --tls-san %s --advertise-address %s --advertise-address %s --disable servicelb --write-kubeconfig-mode=644", internalIp, publicIp, internalIp, internalIp)
 
-
-		k3sCmd, err := remote.NewCommand(ctx, "k3sinstall", &remote.CommandArgs{
-			Create:     pulumi.String("curl -sfL https://get.k3s.io | sh -"),
+		_, err = remote.NewCommand(ctx, "k3sinstall", &remote.CommandArgs{
+			Create:     k3sCmdString,
 			Connection: connection,
 		})
+		if err != nil {
+			return err
+		}
 
-		ctx.Export("k3sCmd", k3sCmd)
+		getKubeConfigCmd := pulumi.Sprintf("sudo cat /etc/rancher/k3s/k3s.yaml | sed 's/.*server: .*/    server: https:\\/\\/%s:6443/g'", publicIp)
+
+		getKubeConfig, err := remote.NewCommand(ctx, "getkubeconfig", &remote.CommandArgs{
+			Create:     getKubeConfigCmd,
+			Connection: connection,
+		})
+		if err != nil {
+			return err
+		}
+
+		kubeConfig := getKubeConfig.Stdout.ApplyT(func(s string) string {
+			return s
+		})
+
+		ctx.Export("kubeConfig", kubeConfig)
 
 		return nil
 	})
