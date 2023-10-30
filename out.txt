@@ -1,170 +1,855 @@
-I1025 21:40:57.207459   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:40:57.207850   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:40:57.208205   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:40:57.208318   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:40:57.208444   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:40:57.208542   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:40:57.208714   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:40:57.208815   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:40:57.208931   27520 log.go:81] Waiting for state to become: [success]
-I1025 21:40:57.209076   27520 log.go:81] Waiting for state to become: [success]
-I1025 21:40:57.526290   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
-I1025 21:40:57.569002   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
-I1025 21:40:57.584696   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:40:57.584874   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:40:57.585148   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:40:57.585266   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:40:57.585421   27520 log.go:81] Waiting for state to become: [success]
-I1025 21:40:57.585860   27520 log.go:81] Waiting for state to become: [success]
-I1025 21:40:57.704403   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
-I1025 21:41:02.315638   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:41:02.315823   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:41:02.316062   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:41:02.316242   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:41:02.316439   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:41:02.316586   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:41:02.316772   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:41:02.316916   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:41:02.317064   27520 log.go:81] Waiting for state to become: [success]
-I1025 21:41:02.317288   27520 log.go:81] Waiting for state to become: [success]
-I1025 21:41:02.575463   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
-I1025 21:41:02.619956   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
-I1025 21:41:02.630657   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:41:02.630987   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:41:02.631201   27520 log.go:81] Waiting for state to become: [success]
-I1025 21:41:02.631412   27520 log.go:81] Authenticating using DefaultClient...
-I1025 21:41:02.631621   27520 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
-I1025 21:41:02.631852   27520 log.go:81] Waiting for state to become: [success]
-I1025 21:41:02.753227   27520 log.go:81] Terraform is using this identity: flipture@gmail.com
-I1025 21:41:02.992035   27520 log.go:81] Loading zone: us-central1-a
-I1025 21:41:02.992301   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
-I1025 21:41:02.993030   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
-I1025 21:41:02.993141   27520 log.go:81] Retry Transport: request attempt 0
-I1025 21:41:03.353006   27520 log.go:81] Retry Transport: Stopping retries, last request was successful
-I1025 21:41:03.354444   27520 log.go:81] Retry Transport: Returning after 1 attempts
-I1025 21:41:03.355452   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
-I1025 21:41:03.356146   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
-I1025 21:41:03.356300   27520 log.go:81] Retry Transport: request attempt 0
-I1025 21:41:03.571749   27520 log.go:81] Retry Transport: Stopping retries, last request failed with non-retryable error: googleapi: got HTTP response code 404 with body: HTTP/2.0 404 Not Found
-I1025 21:41:03.572349   27520 log.go:81] Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-I1025 21:41:03.572799   27520 log.go:81] Cache-Control: private
-I1025 21:41:03.573173   27520 log.go:81] Content-Type: application/json; charset=UTF-8
-I1025 21:41:03.573538   27520 log.go:81] Date: Thu, 26 Oct 2023 01:41:03 GMT
-I1025 21:41:03.573846   27520 log.go:81] Server: ESF
-I1025 21:41:03.574158   27520 log.go:81] Vary: Origin
-I1025 21:41:03.574363   27520 log.go:81] Vary: X-Origin
-I1025 21:41:03.574540   27520 log.go:81] Vary: Referer
-I1025 21:41:03.574722   27520 log.go:81] X-Content-Type-Options: nosniff
-I1025 21:41:03.574906   27520 log.go:81] X-Frame-Options: SAMEORIGIN
-I1025 21:41:03.575072   27520 log.go:81] X-Xss-Protection: 0
-I1025 21:41:03.575228   27520 log.go:81] 
-I1025 21:41:03.575413   27520 log.go:81] {
-I1025 21:41:03.575604   27520 log.go:81]   "error": {
-I1025 21:41:03.575776   27520 log.go:81]     "code": 404,
-I1025 21:41:03.575955   27520 log.go:81]     "message": "The resource 'projects/dimo-dev-401815/global/images/debian-11' was not found",
-I1025 21:41:03.576275   27520 log.go:81]     "errors": [
-I1025 21:41:03.576518   27520 log.go:81]       {
-I1025 21:41:03.576652   27520 log.go:81]         "message": "The resource 'projects/dimo-dev-401815/global/images/debian-11' was not found",
-I1025 21:41:03.576801   27520 log.go:81]         "domain": "global",
-I1025 21:41:03.576915   27520 log.go:81]         "reason": "notFound"
-I1025 21:41:03.577062   27520 log.go:81]       }
-I1025 21:41:03.577184   27520 log.go:81]     ]
-I1025 21:41:03.577286   27520 log.go:81]   }
-I1025 21:41:03.577380   27520 log.go:81] }
-I1025 21:41:03.577514   27520 log.go:81] Retry Transport: Returning after 1 attempts
-I1025 21:41:03.578192   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
-I1025 21:41:03.578406   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
-I1025 21:41:03.578505   27520 log.go:81] Retry Transport: request attempt 0
-I1025 21:41:03.843669   27520 log.go:81] Retry Transport: Stopping retries, last request failed with non-retryable error: googleapi: got HTTP response code 404 with body: HTTP/2.0 404 Not Found
-I1025 21:41:03.851750   27520 log.go:81] Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-I1025 21:41:03.855858   27520 log.go:81] Cache-Control: private
-I1025 21:41:03.856182   27520 log.go:81] Content-Type: application/json; charset=UTF-8
-I1025 21:41:03.856423   27520 log.go:81] Date: Thu, 26 Oct 2023 01:41:03 GMT
-I1025 21:41:03.856698   27520 log.go:81] Server: ESF
-I1025 21:41:03.856893   27520 log.go:81] Vary: Origin
-I1025 21:41:03.857116   27520 log.go:81] Vary: X-Origin
-I1025 21:41:03.857333   27520 log.go:81] Vary: Referer
-I1025 21:41:03.857498   27520 log.go:81] X-Content-Type-Options: nosniff
-I1025 21:41:03.857670   27520 log.go:81] X-Frame-Options: SAMEORIGIN
-I1025 21:41:03.857877   27520 log.go:81] X-Xss-Protection: 0
-I1025 21:41:03.858112   27520 log.go:81] 
-I1025 21:41:03.858278   27520 log.go:81] {
-I1025 21:41:03.858472   27520 log.go:81]   "error": {
-I1025 21:41:03.858890   27520 log.go:81]     "code": 404,
-I1025 21:41:03.859190   27520 log.go:81]     "message": "The resource 'projects/debian-cloud/global/images/debian-11' was not found",
-I1025 21:41:03.864001   27520 log.go:81]     "errors": [
-I1025 21:41:03.864289   27520 log.go:81]       {
-I1025 21:41:03.864560   27520 log.go:81]         "message": "The resource 'projects/debian-cloud/global/images/debian-11' was not found",
-I1025 21:41:03.864835   27520 log.go:81]         "domain": "global",
-I1025 21:41:03.865154   27520 log.go:81]         "reason": "notFound"
-I1025 21:41:03.865355   27520 log.go:81]       }
-I1025 21:41:03.865558   27520 log.go:81]     ]
-I1025 21:41:03.865762   27520 log.go:81]   }
-I1025 21:41:03.866009   27520 log.go:81] }
-I1025 21:41:03.866213   27520 log.go:81] Retry Transport: Returning after 1 attempts
-I1025 21:41:03.866478   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
-I1025 21:41:03.866804   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
-I1025 21:41:03.867141   27520 log.go:81] Retry Transport: request attempt 0
-I1025 21:41:04.050711   27520 log.go:81] Retry Transport: Stopping retries, last request failed with non-retryable error: googleapi: got HTTP response code 404 with body: HTTP/2.0 404 Not Found
-I1025 21:41:04.051361   27520 log.go:81] Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-I1025 21:41:04.051779   27520 log.go:81] Cache-Control: private
-I1025 21:41:04.052122   27520 log.go:81] Content-Type: application/json; charset=UTF-8
-I1025 21:41:04.052470   27520 log.go:81] Date: Thu, 26 Oct 2023 01:41:04 GMT
-I1025 21:41:04.052808   27520 log.go:81] Server: ESF
-I1025 21:41:04.053048   27520 log.go:81] Vary: Origin
-I1025 21:41:04.053251   27520 log.go:81] Vary: X-Origin
-I1025 21:41:04.053446   27520 log.go:81] Vary: Referer
-I1025 21:41:04.053673   27520 log.go:81] X-Content-Type-Options: nosniff
-I1025 21:41:04.053868   27520 log.go:81] X-Frame-Options: SAMEORIGIN
-I1025 21:41:04.054048   27520 log.go:81] X-Xss-Protection: 0
-I1025 21:41:04.054210   27520 log.go:81] 
-I1025 21:41:04.054390   27520 log.go:81] {
-I1025 21:41:04.054605   27520 log.go:81]   "error": {
-I1025 21:41:04.054748   27520 log.go:81]     "code": 404,
-I1025 21:41:04.054937   27520 log.go:81]     "message": "The resource 'projects/dimo-dev-401815/global/images/family/debian-11' was not found",
-I1025 21:41:04.055144   27520 log.go:81]     "errors": [
-I1025 21:41:04.055377   27520 log.go:81]       {
-I1025 21:41:04.055594   27520 log.go:81]         "message": "The resource 'projects/dimo-dev-401815/global/images/family/debian-11' was not found",
-I1025 21:41:04.055802   27520 log.go:81]         "domain": "global",
-I1025 21:41:04.055956   27520 log.go:81]         "reason": "notFound"
-I1025 21:41:04.056160   27520 log.go:81]       }
-I1025 21:41:04.056323   27520 log.go:81]     ]
-I1025 21:41:04.056883   27520 log.go:81]   }
-I1025 21:41:04.057176   27520 log.go:81] }
-I1025 21:41:04.057504   27520 log.go:81] Retry Transport: Returning after 1 attempts
-I1025 21:41:04.057921   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
-I1025 21:41:04.058406   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
-I1025 21:41:04.058646   27520 log.go:81] Retry Transport: request attempt 0
-I1025 21:41:04.267025   27520 log.go:81] Retry Transport: Stopping retries, last request was successful
-I1025 21:41:04.267527   27520 log.go:81] Retry Transport: Returning after 1 attempts
-I1025 21:41:04.268751   27520 log.go:81] Requesting instance creation
-I1025 21:41:04.269033   27520 log.go:81] Instantiating GCE client for path https://compute.googleapis.com/compute/beta/
-I1025 21:41:04.271442   27520 log.go:81] Retry Transport: starting RoundTrip retry loop
-I1025 21:41:04.271612   27520 log.go:81] Retry Transport: request attempt 0
-I1025 21:41:04.585084   27520 log.go:81] Retry Transport: Stopping retries, last request failed with non-retryable error: googleapi: got HTTP response code 400 with body: HTTP/2.0 400 Bad Request
-I1025 21:41:04.585354   27520 log.go:81] Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
-I1025 21:41:04.585558   27520 log.go:81] Cache-Control: private
-I1025 21:41:04.585791   27520 log.go:81] Content-Type: application/json; charset=UTF-8
-I1025 21:41:04.585926   27520 log.go:81] Date: Thu, 26 Oct 2023 01:41:04 GMT
-I1025 21:41:04.586055   27520 log.go:81] Server: ESF
-I1025 21:41:04.586209   27520 log.go:81] Vary: Origin
-I1025 21:41:04.586353   27520 log.go:81] Vary: X-Origin
-I1025 21:41:04.586485   27520 log.go:81] Vary: Referer
-I1025 21:41:04.586622   27520 log.go:81] X-Content-Type-Options: nosniff
-I1025 21:41:04.586756   27520 log.go:81] X-Frame-Options: SAMEORIGIN
-I1025 21:41:04.586901   27520 log.go:81] X-Xss-Protection: 0
-I1025 21:41:04.587049   27520 log.go:81] 
-I1025 21:41:04.587206   27520 log.go:81] {
-I1025 21:41:04.587360   27520 log.go:81]   "error": {
-I1025 21:41:04.587488   27520 log.go:81]     "code": 400,
-I1025 21:41:04.587626   27520 log.go:81]     "message": "Invalid value for field 'resource.networkInterfaces[0]': '{  \"network\": \"projects/dimo-dev-401815/global/networks/network-de89bb0\"}'. Subnetwork should be specified for custom subnetmode network",
-I1025 21:41:04.587865   27520 log.go:81]     "errors": [
-I1025 21:41:04.588019   27520 log.go:81]       {
-I1025 21:41:04.588180   27520 log.go:81]         "message": "Invalid value for field 'resource.networkInterfaces[0]': '{  \"network\": \"projects/dimo-dev-401815/global/networks/network-de89bb0\"}'. Subnetwork should be specified for custom subnetmode network",
-I1025 21:41:04.588328   27520 log.go:81]         "domain": "global",
-I1025 21:41:04.588469   27520 log.go:81]         "reason": "invalid"
-I1025 21:41:04.588630   27520 log.go:81]       }
-I1025 21:41:04.588788   27520 log.go:81]     ]
-I1025 21:41:04.588930   27520 log.go:81]   }
-I1025 21:41:04.589067   27520 log.go:81] }
-I1025 21:41:04.589195   27520 log.go:81] Retry Transport: Returning after 1 attempts
+I1030 14:07:20.093443   60763 log.go:81] defaultSink::Warning([38;5;3mwarning: [0m[0mYour Pulumi organization is on an expired trial or a canceled subscription. Update your subscription to maintain organization access: https://app.pulumi.com/dimo-dev/settings/billing-usage[0m)
+[38;5;3mwarning: [0m[0mYour Pulumi organization is on an expired trial or a canceled subscription. Update your subscription to maintain organization access: https://app.pulumi.com/dimo-dev/settings/billing-usage[0m
+I1030 14:07:20.605044   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:20.604866   60781 log.go:81] GetRequiredPlugins: Determining pulumi packages
+<{%reset%}>)
+I1030 14:07:20.605123   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:20.605105   60781 log.go:81] program go found in $PATH
+<{%reset%}>)
+I1030 14:07:20.615834   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:20.615758   60781 log.go:81] GetRequiredPlugins: Error reading go.mod: open /Users/philip/github/DIMO/dimo-node/go.mod
+<{%reset%}>)
+I1030 14:07:20.615869   60763 log.go:81] eventSink::Infoerr(<{%reset%}>/Users/philip/github/DIMO/dimo-node/infrastructure/go.mod
+<{%reset%}>)
+I1030 14:07:20.615884   60763 log.go:81] eventSink::Infoerr(<{%reset%}>/Users/philip/github/DIMO/dimo-node/dependencies/go.mod: no such file or directory
+<{%reset%}>)
+I1030 14:07:20.616862   60763 log.go:81] deploymentExecutor.Execute(...): waiting for incoming events
+I1030 14:07:20.616876   60763 log.go:81] StepExecutor worker(-2): worker coming online
+I1030 14:07:20.616884   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:20.617390   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:20.617370   60781 log.go:81] No prebuilt executable specified, attempting invocation via compilation
+<{%reset%}>)
+I1030 14:07:20.617630   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:20.617611   60781 log.go:81] program go found in $PATH
+<{%reset%}>)
+I1030 14:07:20.617645   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:20.617618   60781 log.go:81] Attempting to build go program in . with: /usr/local/go/bin/go build -o /var/folders/yp/xqqd_wkj5mz63mx02c4ch4b40000gn/T/pulumi-go.3059653335
+<{%reset%}>)
+I1030 14:07:23.409165   60763 log.go:81] ResourceMonitor.SupportsFeature(id: resourceReferences) = true
+I1030 14:07:23.409475   60763 log.go:81] ResourceMonitor.SupportsFeature(id: outputValues) = true
+I1030 14:07:23.409631   60763 log.go:81] ResourceMonitor.SupportsFeature(id: deletedWith) = true
+I1030 14:07:23.409806   60763 log.go:81] ResourceMonitor.SupportsFeature(id: aliasSpecs) = true
+I1030 14:07:23.410939   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi%2Fsdk%2Fv3@v3.91.0%2Fgo%2Fpulumi%2Frun.go", Line:113, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi%2Fsdk%2Fv3@v3.91.0%2Fgo%2Fpulumi%2Frun.go": invalid URL escape "%2F"
+I1030 14:07:23.410981   60763 log.go:81] ResourceMonitor.RegisterResource received: t=pulumi:pulumi:Stack, name=dimo-node-dev, custom=false, #props=0, parent=, protect=false, provider=, deps=[], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:23.410992   60763 log.go:81] EvalSourceIterator produced a registration: t=pulumi:pulumi:Stack,name=dimo-node-dev,#props=0
+I1030 14:07:23.410999   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:23.411005   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:23.411033   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev
+I1030 14:07:23.411041   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:23.411063   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:23.411067   60763 log.go:81] StepExecutor worker(0): launching oneshot worker
+I1030 14:07:23.411114   60763 log.go:81] StepExecutor worker(0): applying step same on urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev (preview true)
+I1030 14:07:23.411150   60763 log.go:81] StepExecutor worker(0): step same on urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev retired
+I1030 14:07:23.411156   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev
+I1030 14:07:23.411161   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=pulumi:pulumi:Stack, urn=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, #outs=0
+I1030 14:07:23.411407   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Faddress.go", Line:294, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Faddress.go": invalid URL escape "%2F"
+I1030 14:07:23.411420   60763 log.go:81] parseProviderRequest(gcp): semver version is the empty string
+I1030 14:07:23.411439   60763 log.go:81] handling default provider request for package gcp
+I1030 14:07:23.411455   60763 log.go:81] newRegisterDefaultProviderEvent(gcp): no version specified, falling back to default version
+I1030 14:07:23.411460   60763 log.go:81] newRegisterDefaultProviderEvent(gcp): default provider miss, sending nil version to engine
+I1030 14:07:23.411464   60763 log.go:81] newRegisterDefaultProviderEvent(gcp): no pluginDownloadURL specified, falling back to default pluginDownloadURL
+I1030 14:07:23.411468   60763 log.go:81] newRegisterDefaultProviderEvent(gcp): default pluginDownloadURL miss, sending empty string to engine
+I1030 14:07:23.411472   60763 log.go:81] newRegisterDefaultProviderEvent(gcp): no pluginChecksums specified, falling back to default pluginChecksums
+I1030 14:07:23.411477   60763 log.go:81] newRegisterDefaultProviderEvent(gcp): default pluginChecksums miss, sending empty map to engine
+I1030 14:07:23.411492   60763 log.go:81] waiting for default provider for package gcp
+I1030 14:07:23.411497   60763 log.go:81] EvalSourceIterator produced a registration: t=pulumi:providers:gcp,name=default,#props=3
+I1030 14:07:23.411502   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:23.411505   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:23.411574   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2FprojectMetadata.go", Line:105, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2FprojectMetadata.go": invalid URL escape "%2F"
+I1030 14:07:23.411609   60763 log.go:81] parseProviderRequest(gcp): semver version is the empty string
+I1030 14:07:23.411578   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Fnetwork.go", Line:132, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Fnetwork.go": invalid URL escape "%2F"
+I1030 14:07:23.411633   60763 log.go:81] parseProviderRequest(gcp): semver version is the empty string
+I1030 14:07:23.855137   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:23.854885   60840 schema.go:562] Terraform input project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:23.855180   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:23.855105   60840 schema.go:562] Terraform input __defaults = []interface {}{}
+<{%reset%}>)
+I1030 14:07:23.855191   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:23.855109   60840 schema.go:562] Terraform input region = "us-central1"
+<{%reset%}>)
+I1030 14:07:23.855197   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:23.855111   60840 schema.go:562] Terraform input zone = "us-central1-a"
+<{%reset%}>)
+I1030 14:07:23.855811   60763 log.go:81] Authenticating using DefaultClient...
+I1030 14:07:23.856012   60763 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1030 14:07:23.856181   60763 log.go:81] Authenticating using DefaultClient...
+I1030 14:07:23.856352   60763 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1030 14:07:23.856477   60763 log.go:81] Authenticating using DefaultClient...
+I1030 14:07:23.856645   60763 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1030 14:07:23.856800   60763 log.go:81] Waiting for state to become: [success]
+I1030 14:07:23.857016   60763 log.go:81] Authenticating using DefaultClient...
+I1030 14:07:23.857209   60763 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1030 14:07:23.857332   60763 log.go:81] Waiting for state to become: [success]
+I1030 14:07:25.196374   60763 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1030 14:07:25.291010   60763 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1030 14:07:25.300726   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default
+I1030 14:07:25.300760   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.300768   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.300772   60763 log.go:81] StepExecutor worker(1): launching oneshot worker
+I1030 14:07:25.300779   60763 log.go:81] StepExecutor worker(1): applying step same on urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default (preview true)
+I1030 14:07:25.300805   60763 log.go:81] StepExecutor worker(1): step same on urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default retired
+I1030 14:07:25.300811   60763 log.go:81] registered default provider for package gcp: urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default
+I1030 14:07:25.300819   60763 log.go:81] handling default provider request for package gcp
+I1030 14:07:25.300844   60763 log.go:81] ResourceMonitor.RegisterResource received: t=gcp:compute/projectMetadata:ProjectMetadata, name=ssh-keys, custom=true, #props=1, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default::e5aa4b9d-9630-42c3-bb18-043e89b3fb35, deps=[], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.300851   60763 log.go:81] ResourceMonitor.RegisterResource received: t=gcp:compute/address:Address, name=publicip1, custom=true, #props=0, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default::e5aa4b9d-9630-42c3-bb18-043e89b3fb35, deps=[], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.300857   60763 log.go:81] EvalSourceIterator produced a registration: t=gcp:compute/projectMetadata:ProjectMetadata,name=ssh-keys,#props=1
+I1030 14:07:25.300907   60763 log.go:81] EvalSourceIterator produced a registration: t=gcp:compute/address:Address,name=publicip1,#props=0
+I1030 14:07:25.300880   60763 log.go:81] handling default provider request for package gcp
+I1030 14:07:25.300914   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.300937   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.300945   60763 log.go:81] ResourceMonitor.RegisterResource received: t=gcp:compute/network:Network, name=network, custom=true, #props=1, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default::e5aa4b9d-9630-42c3-bb18-043e89b3fb35, deps=[], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.301498   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.301452   60840 schema.go:562] Terraform input project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.301508   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.301464   60840 schema.go:562] Terraform input region = "us-central1"
+<{%reset%}>)
+I1030 14:07:25.301515   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.301467   60840 schema.go:562] Terraform input __defaults = []interface {}{}
+<{%reset%}>)
+I1030 14:07:25.301520   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.301470   60840 schema.go:562] Terraform input zone = "us-central1-a"
+<{%reset%}>)
+I1030 14:07:25.302460   60763 log.go:81] Authenticating using DefaultClient...
+I1030 14:07:25.302600   60763 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1030 14:07:25.302875   60763 log.go:81] Authenticating using DefaultClient...
+I1030 14:07:25.303061   60763 log.go:81]   -- Scopes: [https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email]
+I1030 14:07:25.303229   60763 log.go:81] Waiting for state to become: [success]
+I1030 14:07:25.303537   60763 log.go:81] Waiting for state to become: [success]
+I1030 14:07:25.475474   60763 log.go:81] Terraform is using this identity: flipture@gmail.com
+I1030 14:07:25.477679   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.477556   60840 schema.go:562] Terraform input ssh-keys = "pulumi:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9k/Aa7275FhRFKTzR4bJYPu3Yi2q7xWkhnOoPBvI2nj7b8O8Ymz4HiDnf4AUpSrgVNAApUx8Hzw9hqb+UnNZ6T4G9L9u9VcV0sA4SbmTYQZT6FKbiye+E3c8ReeTGOajsq7Uga3xjYs8A4FuNilqHU9JrqTPf17mRDfIyFujjeE7GBo9jexMjs20UTd8v5aR1I6ZdGhM3MU5kNgZRsSgVcdz5vvKY5Z3467DXiF0omdKevNiOjdCkubu800aOsyom6ez0eofbMIHf42Q4ss7YczYTwUD4cUEEqeR6pyd5W2hX8bwkor6nPqLi+sfnfh/NSsPzyooJ/7w8DQ3lmK6/dmkIvZnjQ6b3tujz5CcJVkPgtz8rDtQegH9U/veTPq9BH3OCtKMoHKLq8sUOB6XDB5Efi4GDzmvwrdll8VXlxTysKssXkihJYJQ3yEbhZn43N7iVzC+D4qpwGzWA4ZoM0Ov7fZ4Yv+YcajeOfAn/si2vazhsWLO0cBpqukCaz9JYUj5ONmwejeWFse2vgoZrYVuzup2q73i7NI2GiQexj/aEt7SWxuSt3SF4NX/kdAoAJa0VQ7ugTPgn2oivNkdZVh0R3QcujcaKsUU6H2W8tpeNZTceJQogPjpRoY1yh8vCtHq+XGCusAmjKzT1d8qRDALt4i22BLL4PAmqwIlrTw== pulumi\n"
+<{%reset%}>)
+I1030 14:07:25.477720   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.477606   60840 schema.go:562] Terraform input __defaults = []interface {}{}
+<{%reset%}>)
+I1030 14:07:25.477762   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.477620   60840 schema.go:562] Terraform input metadata = map[string]interface {}{"__defaults":[]interface {}{}, "ssh-keys":"pulumi:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9k/Aa7275FhRFKTzR4bJYPu3Yi2q7xWkhnOoPBvI2nj7b8O8Ymz4HiDnf4AUpSrgVNAApUx8Hzw9hqb+UnNZ6T4G9L9u9VcV0sA4SbmTYQZT6FKbiye+E3c8ReeTGOajsq7Uga3xjYs8A4FuNilqHU9JrqTPf17mRDfIyFujjeE7GBo9jexMjs20UTd8v5aR1I6ZdGhM3MU5kNgZRsSgVcdz5vvKY5Z3467DXiF0omdKevNiOjdCkubu800aOsyom6ez0eofbMIHf42Q4ss7YczYTwUD4cUEEqeR6pyd5W2hX8bwkor6nPqLi+sfnfh/NSsPzyooJ/7w8DQ3lmK6/dmkIvZnjQ6b3tujz5CcJVkPgtz8rDtQegH9U/veTPq9BH3OCtKMoHKLq8sUOB6XDB5Efi4GDzmvwrdll8VXlxTysKssXkihJYJQ3yEbhZn43N7iVzC+D4qpwGzWA4ZoM0Ov7fZ4Yv+YcajeOfAn/si2vazhsWLO0cBpqukCaz9JYUj5ONmwejeWFse2vgoZrYVuzup2q73i7NI2GiQexj/aEt7SWxuSt3SF4NX/kdAoAJa0VQ7ugTPgn2oivNkdZVh0R3QcujcaKsUU6H2W8tpeNZTceJQogPjpRoY1yh8vCtHq+XGCusAmjKzT1d8qRDALt4i22BLL4PAmqwIlrTw== pulumi\n"}
+<{%reset%}>)
+I1030 14:07:25.477850   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.477678   60840 schema.go:562] Terraform input __defaults = []interface {}{}
+<{%reset%}>)
+I1030 14:07:25.477905   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.477719   60840 schema.go:966] Terraform output __defaults = {[]}
+<{%reset%}>)
+I1030 14:07:25.477932   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.477764   60840 schema.go:966] Terraform output ssh-keys = {pulumi:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9k/Aa7275FhRFKTzR4bJYPu3Yi2q7xWkhnOoPBvI2nj7b8O8Ymz4HiDnf4AUpSrgVNAApUx8Hzw9hqb+UnNZ6T4G9L9u9VcV0sA4SbmTYQZT6FKbiye+E3c8ReeTGOajsq7Uga3xjYs8A4FuNilqHU9JrqTPf17mRDfIyFujjeE7GBo9jexMjs20UTd8v5aR1I6ZdGhM3MU5kNgZRsSgVcdz5vvKY5Z3467DXiF0omdKevNiOjdCkubu800aOsyom6ez0eofbMIHf42Q4ss7YczYTwUD4cUEEqeR6pyd5W2hX8bwkor6nPqLi+sfnfh/NSsPzyooJ/7w8DQ3lmK6/dmkIvZnjQ6b3tujz5CcJVkPgtz8rDtQegH9U/veTPq9BH3OCtKMoHKLq8sUOB6XDB5Efi4GDzmvwrdll8VXlxTysKssXkihJYJQ3yEbhZn43N7iVzC+D4qpwGzWA4ZoM0Ov7fZ4Yv+YcajeOfAn/si2vazhsWLO0cBpqukCaz9JYUj5ONmwejeWFse2vgoZrYVuzup2q73i7NI2GiQexj/aEt7SWxuSt3SF4NX/kdAoAJa0VQ7ugTPgn2oivNkdZVh0R3QcujcaKsUU6H2W8tpeNZTceJQogPjpRoY1yh8vCtHq+XGCusAmjKzT1d8qRDALt4i22BLL4PAmqwIlrTw== pulumi
+<{%reset%}>)
+I1030 14:07:25.477954   60763 log.go:81] eventSink::Infoerr(<{%reset%}>}
+<{%reset%}>)
+I1030 14:07:25.477971   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.477774   60840 schema.go:966] Terraform output __defaults = {[]}
+<{%reset%}>)
+I1030 14:07:25.477998   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.477781   60840 schema.go:966] Terraform output metadata = {map[__defaults:{[]} ssh-keys:{pulumi:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9k/Aa7275FhRFKTzR4bJYPu3Yi2q7xWkhnOoPBvI2nj7b8O8Ymz4HiDnf4AUpSrgVNAApUx8Hzw9hqb+UnNZ6T4G9L9u9VcV0sA4SbmTYQZT6FKbiye+E3c8ReeTGOajsq7Uga3xjYs8A4FuNilqHU9JrqTPf17mRDfIyFujjeE7GBo9jexMjs20UTd8v5aR1I6ZdGhM3MU5kNgZRsSgVcdz5vvKY5Z3467DXiF0omdKevNiOjdCkubu800aOsyom6ez0eofbMIHf42Q4ss7YczYTwUD4cUEEqeR6pyd5W2hX8bwkor6nPqLi+sfnfh/NSsPzyooJ/7w8DQ3lmK6/dmkIvZnjQ6b3tujz5CcJVkPgtz8rDtQegH9U/veTPq9BH3OCtKMoHKLq8sUOB6XDB5Efi4GDzmvwrdll8VXlxTysKssXkihJYJQ3yEbhZn43N7iVzC+D4qpwGzWA4ZoM0Ov7fZ4Yv+YcajeOfAn/si2vazhsWLO0cBpqukCaz9JYUj5ONmwejeWFse2vgoZrYVuzup2q73i7NI2GiQexj/aEt7SWxuSt3SF4NX/kdAoAJa0VQ7ugTPgn2oivNkdZVh0R3QcujcaKsUU6H2W8tpeNZTceJQogPjpRoY1yh8vCtHq+XGCusAmjKzT1d8qRDALt4i22BLL4PAmqwIlrTw== pulumi
+<{%reset%}>)
+I1030 14:07:25.478019   60763 log.go:81] eventSink::Infoerr(<{%reset%}>}]}
+<{%reset%}>)
+I1030 14:07:25.479091   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.478362   60840 schema.go:562] Terraform input ssh-keys = "pulumi:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9k/Aa7275FhRFKTzR4bJYPu3Yi2q7xWkhnOoPBvI2nj7b8O8Ymz4HiDnf4AUpSrgVNAApUx8Hzw9hqb+UnNZ6T4G9L9u9VcV0sA4SbmTYQZT6FKbiye+E3c8ReeTGOajsq7Uga3xjYs8A4FuNilqHU9JrqTPf17mRDfIyFujjeE7GBo9jexMjs20UTd8v5aR1I6ZdGhM3MU5kNgZRsSgVcdz5vvKY5Z3467DXiF0omdKevNiOjdCkubu800aOsyom6ez0eofbMIHf42Q4ss7YczYTwUD4cUEEqeR6pyd5W2hX8bwkor6nPqLi+sfnfh/NSsPzyooJ/7w8DQ3lmK6/dmkIvZnjQ6b3tujz5CcJVkPgtz8rDtQegH9U/veTPq9BH3OCtKMoHKLq8sUOB6XDB5Efi4GDzmvwrdll8VXlxTysKssXkihJYJQ3yEbhZn43N7iVzC+D4qpwGzWA4ZoM0Ov7fZ4Yv+YcajeOfAn/si2vazhsWLO0cBpqukCaz9JYUj5ONmwejeWFse2vgoZrYVuzup2q73i7NI2GiQexj/aEt7SWxuSt3SF4NX/kdAoAJa0VQ7ugTPgn2oivNkdZVh0R3QcujcaKsUU6H2W8tpeNZTceJQogPjpRoY1yh8vCtHq+XGCusAmjKzT1d8qRDALt4i22BLL4PAmqwIlrTw== pulumi\n"
+<{%reset%}>)
+I1030 14:07:25.479135   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.478439   60840 schema.go:562] Terraform input id = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.479154   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.478447   60840 schema.go:562] Terraform input metadata = map[string]interface {}{"ssh-keys":"pulumi:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9k/Aa7275FhRFKTzR4bJYPu3Yi2q7xWkhnOoPBvI2nj7b8O8Ymz4HiDnf4AUpSrgVNAApUx8Hzw9hqb+UnNZ6T4G9L9u9VcV0sA4SbmTYQZT6FKbiye+E3c8ReeTGOajsq7Uga3xjYs8A4FuNilqHU9JrqTPf17mRDfIyFujjeE7GBo9jexMjs20UTd8v5aR1I6ZdGhM3MU5kNgZRsSgVcdz5vvKY5Z3467DXiF0omdKevNiOjdCkubu800aOsyom6ez0eofbMIHf42Q4ss7YczYTwUD4cUEEqeR6pyd5W2hX8bwkor6nPqLi+sfnfh/NSsPzyooJ/7w8DQ3lmK6/dmkIvZnjQ6b3tujz5CcJVkPgtz8rDtQegH9U/veTPq9BH3OCtKMoHKLq8sUOB6XDB5Efi4GDzmvwrdll8VXlxTysKssXkihJYJQ3yEbhZn43N7iVzC+D4qpwGzWA4ZoM0Ov7fZ4Yv+YcajeOfAn/si2vazhsWLO0cBpqukCaz9JYUj5ONmwejeWFse2vgoZrYVuzup2q73i7NI2GiQexj/aEt7SWxuSt3SF4NX/kdAoAJa0VQ7ugTPgn2oivNkdZVh0R3QcujcaKsUU6H2W8tpeNZTceJQogPjpRoY1yh8vCtHq+XGCusAmjKzT1d8qRDALt4i22BLL4PAmqwIlrTw== pulumi\n"}
+<{%reset%}>)
+I1030 14:07:25.479169   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.478475   60840 schema.go:562] Terraform input project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.479188   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.478504   60840 schema.go:562] Terraform input ssh-keys = "pulumi:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9k/Aa7275FhRFKTzR4bJYPu3Yi2q7xWkhnOoPBvI2nj7b8O8Ymz4HiDnf4AUpSrgVNAApUx8Hzw9hqb+UnNZ6T4G9L9u9VcV0sA4SbmTYQZT6FKbiye+E3c8ReeTGOajsq7Uga3xjYs8A4FuNilqHU9JrqTPf17mRDfIyFujjeE7GBo9jexMjs20UTd8v5aR1I6ZdGhM3MU5kNgZRsSgVcdz5vvKY5Z3467DXiF0omdKevNiOjdCkubu800aOsyom6ez0eofbMIHf42Q4ss7YczYTwUD4cUEEqeR6pyd5W2hX8bwkor6nPqLi+sfnfh/NSsPzyooJ/7w8DQ3lmK6/dmkIvZnjQ6b3tujz5CcJVkPgtz8rDtQegH9U/veTPq9BH3OCtKMoHKLq8sUOB6XDB5Efi4GDzmvwrdll8VXlxTysKssXkihJYJQ3yEbhZn43N7iVzC+D4qpwGzWA4ZoM0Ov7fZ4Yv+YcajeOfAn/si2vazhsWLO0cBpqukCaz9JYUj5ONmwejeWFse2vgoZrYVuzup2q73i7NI2GiQexj/aEt7SWxuSt3SF4NX/kdAoAJa0VQ7ugTPgn2oivNkdZVh0R3QcujcaKsUU6H2W8tpeNZTceJQogPjpRoY1yh8vCtHq+XGCusAmjKzT1d8qRDALt4i22BLL4PAmqwIlrTw== pulumi\n"
+<{%reset%}>)
+I1030 14:07:25.479204   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.478530   60840 schema.go:562] Terraform input metadata = map[string]interface {}{"ssh-keys":"pulumi:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9k/Aa7275FhRFKTzR4bJYPu3Yi2q7xWkhnOoPBvI2nj7b8O8Ymz4HiDnf4AUpSrgVNAApUx8Hzw9hqb+UnNZ6T4G9L9u9VcV0sA4SbmTYQZT6FKbiye+E3c8ReeTGOajsq7Uga3xjYs8A4FuNilqHU9JrqTPf17mRDfIyFujjeE7GBo9jexMjs20UTd8v5aR1I6ZdGhM3MU5kNgZRsSgVcdz5vvKY5Z3467DXiF0omdKevNiOjdCkubu800aOsyom6ez0eofbMIHf42Q4ss7YczYTwUD4cUEEqeR6pyd5W2hX8bwkor6nPqLi+sfnfh/NSsPzyooJ/7w8DQ3lmK6/dmkIvZnjQ6b3tujz5CcJVkPgtz8rDtQegH9U/veTPq9BH3OCtKMoHKLq8sUOB6XDB5Efi4GDzmvwrdll8VXlxTysKssXkihJYJQ3yEbhZn43N7iVzC+D4qpwGzWA4ZoM0Ov7fZ4Yv+YcajeOfAn/si2vazhsWLO0cBpqukCaz9JYUj5ONmwejeWFse2vgoZrYVuzup2q73i7NI2GiQexj/aEt7SWxuSt3SF4NX/kdAoAJa0VQ7ugTPgn2oivNkdZVh0R3QcujcaKsUU6H2W8tpeNZTceJQogPjpRoY1yh8vCtHq+XGCusAmjKzT1d8qRDALt4i22BLL4PAmqwIlrTw== pulumi\n"}
+<{%reset%}>)
+I1030 14:07:25.479463   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::gcp:compute/projectMetadata:ProjectMetadata::ssh-keys
+I1030 14:07:25.479505   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.479512   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.479548   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.479571   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.479572   60763 log.go:81] EvalSourceIterator produced a registration: t=gcp:compute/network:Network,name=network,#props=1
+I1030 14:07:25.479587   60763 log.go:81] StepExecutor worker(2): launching oneshot worker
+I1030 14:07:25.479697   60763 log.go:81] StepExecutor worker(2): applying step same on urn:pulumi:dev::dimo-node::gcp:compute/projectMetadata:ProjectMetadata::ssh-keys (preview true)
+I1030 14:07:25.479716   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.479689   60840 schema.go:562] Terraform input name = "publicip1-ed7bda2"
+<{%reset%}>)
+I1030 14:07:25.479740   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.479702   60840 schema.go:562] Terraform input address_type = "EXTERNAL"
+<{%reset%}>)
+I1030 14:07:25.479759   60763 log.go:81] StepExecutor worker(2): step same on urn:pulumi:dev::dimo-node::gcp:compute/projectMetadata:ProjectMetadata::ssh-keys retired
+I1030 14:07:25.479772   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::gcp:compute/projectMetadata:ProjectMetadata::ssh-keys
+I1030 14:07:25.479779   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=gcp:compute/projectMetadata:ProjectMetadata, urn=urn:pulumi:dev::dimo-node::gcp:compute/projectMetadata:ProjectMetadata::ssh-keys, #outs=4
+I1030 14:07:25.479779   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.479705   60840 schema.go:562] Terraform input __defaults = []interface {}{"addressType", "name"}
+<{%reset%}>)
+I1030 14:07:25.479930   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.479889   60840 schema.go:966] Terraform output addressType = {EXTERNAL}
+<{%reset%}>)
+I1030 14:07:25.479953   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.479902   60840 schema.go:966] Terraform output __defaults = {[{addressType} {name}]}
+<{%reset%}>)
+I1030 14:07:25.479963   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.479906   60840 schema.go:966] Terraform output name = {publicip1-ed7bda2}
+<{%reset%}>)
+I1030 14:07:25.480419   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480395   60840 schema.go:562] Terraform input self_link = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/regions/us-central1/addresses/publicip1-ed7bda2"
+<{%reset%}>)
+I1030 14:07:25.480431   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480411   60840 schema.go:562] Terraform input creation_timestamp = "2023-10-26T05:13:44.514-07:00"
+<{%reset%}>)
+I1030 14:07:25.480442   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480414   60840 schema.go:562] Terraform input network_tier = "PREMIUM"
+<{%reset%}>)
+I1030 14:07:25.480452   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480416   60840 schema.go:562] Terraform input address = "34.170.142.23"
+<{%reset%}>)
+I1030 14:07:25.480459   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480418   60840 schema.go:562] Terraform input description = ""
+<{%reset%}>)
+I1030 14:07:25.480468   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480420   60840 schema.go:562] Terraform input purpose = ""
+<{%reset%}>)
+I1030 14:07:25.480474   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480422   60840 schema.go:562] Terraform input name = "publicip1-ed7bda2"
+<{%reset%}>)
+I1030 14:07:25.480480   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480424   60840 schema.go:562] Terraform input region = "us-central1"
+<{%reset%}>)
+I1030 14:07:25.480487   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480426   60840 schema.go:562] Terraform input ip_version = ""
+<{%reset%}>)
+I1030 14:07:25.480494   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480428   60840 schema.go:562] Terraform input labels = map[string]interface {}{}
+<{%reset%}>)
+I1030 14:07:25.480503   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480431   60840 schema.go:562] Terraform input id = "projects/dimo-dev-401815/regions/us-central1/addresses/publicip1-ed7bda2"
+<{%reset%}>)
+I1030 14:07:25.480510   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480434   60840 schema.go:562] Terraform input address_type = "EXTERNAL"
+<{%reset%}>)
+I1030 14:07:25.480518   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480436   60840 schema.go:562] Terraform input subnetwork = ""
+<{%reset%}>)
+I1030 14:07:25.480528   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480438   60840 schema.go:562] Terraform input ipv6_endpoint_type = ""
+<{%reset%}>)
+I1030 14:07:25.480540   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480440   60840 schema.go:562] Terraform input network = ""
+<{%reset%}>)
+I1030 14:07:25.480546   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480442   60840 schema.go:562] Terraform input project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.480551   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480444   60840 schema.go:562] Terraform input prefix_length = 0
+<{%reset%}>)
+I1030 14:07:25.480558   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480446   60840 schema.go:562] Terraform input users = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.480563   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480449   60840 schema.go:562] Terraform input label_fingerprint = "42WmSpB8rSM="
+<{%reset%}>)
+I1030 14:07:25.480567   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480484   60840 schema.go:562] Terraform input address_type = "EXTERNAL"
+<{%reset%}>)
+I1030 14:07:25.480579   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.480489   60840 schema.go:562] Terraform input name = "publicip1-ed7bda2"
+<{%reset%}>)
+I1030 14:07:25.481261   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::gcp:compute/address:Address::publicip1
+I1030 14:07:25.481273   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.481277   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.481288   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.481298   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.481303   60763 log.go:81] StepExecutor worker(3): launching oneshot worker
+I1030 14:07:25.481376   60763 log.go:81] StepExecutor worker(3): applying step same on urn:pulumi:dev::dimo-node::gcp:compute/address:Address::publicip1 (preview true)
+I1030 14:07:25.481452   60763 log.go:81] StepExecutor worker(3): step same on urn:pulumi:dev::dimo-node::gcp:compute/address:Address::publicip1 retired
+I1030 14:07:25.481459   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::gcp:compute/address:Address::publicip1
+I1030 14:07:25.481456   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.481414   60840 schema.go:562] Terraform input auto_create_subnetworks = false
+<{%reset%}>)
+I1030 14:07:25.481472   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=gcp:compute/address:Address, urn=urn:pulumi:dev::dimo-node::gcp:compute/address:Address::publicip1, #outs=20
+I1030 14:07:25.481515   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.481420   60840 schema.go:562] Terraform input name = "network-698598f"
+<{%reset%}>)
+I1030 14:07:25.481560   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.481423   60840 schema.go:562] Terraform input network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
+<{%reset%}>)
+I1030 14:07:25.481582   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.481426   60840 schema.go:562] Terraform input delete_default_routes_on_create = false
+<{%reset%}>)
+I1030 14:07:25.481590   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.481428   60840 schema.go:562] Terraform input __defaults = []interface {}{"deleteDefaultRoutesOnCreate", "name", "networkFirewallPolicyEnforcementOrder"}
+<{%reset%}>)
+I1030 14:07:25.482573   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482551   60840 schema.go:966] Terraform output deleteDefaultRoutesOnCreate = {false}
+<{%reset%}>)
+I1030 14:07:25.482586   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482564   60840 schema.go:966] Terraform output __defaults = {[{deleteDefaultRoutesOnCreate} {name} {networkFirewallPolicyEnforcementOrder}]}
+<{%reset%}>)
+I1030 14:07:25.482593   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482568   60840 schema.go:966] Terraform output autoCreateSubnetworks = {false}
+<{%reset%}>)
+I1030 14:07:25.482618   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482570   60840 schema.go:966] Terraform output name = {network-698598f}
+<{%reset%}>)
+I1030 14:07:25.482629   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482572   60840 schema.go:966] Terraform output networkFirewallPolicyEnforcementOrder = {AFTER_CLASSIC_FIREWALL}
+<{%reset%}>)
+I1030 14:07:25.482893   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482883   60840 schema.go:562] Terraform input id = "projects/dimo-dev-401815/global/networks/network-698598f"
+<{%reset%}>)
+I1030 14:07:25.482902   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482888   60840 schema.go:562] Terraform input name = "network-698598f"
+<{%reset%}>)
+I1030 14:07:25.482911   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482896   60840 schema.go:562] Terraform input enable_ula_internal_ipv6 = false
+<{%reset%}>)
+I1030 14:07:25.482920   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482898   60840 schema.go:562] Terraform input mtu = 0
+<{%reset%}>)
+I1030 14:07:25.482936   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482901   60840 schema.go:562] Terraform input self_link = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/global/networks/network-698598f"
+<{%reset%}>)
+I1030 14:07:25.482946   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482904   60840 schema.go:562] Terraform input delete_default_routes_on_create = false
+<{%reset%}>)
+I1030 14:07:25.482953   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482907   60840 schema.go:562] Terraform input gateway_ipv4 = ""
+<{%reset%}>)
+I1030 14:07:25.482958   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482910   60840 schema.go:562] Terraform input network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
+<{%reset%}>)
+I1030 14:07:25.482967   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482912   60840 schema.go:562] Terraform input auto_create_subnetworks = false
+<{%reset%}>)
+I1030 14:07:25.482972   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482917   60840 schema.go:562] Terraform input description = ""
+<{%reset%}>)
+I1030 14:07:25.482977   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482919   60840 schema.go:562] Terraform input routing_mode = "REGIONAL"
+<{%reset%}>)
+I1030 14:07:25.482981   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482921   60840 schema.go:562] Terraform input project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.482989   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482923   60840 schema.go:562] Terraform input internal_ipv6_range = ""
+<{%reset%}>)
+I1030 14:07:25.482996   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482955   60840 schema.go:562] Terraform input auto_create_subnetworks = false
+<{%reset%}>)
+I1030 14:07:25.483001   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482962   60840 schema.go:562] Terraform input delete_default_routes_on_create = false
+<{%reset%}>)
+I1030 14:07:25.483005   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482964   60840 schema.go:562] Terraform input name = "network-698598f"
+<{%reset%}>)
+I1030 14:07:25.483010   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.482966   60840 schema.go:562] Terraform input network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
+<{%reset%}>)
+I1030 14:07:25.483599   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::gcp:compute/network:Network::network
+I1030 14:07:25.483608   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.483613   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.483617   60763 log.go:81] StepExecutor worker(4): launching oneshot worker
+I1030 14:07:25.483672   60763 log.go:81] StepExecutor worker(4): applying step same on urn:pulumi:dev::dimo-node::gcp:compute/network:Network::network (preview true)
+I1030 14:07:25.483755   60763 log.go:81] StepExecutor worker(4): step same on urn:pulumi:dev::dimo-node::gcp:compute/network:Network::network retired
+I1030 14:07:25.483763   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::gcp:compute/network:Network::network
+I1030 14:07:25.483770   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=gcp:compute/network:Network, urn=urn:pulumi:dev::dimo-node::gcp:compute/network:Network::network, #outs=14
+I1030 14:07:25.484095   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Fsubnetwork.go", Line:297, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Fsubnetwork.go": invalid URL escape "%2F"
+I1030 14:07:25.484109   60763 log.go:81] parseProviderRequest(gcp): semver version is the empty string
+I1030 14:07:25.484116   60763 log.go:81] handling default provider request for package gcp
+I1030 14:07:25.484134   60763 log.go:81] ResourceMonitor.RegisterResource received: t=gcp:compute/subnetwork:Subnetwork, name=subnetwork, custom=true, #props=3, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default::e5aa4b9d-9630-42c3-bb18-043e89b3fb35, deps=[urn:pulumi:dev::dimo-node::gcp:compute/network:Network::network], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.484141   60763 log.go:81] EvalSourceIterator produced a registration: t=gcp:compute/subnetwork:Subnetwork,name=subnetwork,#props=3
+I1030 14:07:25.484148   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.484152   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.484316   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484294   60840 schema.go:562] Terraform input ip_cidr_range = "10.0.1.0/24"
+<{%reset%}>)
+I1030 14:07:25.484331   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484303   60840 schema.go:562] Terraform input network = "network-698598f"
+<{%reset%}>)
+I1030 14:07:25.484342   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484306   60840 schema.go:562] Terraform input region = "us-central1"
+<{%reset%}>)
+I1030 14:07:25.484349   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484308   60840 schema.go:562] Terraform input name = "subnetwork-b95ac49"
+<{%reset%}>)
+I1030 14:07:25.484354   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484311   60840 schema.go:562] Terraform input __defaults = []interface {}{"name"}
+<{%reset%}>)
+I1030 14:07:25.484440   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484430   60840 schema.go:966] Terraform output ipCidrRange = {10.0.1.0/24}
+<{%reset%}>)
+I1030 14:07:25.484447   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484436   60840 schema.go:966] Terraform output network = {network-698598f}
+<{%reset%}>)
+I1030 14:07:25.484453   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484438   60840 schema.go:966] Terraform output region = {us-central1}
+<{%reset%}>)
+I1030 14:07:25.484460   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484440   60840 schema.go:966] Terraform output name = {subnetwork-b95ac49}
+<{%reset%}>)
+I1030 14:07:25.484465   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484442   60840 schema.go:966] Terraform output __defaults = {[{name}]}
+<{%reset%}>)
+I1030 14:07:25.484853   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484839   60840 schema.go:562] Terraform input stack_type = "IPV4_ONLY"
+<{%reset%}>)
+I1030 14:07:25.484863   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484844   60840 schema.go:562] Terraform input internal_ipv6_prefix = ""
+<{%reset%}>)
+I1030 14:07:25.484871   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484847   60840 schema.go:562] Terraform input role = ""
+<{%reset%}>)
+I1030 14:07:25.484887   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484849   60840 schema.go:562] Terraform input id = "projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49"
+<{%reset%}>)
+I1030 14:07:25.484895   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484852   60840 schema.go:562] Terraform input external_ipv6_prefix = ""
+<{%reset%}>)
+I1030 14:07:25.484901   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484854   60840 schema.go:562] Terraform input name = "subnetwork-b95ac49"
+<{%reset%}>)
+I1030 14:07:25.484910   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484856   60840 schema.go:562] Terraform input purpose = "PRIVATE"
+<{%reset%}>)
+I1030 14:07:25.484915   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484858   60840 schema.go:562] Terraform input ip_cidr_range = "10.0.1.0/24"
+<{%reset%}>)
+I1030 14:07:25.484921   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484860   60840 schema.go:562] Terraform input network = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/global/networks/network-698598f"
+<{%reset%}>)
+I1030 14:07:25.484926   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484863   60840 schema.go:562] Terraform input project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.484931   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484865   60840 schema.go:562] Terraform input ipv6_cidr_range = ""
+<{%reset%}>)
+I1030 14:07:25.484941   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484867   60840 schema.go:562] Terraform input description = ""
+<{%reset%}>)
+I1030 14:07:25.484957   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484869   60840 schema.go:562] Terraform input gateway_address = "10.0.1.1"
+<{%reset%}>)
+I1030 14:07:25.484968   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484871   60840 schema.go:562] Terraform input region = "us-central1"
+<{%reset%}>)
+I1030 14:07:25.484975   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484873   60840 schema.go:562] Terraform input secondary_ip_range = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.484981   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484876   60840 schema.go:562] Terraform input ipv6_access_type = ""
+<{%reset%}>)
+I1030 14:07:25.484994   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484880   60840 schema.go:562] Terraform input private_ipv6_google_access = "DISABLE_GOOGLE_ACCESS"
+<{%reset%}>)
+I1030 14:07:25.485001   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484883   60840 schema.go:562] Terraform input creation_timestamp = "2023-10-26T05:14:07.545-07:00"
+<{%reset%}>)
+I1030 14:07:25.485008   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484886   60840 schema.go:562] Terraform input private_ip_google_access = false
+<{%reset%}>)
+I1030 14:07:25.485019   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484888   60840 schema.go:562] Terraform input self_link = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49"
+<{%reset%}>)
+I1030 14:07:25.485032   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484936   60840 schema.go:562] Terraform input ip_cidr_range = "10.0.1.0/24"
+<{%reset%}>)
+I1030 14:07:25.485046   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484940   60840 schema.go:562] Terraform input name = "subnetwork-b95ac49"
+<{%reset%}>)
+I1030 14:07:25.485060   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484943   60840 schema.go:562] Terraform input network = "network-698598f"
+<{%reset%}>)
+I1030 14:07:25.485065   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.484945   60840 schema.go:562] Terraform input region = "us-central1"
+<{%reset%}>)
+I1030 14:07:25.486381   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::gcp:compute/subnetwork:Subnetwork::subnetwork
+I1030 14:07:25.486392   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.486396   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.486400   60763 log.go:81] StepExecutor worker(5): launching oneshot worker
+I1030 14:07:25.486464   60763 log.go:81] StepExecutor worker(5): applying step same on urn:pulumi:dev::dimo-node::gcp:compute/subnetwork:Subnetwork::subnetwork (preview true)
+I1030 14:07:25.486552   60763 log.go:81] StepExecutor worker(5): step same on urn:pulumi:dev::dimo-node::gcp:compute/subnetwork:Subnetwork::subnetwork retired
+I1030 14:07:25.486561   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::gcp:compute/subnetwork:Subnetwork::subnetwork
+I1030 14:07:25.486568   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=gcp:compute/subnetwork:Subnetwork, urn=urn:pulumi:dev::dimo-node::gcp:compute/subnetwork:Subnetwork::subnetwork, #outs=22
+I1030 14:07:25.486967   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Ffirewall.go", Line:248, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Ffirewall.go": invalid URL escape "%2F"
+I1030 14:07:25.486977   60763 log.go:81] parseProviderRequest(gcp): semver version is the empty string
+I1030 14:07:25.486999   60763 log.go:81] handling default provider request for package gcp
+I1030 14:07:25.487027   60763 log.go:81] ResourceMonitor.RegisterResource received: t=gcp:compute/firewall:Firewall, name=firewall, custom=true, #props=5, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default::e5aa4b9d-9630-42c3-bb18-043e89b3fb35, deps=[urn:pulumi:dev::dimo-node::gcp:compute/network:Network::network urn:pulumi:dev::dimo-node::gcp:compute/subnetwork:Subnetwork::subnetwork], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.487044   60763 log.go:81] EvalSourceIterator produced a registration: t=gcp:compute/firewall:Firewall,name=firewall,#props=5
+I1030 14:07:25.487049   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.487055   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.487445   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487427   60840 schema.go:562] Terraform input ports = []interface {}{"22", "6443", "31544"}
+<{%reset%}>)
+I1030 14:07:25.487456   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487437   60840 schema.go:562] Terraform input protocol = "tcp"
+<{%reset%}>)
+I1030 14:07:25.487469   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487440   60840 schema.go:562] Terraform input __defaults = []interface {}{}
+<{%reset%}>)
+I1030 14:07:25.487513   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487497   60840 schema.go:562] Terraform input direction = "INGRESS"
+<{%reset%}>)
+I1030 14:07:25.487532   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487500   60840 schema.go:562] Terraform input network = "network-698598f"
+<{%reset%}>)
+I1030 14:07:25.487561   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487503   60840 schema.go:562] Terraform input source_ranges = []interface {}{"24.30.56.126/32"}
+<{%reset%}>)
+I1030 14:07:25.487570   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487506   60840 schema.go:562] Terraform input target_tags = []interface {}{"dimo"}
+<{%reset%}>)
+I1030 14:07:25.487577   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487509   60840 schema.go:562] Terraform input name = "firewall-2d7acc0"
+<{%reset%}>)
+I1030 14:07:25.487582   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487512   60840 schema.go:562] Terraform input priority = 1000
+<{%reset%}>)
+I1030 14:07:25.487588   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487515   60840 schema.go:562] Terraform input __defaults = []interface {}{"name", "priority"}
+<{%reset%}>)
+I1030 14:07:25.487601   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487522   60840 schema.go:562] Terraform input allow = []interface {}{map[string]interface {}{"__defaults":[]interface {}{}, "ports":[]interface {}{"22", "6443", "31544"}, "protocol":"tcp"}}
+<{%reset%}>)
+I1030 14:07:25.487701   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487680   60840 schema.go:966] Terraform output protocol = {tcp}
+<{%reset%}>)
+I1030 14:07:25.487717   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487688   60840 schema.go:966] Terraform output __defaults = {[]}
+<{%reset%}>)
+I1030 14:07:25.487727   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487691   60840 schema.go:966] Terraform output ports = {[{22} {6443} {31544}]}
+<{%reset%}>)
+I1030 14:07:25.487736   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487699   60840 schema.go:966] Terraform output direction = {INGRESS}
+<{%reset%}>)
+I1030 14:07:25.487743   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487702   60840 schema.go:966] Terraform output network = {network-698598f}
+<{%reset%}>)
+I1030 14:07:25.487748   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487704   60840 schema.go:966] Terraform output sourceRanges = {[{24.30.56.126/32}]}
+<{%reset%}>)
+I1030 14:07:25.487754   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487706   60840 schema.go:966] Terraform output targetTags = {[{dimo}]}
+<{%reset%}>)
+I1030 14:07:25.487771   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487709   60840 schema.go:966] Terraform output name = {firewall-2d7acc0}
+<{%reset%}>)
+I1030 14:07:25.487778   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487711   60840 schema.go:966] Terraform output priority = {1000}
+<{%reset%}>)
+I1030 14:07:25.487783   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487714   60840 schema.go:966] Terraform output __defaults = {[{name} {priority}]}
+<{%reset%}>)
+I1030 14:07:25.487789   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.487717   60840 schema.go:966] Terraform output allows = {[{map[__defaults:{[]} ports:{[{22} {6443} {31544}]} protocol:{tcp}]}]}
+<{%reset%}>)
+I1030 14:07:25.488083   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488064   60840 schema.go:562] Terraform input ports = []interface {}{"22", "6443", "31544"}
+<{%reset%}>)
+I1030 14:07:25.488096   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488074   60840 schema.go:562] Terraform input protocol = "tcp"
+<{%reset%}>)
+I1030 14:07:25.488154   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488143   60840 schema.go:562] Terraform input direction = "INGRESS"
+<{%reset%}>)
+I1030 14:07:25.488161   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488148   60840 schema.go:562] Terraform input allow = []interface {}{map[string]interface {}{"ports":[]interface {}{"22", "6443", "31544"}, "protocol":"tcp"}}
+<{%reset%}>)
+I1030 14:07:25.488168   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488155   60840 schema.go:562] Terraform input description = ""
+<{%reset%}>)
+I1030 14:07:25.488185   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488157   60840 schema.go:562] Terraform input disabled = false
+<{%reset%}>)
+I1030 14:07:25.488199   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488159   60840 schema.go:562] Terraform input source_ranges = []interface {}{"24.30.56.126/32"}
+<{%reset%}>)
+I1030 14:07:25.488204   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488161   60840 schema.go:562] Terraform input deny = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.488209   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488163   60840 schema.go:562] Terraform input target_service_accounts = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.488217   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488166   60840 schema.go:562] Terraform input target_tags = []interface {}{"dimo"}
+<{%reset%}>)
+I1030 14:07:25.488236   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488168   60840 schema.go:562] Terraform input network = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/global/networks/network-698598f"
+<{%reset%}>)
+I1030 14:07:25.488242   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488171   60840 schema.go:562] Terraform input priority = 1000
+<{%reset%}>)
+I1030 14:07:25.488247   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488173   60840 schema.go:562] Terraform input self_link = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/global/firewalls/firewall-2d7acc0"
+<{%reset%}>)
+I1030 14:07:25.488252   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488177   60840 schema.go:562] Terraform input source_service_accounts = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.488261   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488179   60840 schema.go:562] Terraform input id = "projects/dimo-dev-401815/global/firewalls/firewall-2d7acc0"
+<{%reset%}>)
+I1030 14:07:25.488267   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488184   60840 schema.go:562] Terraform input destination_ranges = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.488295   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488189   60840 schema.go:562] Terraform input project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.488304   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488206   60840 schema.go:562] Terraform input source_tags = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.488310   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488208   60840 schema.go:562] Terraform input creation_timestamp = "2023-10-26T05:14:30.024-07:00"
+<{%reset%}>)
+I1030 14:07:25.488315   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488210   60840 schema.go:562] Terraform input name = "firewall-2d7acc0"
+<{%reset%}>)
+I1030 14:07:25.488322   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488295   60840 schema.go:562] Terraform input ports = []interface {}{"22", "6443", "31544"}
+<{%reset%}>)
+I1030 14:07:25.488327   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488301   60840 schema.go:562] Terraform input protocol = "tcp"
+<{%reset%}>)
+I1030 14:07:25.488332   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488316   60840 schema.go:562] Terraform input source_ranges = []interface {}{"24.30.56.126/32"}
+<{%reset%}>)
+I1030 14:07:25.488340   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488321   60840 schema.go:562] Terraform input target_tags = []interface {}{"dimo"}
+<{%reset%}>)
+I1030 14:07:25.488346   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488324   60840 schema.go:562] Terraform input allow = []interface {}{map[string]interface {}{"ports":[]interface {}{"22", "6443", "31544"}, "protocol":"tcp"}}
+<{%reset%}>)
+I1030 14:07:25.488350   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488328   60840 schema.go:562] Terraform input direction = "INGRESS"
+<{%reset%}>)
+I1030 14:07:25.488360   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488332   60840 schema.go:562] Terraform input name = "firewall-2d7acc0"
+<{%reset%}>)
+I1030 14:07:25.488364   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488334   60840 schema.go:562] Terraform input network = "network-698598f"
+<{%reset%}>)
+I1030 14:07:25.488373   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.488338   60840 schema.go:562] Terraform input priority = 1000
+<{%reset%}>)
+I1030 14:07:25.490201   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490179   60840 schema.go:562] Terraform input ports = []interface {}{"22", "6443", "31544"}
+<{%reset%}>)
+I1030 14:07:25.490213   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490186   60840 schema.go:562] Terraform input protocol = "tcp"
+<{%reset%}>)
+I1030 14:07:25.490268   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490258   60840 schema.go:562] Terraform input ports = []interface {}{"22", "6443", "31544"}
+<{%reset%}>)
+I1030 14:07:25.490279   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490263   60840 schema.go:562] Terraform input protocol = "tcp"
+<{%reset%}>)
+I1030 14:07:25.490392   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490382   60840 schema.go:562] Terraform input ports = []interface {}{"22", "6443", "31544"}
+<{%reset%}>)
+I1030 14:07:25.490400   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490386   60840 schema.go:562] Terraform input protocol = "tcp"
+<{%reset%}>)
+I1030 14:07:25.490473   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490463   60840 schema.go:562] Terraform input ports = []interface {}{"22", "6443", "31544"}
+<{%reset%}>)
+I1030 14:07:25.490486   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490467   60840 schema.go:562] Terraform input protocol = "tcp"
+<{%reset%}>)
+I1030 14:07:25.490573   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490564   60840 schema.go:562] Terraform input ports = []interface {}{"22", "6443", "31544"}
+<{%reset%}>)
+I1030 14:07:25.490581   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.490568   60840 schema.go:562] Terraform input protocol = "tcp"
+<{%reset%}>)
+I1030 14:07:25.490710   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::gcp:compute/firewall:Firewall::firewall
+I1030 14:07:25.490720   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.490725   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.490730   60763 log.go:81] StepExecutor worker(6): launching oneshot worker
+I1030 14:07:25.490839   60763 log.go:81] StepExecutor worker(6): applying step same on urn:pulumi:dev::dimo-node::gcp:compute/firewall:Firewall::firewall (preview true)
+I1030 14:07:25.490953   60763 log.go:81] StepExecutor worker(6): step same on urn:pulumi:dev::dimo-node::gcp:compute/firewall:Firewall::firewall retired
+I1030 14:07:25.490959   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::gcp:compute/firewall:Firewall::firewall
+I1030 14:07:25.490966   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=gcp:compute/firewall:Firewall, urn=urn:pulumi:dev::dimo-node::gcp:compute/firewall:Firewall::firewall, #outs=20
+I1030 14:07:25.492102   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Finstance.go", Line:232, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-gcp%2Fsdk%2Fv5@v5.26.0%2Fgo%2Fgcp%2Fcompute%2Finstance.go": invalid URL escape "%2F"
+I1030 14:07:25.492125   60763 log.go:81] parseProviderRequest(gcp): semver version is the empty string
+I1030 14:07:25.492131   60763 log.go:81] handling default provider request for package gcp
+I1030 14:07:25.492154   60763 log.go:81] ResourceMonitor.RegisterResource received: t=gcp:compute/instance:Instance, name=instance, custom=true, #props=5, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:gcp::default::e5aa4b9d-9630-42c3-bb18-043e89b3fb35, deps=[urn:pulumi:dev::dimo-node::gcp:compute/address:Address::publicip1 urn:pulumi:dev::dimo-node::gcp:compute/firewall:Firewall::firewall urn:pulumi:dev::dimo-node::gcp:compute/network:Network::network urn:pulumi:dev::dimo-node::gcp:compute/subnetwork:Subnetwork::subnetwork], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.492162   60763 log.go:81] EvalSourceIterator produced a registration: t=gcp:compute/instance:Instance,name=instance,#props=5
+I1030 14:07:25.492168   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.492172   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.492407   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492389   60840 schema.go:562] Terraform input image = "debian-11"
+<{%reset%}>)
+I1030 14:07:25.492417   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492396   60840 schema.go:562] Terraform input __defaults = []interface {}{}
+<{%reset%}>)
+I1030 14:07:25.492424   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492403   60840 schema.go:562] Terraform input initialize_params = []interface {}{map[string]interface {}{"__defaults":[]interface {}{}, "image":"debian-11"}}
+<{%reset%}>)
+I1030 14:07:25.492429   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492408   60840 schema.go:562] Terraform input auto_delete = true
+<{%reset%}>)
+I1030 14:07:25.492433   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492410   60840 schema.go:562] Terraform input mode = "READ_WRITE"
+<{%reset%}>)
+I1030 14:07:25.492441   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492413   60840 schema.go:562] Terraform input __defaults = []interface {}{"autoDelete", "mode"}
+<{%reset%}>)
+I1030 14:07:25.492589   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492582   60840 schema.go:562] Terraform input nat_ip = "34.170.142.23"
+<{%reset%}>)
+I1030 14:07:25.492596   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492585   60840 schema.go:562] Terraform input __defaults = []interface {}{}
+<{%reset%}>)
+I1030 14:07:25.492653   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492643   60840 schema.go:562] Terraform input access_config = []interface {}{map[string]interface {}{"__defaults":[]interface {}{}, "nat_ip":"34.170.142.23"}}
+<{%reset%}>)
+I1030 14:07:25.492662   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492648   60840 schema.go:562] Terraform input network = "projects/dimo-dev-401815/global/networks/network-698598f"
+<{%reset%}>)
+I1030 14:07:25.492669   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492651   60840 schema.go:562] Terraform input subnetwork = "projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49"
+<{%reset%}>)
+I1030 14:07:25.492673   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492654   60840 schema.go:562] Terraform input __defaults = []interface {}{}
+<{%reset%}>)
+I1030 14:07:25.492694   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492682   60840 schema.go:562] Terraform input boot_disk = []interface {}{map[string]interface {}{"__defaults":[]interface {}{"autoDelete", "mode"}, "auto_delete":true, "initialize_params":[]interface {}{map[string]interface {}{"__defaults":[]interface {}{}, "image":"debian-11"}}, "mode":"READ_WRITE"}}
+<{%reset%}>)
+I1030 14:07:25.492705   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492692   60840 schema.go:562] Terraform input network_interface = []interface {}{map[string]interface {}{"__defaults":[]interface {}{}, "access_config":[]interface {}{map[string]interface {}{"__defaults":[]interface {}{}, "nat_ip":"34.170.142.23"}}, "network":"projects/dimo-dev-401815/global/networks/network-698598f", "subnetwork":"projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49"}}
+<{%reset%}>)
+I1030 14:07:25.492724   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492699   60840 schema.go:562] Terraform input __defaults = []interface {}{"canIpForward", "deletionProtection", "name"}
+<{%reset%}>)
+I1030 14:07:25.492733   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492702   60840 schema.go:562] Terraform input machine_type = "n1-standard-1"
+<{%reset%}>)
+I1030 14:07:25.492738   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492705   60840 schema.go:562] Terraform input metadata_startup_script = "#!/bin/bash sudo apt-get update && sudo apt install -y jq"
+<{%reset%}>)
+I1030 14:07:25.492743   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492708   60840 schema.go:562] Terraform input tags = []interface {}{"dimo"}
+<{%reset%}>)
+I1030 14:07:25.492753   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492710   60840 schema.go:562] Terraform input name = "instance-d4ba452"
+<{%reset%}>)
+I1030 14:07:25.492776   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492713   60840 schema.go:562] Terraform input deletion_protection = false
+<{%reset%}>)
+I1030 14:07:25.492782   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492715   60840 schema.go:562] Terraform input can_ip_forward = false
+<{%reset%}>)
+I1030 14:07:25.492818   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492806   60840 schema.go:966] Terraform output image = {debian-11}
+<{%reset%}>)
+I1030 14:07:25.492830   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492813   60840 schema.go:966] Terraform output __defaults = {[]}
+<{%reset%}>)
+I1030 14:07:25.492842   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492817   60840 schema.go:966] Terraform output mode = {READ_WRITE}
+<{%reset%}>)
+I1030 14:07:25.492848   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492819   60840 schema.go:966] Terraform output __defaults = {[{autoDelete} {mode}]}
+<{%reset%}>)
+I1030 14:07:25.492860   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492821   60840 schema.go:966] Terraform output initializeParams = {map[__defaults:{[]} image:{debian-11}]}
+<{%reset%}>)
+I1030 14:07:25.492866   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492824   60840 schema.go:966] Terraform output autoDelete = {true}
+<{%reset%}>)
+I1030 14:07:25.492871   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492833   60840 schema.go:966] Terraform output natIp = {34.170.142.23}
+<{%reset%}>)
+I1030 14:07:25.492880   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492836   60840 schema.go:966] Terraform output __defaults = {[]}
+<{%reset%}>)
+I1030 14:07:25.492887   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492847   60840 schema.go:966] Terraform output __defaults = {[]}
+<{%reset%}>)
+I1030 14:07:25.492896   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492850   60840 schema.go:966] Terraform output accessConfigs = {[{map[__defaults:{[]} natIp:{34.170.142.23}]}]}
+<{%reset%}>)
+I1030 14:07:25.492904   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492858   60840 schema.go:966] Terraform output network = {projects/dimo-dev-401815/global/networks/network-698598f}
+<{%reset%}>)
+I1030 14:07:25.492925   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492863   60840 schema.go:966] Terraform output subnetwork = {projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49}
+<{%reset%}>)
+I1030 14:07:25.492932   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492872   60840 schema.go:966] Terraform output metadataStartupScript = {#!/bin/bash sudo apt-get update && sudo apt install -y jq}
+<{%reset%}>)
+I1030 14:07:25.492953   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492878   60840 schema.go:966] Terraform output tags = {[{dimo}]}
+<{%reset%}>)
+I1030 14:07:25.492971   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492883   60840 schema.go:966] Terraform output name = {instance-d4ba452}
+<{%reset%}>)
+I1030 14:07:25.492985   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492885   60840 schema.go:966] Terraform output canIpForward = {false}
+<{%reset%}>)
+I1030 14:07:25.492990   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492888   60840 schema.go:966] Terraform output __defaults = {[{canIpForward} {deletionProtection} {name}]}
+<{%reset%}>)
+I1030 14:07:25.492996   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492893   60840 schema.go:966] Terraform output deletionProtection = {false}
+<{%reset%}>)
+I1030 14:07:25.493000   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492897   60840 schema.go:966] Terraform output machineType = {n1-standard-1}
+<{%reset%}>)
+I1030 14:07:25.493007   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492899   60840 schema.go:966] Terraform output bootDisk = {map[__defaults:{[{autoDelete} {mode}]} autoDelete:{true} initializeParams:{map[__defaults:{[]} image:{debian-11}]} mode:{READ_WRITE}]}
+<{%reset%}>)
+I1030 14:07:25.493015   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.492904   60840 schema.go:966] Terraform output networkInterfaces = {[{map[__defaults:{[]} accessConfigs:{[{map[__defaults:{[]} natIp:{34.170.142.23}]}]} network:{projects/dimo-dev-401815/global/networks/network-698598f} subnetwork:{projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49}]}]}
+<{%reset%}>)
+I1030 14:07:25.493144   60763 log.go:81] marshalling secret value as raw value as opts.KeepSecrets is false
+I1030 14:07:25.493523   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493515   60840 schema.go:562] Terraform input labels = map[string]interface {}{}
+<{%reset%}>)
+I1030 14:07:25.493549   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493520   60840 schema.go:562] Terraform input resource_manager_tags = map[string]interface {}{}
+<{%reset%}>)
+I1030 14:07:25.493562   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493546   60840 schema.go:562] Terraform input size = 10
+<{%reset%}>)
+I1030 14:07:25.493567   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493550   60840 schema.go:562] Terraform input type = "pd-standard"
+<{%reset%}>)
+I1030 14:07:25.493572   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493556   60840 schema.go:562] Terraform input image = "https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20231010"
+<{%reset%}>)
+I1030 14:07:25.493580   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493560   60840 schema.go:562] Terraform input disk_encryption_key_raw = ""
+<{%reset%}>)
+I1030 14:07:25.493599   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493562   60840 schema.go:562] Terraform input disk_encryption_key_sha256 = ""
+<{%reset%}>)
+I1030 14:07:25.493629   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493565   60840 schema.go:562] Terraform input initialize_params = []interface {}{map[string]interface {}{"image":"https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20231010", "labels":map[string]interface {}{}, "resource_manager_tags":map[string]interface {}{}, "size":10, "type":"pd-standard"}}
+<{%reset%}>)
+I1030 14:07:25.493636   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493619   60840 schema.go:562] Terraform input kms_key_self_link = ""
+<{%reset%}>)
+I1030 14:07:25.493642   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493621   60840 schema.go:562] Terraform input mode = "READ_WRITE"
+<{%reset%}>)
+I1030 14:07:25.493647   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493624   60840 schema.go:562] Terraform input source = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/zones/us-central1-a/disks/instance-d4ba452"
+<{%reset%}>)
+I1030 14:07:25.493652   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493626   60840 schema.go:562] Terraform input auto_delete = true
+<{%reset%}>)
+I1030 14:07:25.493656   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493628   60840 schema.go:562] Terraform input device_name = "persistent-disk-0"
+<{%reset%}>)
+I1030 14:07:25.493810   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493797   60840 schema.go:562] Terraform input network_tier = "PREMIUM"
+<{%reset%}>)
+I1030 14:07:25.493817   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493801   60840 schema.go:562] Terraform input public_ptr_domain_name = ""
+<{%reset%}>)
+I1030 14:07:25.493822   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493803   60840 schema.go:562] Terraform input nat_ip = "34.170.142.23"
+<{%reset%}>)
+I1030 14:07:25.493865   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493854   60840 schema.go:562] Terraform input stack_type = "IPV4_ONLY"
+<{%reset%}>)
+I1030 14:07:25.493870   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493860   60840 schema.go:562] Terraform input queue_count = 0
+<{%reset%}>)
+I1030 14:07:25.493877   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493863   60840 schema.go:562] Terraform input ipv6_access_config = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.493882   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493866   60840 schema.go:562] Terraform input network_ip = "10.0.1.2"
+<{%reset%}>)
+I1030 14:07:25.493896   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493868   60840 schema.go:562] Terraform input alias_ip_range = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.493910   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493870   60840 schema.go:562] Terraform input access_config = []interface {}{map[string]interface {}{"nat_ip":"34.170.142.23", "network_tier":"PREMIUM", "public_ptr_domain_name":""}}
+<{%reset%}>)
+I1030 14:07:25.493919   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493876   60840 schema.go:562] Terraform input subnetwork_project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.493925   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493879   60840 schema.go:562] Terraform input internal_ipv6_prefix_length = 0
+<{%reset%}>)
+I1030 14:07:25.493931   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493881   60840 schema.go:562] Terraform input network = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/global/networks/network-698598f"
+<{%reset%}>)
+I1030 14:07:25.493941   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493883   60840 schema.go:562] Terraform input subnetwork = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49"
+<{%reset%}>)
+I1030 14:07:25.493949   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493888   60840 schema.go:562] Terraform input ipv6_access_type = ""
+<{%reset%}>)
+I1030 14:07:25.493962   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493893   60840 schema.go:562] Terraform input nic_type = ""
+<{%reset%}>)
+I1030 14:07:25.493979   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493895   60840 schema.go:562] Terraform input ipv6_address = ""
+<{%reset%}>)
+I1030 14:07:25.493984   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493897   60840 schema.go:562] Terraform input name = "nic0"
+<{%reset%}>)
+I1030 14:07:25.493993   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493962   60840 schema.go:562] Terraform input min_node_cpus = 0
+<{%reset%}>)
+I1030 14:07:25.494000   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493966   60840 schema.go:562] Terraform input node_affinities = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.494009   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493968   60840 schema.go:562] Terraform input on_host_maintenance = "MIGRATE"
+<{%reset%}>)
+I1030 14:07:25.494020   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493971   60840 schema.go:562] Terraform input preemptible = false
+<{%reset%}>)
+I1030 14:07:25.494024   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493973   60840 schema.go:562] Terraform input provisioning_model = "STANDARD"
+<{%reset%}>)
+I1030 14:07:25.494027   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493975   60840 schema.go:562] Terraform input automatic_restart = true
+<{%reset%}>)
+I1030 14:07:25.494031   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493977   60840 schema.go:562] Terraform input instance_termination_action = ""
+<{%reset%}>)
+I1030 14:07:25.494042   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493979   60840 schema.go:562] Terraform input maintenance_interval = ""
+<{%reset%}>)
+I1030 14:07:25.494048   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.493997   60840 schema.go:562] Terraform input enable_integrity_monitoring = true
+<{%reset%}>)
+I1030 14:07:25.494054   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494001   60840 schema.go:562] Terraform input enable_secure_boot = false
+<{%reset%}>)
+I1030 14:07:25.494058   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494003   60840 schema.go:562] Terraform input enable_vtpm = true
+<{%reset%}>)
+I1030 14:07:25.494114   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494106   60840 schema.go:562] Terraform input name = "instance-d4ba452"
+<{%reset%}>)
+I1030 14:07:25.494120   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494110   60840 schema.go:562] Terraform input label_fingerprint = "42WmSpB8rSM="
+<{%reset%}>)
+I1030 14:07:25.494130   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494112   60840 schema.go:562] Terraform input network_interface = []interface {}{map[string]interface {}{"access_config":[]interface {}{map[string]interface {}{"nat_ip":"34.170.142.23", "network_tier":"PREMIUM", "public_ptr_domain_name":""}}, "alias_ip_range":[]interface {}(nil), "internal_ipv6_prefix_length":0, "ipv6_access_config":[]interface {}(nil), "ipv6_access_type":"", "ipv6_address":"", "name":"nic0", "network":"https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/global/networks/network-698598f", "network_ip":"10.0.1.2", "nic_type":"", "queue_count":0, "stack_type":"IPV4_ONLY", "subnetwork":"https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49", "subnetwork_project":"dimo-dev-401815"}}
+<{%reset%}>)
+I1030 14:07:25.494146   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494125   60840 schema.go:562] Terraform input deletion_protection = false
+<{%reset%}>)
+I1030 14:07:25.494171   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494149   60840 schema.go:562] Terraform input machine_type = "n1-standard-1"
+<{%reset%}>)
+I1030 14:07:25.494212   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494168   60840 schema.go:562] Terraform input scheduling = []interface {}{map[string]interface {}{"automatic_restart":true, "instance_termination_action":"", "maintenance_interval":"", "min_node_cpus":0, "node_affinities":[]interface {}(nil), "on_host_maintenance":"MIGRATE", "preemptible":false, "provisioning_model":"STANDARD"}}
+<{%reset%}>)
+I1030 14:07:25.494225   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494193   60840 schema.go:562] Terraform input description = ""
+<{%reset%}>)
+I1030 14:07:25.494236   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494200   60840 schema.go:562] Terraform input id = "projects/dimo-dev-401815/zones/us-central1-a/instances/instance-d4ba452"
+<{%reset%}>)
+I1030 14:07:25.494241   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494213   60840 schema.go:562] Terraform input metadata_fingerprint = "Ag8Fm3O_7ZE="
+<{%reset%}>)
+I1030 14:07:25.494253   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494215   60840 schema.go:562] Terraform input tags_fingerprint = "BqnZCg0b1MQ="
+<{%reset%}>)
+I1030 14:07:25.494259   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494218   60840 schema.go:562] Terraform input zone = "us-central1-a"
+<{%reset%}>)
+I1030 14:07:25.494274   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494223   60840 schema.go:562] Terraform input boot_disk = []interface {}{map[string]interface {}{"auto_delete":true, "device_name":"persistent-disk-0", "disk_encryption_key_raw":"", "disk_encryption_key_sha256":"", "initialize_params":[]interface {}{map[string]interface {}{"image":"https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20231010", "labels":map[string]interface {}{}, "resource_manager_tags":map[string]interface {}{}, "size":10, "type":"pd-standard"}}, "kms_key_self_link":"", "mode":"READ_WRITE", "source":"https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/zones/us-central1-a/disks/instance-d4ba452"}}
+<{%reset%}>)
+I1030 14:07:25.494282   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494234   60840 schema.go:562] Terraform input guest_accelerator = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.494289   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494236   60840 schema.go:562] Terraform input cpu_platform = "Intel Haswell"
+<{%reset%}>)
+I1030 14:07:25.494298   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494238   60840 schema.go:562] Terraform input metadata_startup_script = "#!/bin/bash sudo apt-get update && sudo apt install -y jq"
+<{%reset%}>)
+I1030 14:07:25.494303   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494242   60840 schema.go:562] Terraform input instance_id = "2859935166964950748"
+<{%reset%}>)
+I1030 14:07:25.494316   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494245   60840 schema.go:562] Terraform input min_cpu_platform = ""
+<{%reset%}>)
+I1030 14:07:25.494324   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494249   60840 schema.go:562] Terraform input tags = []interface {}{"dimo"}
+<{%reset%}>)
+I1030 14:07:25.494337   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494253   60840 schema.go:562] Terraform input self_link = "https://www.googleapis.com/compute/v1/projects/dimo-dev-401815/zones/us-central1-a/instances/instance-d4ba452"
+<{%reset%}>)
+I1030 14:07:25.494343   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494256   60840 schema.go:562] Terraform input attached_disk = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.494353   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494258   60840 schema.go:562] Terraform input shielded_instance_config = []interface {}{map[string]interface {}{"enable_integrity_monitoring":true, "enable_secure_boot":false, "enable_vtpm":true}}
+<{%reset%}>)
+I1030 14:07:25.494360   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494262   60840 schema.go:562] Terraform input can_ip_forward = false
+<{%reset%}>)
+I1030 14:07:25.494370   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494265   60840 schema.go:562] Terraform input hostname = ""
+<{%reset%}>)
+I1030 14:07:25.494377   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494268   60840 schema.go:562] Terraform input current_status = "RUNNING"
+<{%reset%}>)
+I1030 14:07:25.494381   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494273   60840 schema.go:562] Terraform input enable_display = false
+<{%reset%}>)
+I1030 14:07:25.494385   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494277   60840 schema.go:562] Terraform input labels = map[string]interface {}{}
+<{%reset%}>)
+I1030 14:07:25.494391   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494280   60840 schema.go:562] Terraform input project = "dimo-dev-401815"
+<{%reset%}>)
+I1030 14:07:25.494395   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494283   60840 schema.go:562] Terraform input metadata = map[string]interface {}{}
+<{%reset%}>)
+I1030 14:07:25.494399   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494285   60840 schema.go:562] Terraform input scratch_disk = []interface {}(nil)
+<{%reset%}>)
+I1030 14:07:25.494535   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494522   60840 schema.go:562] Terraform input nat_ip = "34.170.142.23"
+<{%reset%}>)
+I1030 14:07:25.494542   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494529   60840 schema.go:562] Terraform input network = "projects/dimo-dev-401815/global/networks/network-698598f"
+<{%reset%}>)
+I1030 14:07:25.494549   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494532   60840 schema.go:562] Terraform input subnetwork = "projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49"
+<{%reset%}>)
+I1030 14:07:25.494554   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494536   60840 schema.go:562] Terraform input access_config = []interface {}{map[string]interface {}{"nat_ip":"34.170.142.23"}}
+<{%reset%}>)
+I1030 14:07:25.494570   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494551   60840 schema.go:562] Terraform input image = "debian-11"
+<{%reset%}>)
+I1030 14:07:25.494574   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494558   60840 schema.go:562] Terraform input mode = "READ_WRITE"
+<{%reset%}>)
+I1030 14:07:25.494584   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494568   60840 schema.go:562] Terraform input auto_delete = true
+<{%reset%}>)
+I1030 14:07:25.494589   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494572   60840 schema.go:562] Terraform input initialize_params = []interface {}{map[string]interface {}{"image":"debian-11"}}
+<{%reset%}>)
+I1030 14:07:25.494624   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494613   60840 schema.go:562] Terraform input machine_type = "n1-standard-1"
+<{%reset%}>)
+I1030 14:07:25.494631   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494619   60840 schema.go:562] Terraform input metadata_startup_script = "#!/bin/bash sudo apt-get update && sudo apt install -y jq"
+<{%reset%}>)
+I1030 14:07:25.494637   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494622   60840 schema.go:562] Terraform input name = "instance-d4ba452"
+<{%reset%}>)
+I1030 14:07:25.494642   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494625   60840 schema.go:562] Terraform input network_interface = []interface {}{map[string]interface {}{"access_config":[]interface {}{map[string]interface {}{"nat_ip":"34.170.142.23"}}, "network":"projects/dimo-dev-401815/global/networks/network-698598f", "subnetwork":"projects/dimo-dev-401815/regions/us-central1/subnetworks/subnetwork-b95ac49"}}
+<{%reset%}>)
+I1030 14:07:25.494647   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494630   60840 schema.go:562] Terraform input boot_disk = []interface {}{map[string]interface {}{"auto_delete":true, "initialize_params":[]interface {}{map[string]interface {}{"image":"debian-11"}}, "mode":"READ_WRITE"}}
+<{%reset%}>)
+I1030 14:07:25.494656   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494634   60840 schema.go:562] Terraform input can_ip_forward = false
+<{%reset%}>)
+I1030 14:07:25.494661   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494643   60840 schema.go:562] Terraform input deletion_protection = false
+<{%reset%}>)
+I1030 14:07:25.494670   60763 log.go:81] eventSink::Infoerr(<{%reset%}>I1030 14:07:25.494645   60840 schema.go:562] Terraform input tags = []interface {}{"dimo"}
+<{%reset%}>)
+I1030 14:07:25.499918   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance
+I1030 14:07:25.499948   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.499957   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.499965   60763 log.go:81] StepExecutor worker(7): launching oneshot worker
+I1030 14:07:25.500138   60763 log.go:81] StepExecutor worker(7): applying step same on urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance (preview true)
+I1030 14:07:25.500395   60763 log.go:81] StepExecutor worker(7): step same on urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance retired
+I1030 14:07:25.500401   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance
+I1030 14:07:25.500411   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=gcp:compute/instance:Instance, urn=urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance, #outs=36
+I1030 14:07:25.501056   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-command%2Fsdk%2Fv3@v3.0.0-20211217154656-b25da03b7e80%2Fgo%2Fcommand%2Fremote%2Fcommand.go", Line:48, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-command%2Fsdk%2Fv3@v3.0.0-20211217154656-b25da03b7e80%2Fgo%2Fcommand%2Fremote%2Fcommand.go": invalid URL escape "%2F"
+I1030 14:07:25.501065   60763 log.go:81] parseProviderRequest(command): semver version is the empty string
+I1030 14:07:25.501073   60763 log.go:81] handling default provider request for package command
+I1030 14:07:25.501075   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-command%2Fsdk%2Fv3@v3.0.0-20211217154656-b25da03b7e80%2Fgo%2Fcommand%2Fremote%2Fcommand.go", Line:48, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-command%2Fsdk%2Fv3@v3.0.0-20211217154656-b25da03b7e80%2Fgo%2Fcommand%2Fremote%2Fcommand.go": invalid URL escape "%2F"
+I1030 14:07:25.501085   60763 log.go:81] newRegisterDefaultProviderEvent(command): no version specified, falling back to default version
+I1030 14:07:25.501090   60763 log.go:81] newRegisterDefaultProviderEvent(command): default provider miss, sending nil version to engine
+I1030 14:07:25.501094   60763 log.go:81] newRegisterDefaultProviderEvent(command): no pluginDownloadURL specified, falling back to default pluginDownloadURL
+I1030 14:07:25.501097   60763 log.go:81] newRegisterDefaultProviderEvent(command): default pluginDownloadURL miss, sending empty string to engine
+I1030 14:07:25.501085   60763 log.go:81] parseProviderRequest(command): semver version is the empty string
+I1030 14:07:25.501101   60763 log.go:81] newRegisterDefaultProviderEvent(command): no pluginChecksums specified, falling back to default pluginChecksums
+I1030 14:07:25.501116   60763 log.go:81] newRegisterDefaultProviderEvent(command): default pluginChecksums miss, sending empty map to engine
+I1030 14:07:25.501124   60763 log.go:81] waiting for default provider for package command
+I1030 14:07:25.501128   60763 log.go:81] EvalSourceIterator produced a registration: t=pulumi:providers:command,name=default,#props=0
+I1030 14:07:25.501134   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.501138   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.560349   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::pulumi:providers:command::default
+I1030 14:07:25.560383   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.560404   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.560409   60763 log.go:81] StepExecutor worker(8): launching oneshot worker
+I1030 14:07:25.560419   60763 log.go:81] StepExecutor worker(8): applying step same on urn:pulumi:dev::dimo-node::pulumi:providers:command::default (preview true)
+I1030 14:07:25.560447   60763 log.go:81] StepExecutor worker(8): step same on urn:pulumi:dev::dimo-node::pulumi:providers:command::default retired
+I1030 14:07:25.560459   60763 log.go:81] registered default provider for package command: urn:pulumi:dev::dimo-node::pulumi:providers:command::default
+I1030 14:07:25.560470   60763 log.go:81] handling default provider request for package command
+I1030 14:07:25.560505   60763 log.go:81] ResourceMonitor.RegisterResource received: t=command:remote:Command, name=getkubeconfig, custom=true, #props=2, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:command::default::279c4e1f-14c8-426f-83ec-20978458538e, deps=[urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.560506   60763 log.go:81] ResourceMonitor.RegisterResource received: t=command:remote:Command, name=k3sinstall, custom=true, #props=2, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:command::default::279c4e1f-14c8-426f-83ec-20978458538e, deps=[urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.560519   60763 log.go:81] EvalSourceIterator produced a registration: t=command:remote:Command,name=getkubeconfig,#props=2
+I1030 14:07:25.560526   60763 log.go:81] EvalSourceIterator produced a registration: t=command:remote:Command,name=k3sinstall,#props=2
+I1030 14:07:25.560530   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.560540   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.562746   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::command:remote:Command::getkubeconfig
+I1030 14:07:25.562755   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.562759   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.562778   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.562785   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.562788   60763 log.go:81] StepExecutor worker(9): launching oneshot worker
+I1030 14:07:25.562865   60763 log.go:81] StepExecutor worker(9): applying step same on urn:pulumi:dev::dimo-node::command:remote:Command::getkubeconfig (preview true)
+I1030 14:07:25.562941   60763 log.go:81] StepExecutor worker(9): step same on urn:pulumi:dev::dimo-node::command:remote:Command::getkubeconfig retired
+I1030 14:07:25.562946   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::command:remote:Command::getkubeconfig
+I1030 14:07:25.562954   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=command:remote:Command, urn=urn:pulumi:dev::dimo-node::command:remote:Command::getkubeconfig, #outs=4
+I1030 14:07:25.563385   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-kubernetes%2Fsdk%2Fv3@v3.30.2%2Fgo%2Fkubernetes%2Fprovider.go", Line:72, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-kubernetes%2Fsdk%2Fv3@v3.30.2%2Fgo%2Fkubernetes%2Fprovider.go": invalid URL escape "%2F"
+I1030 14:07:25.563434   60763 log.go:81] ResourceMonitor.RegisterResource received: t=pulumi:providers:kubernetes, name=k3s, custom=true, #props=1, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=, deps=[urn:pulumi:dev::dimo-node::command:remote:Command::getkubeconfig urn:pulumi:dev::dimo-node::gcp:compute/firewall:Firewall::firewall urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.563452   60763 log.go:81] EvalSourceIterator produced a registration: t=pulumi:providers:kubernetes,name=k3s,#props=1
+I1030 14:07:25.563499   60763 log.go:81] ResourceMonitor.RegisterResourceOutputs received: urn=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, #outs=6
+I1030 14:07:25.564084   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::command:remote:Command::k3sinstall
+I1030 14:07:25.564097   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.564102   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:25.564115   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.564126   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.564132   60763 log.go:81] StepExecutor worker(10): launching oneshot worker
+I1030 14:07:25.564131   60763 log.go:81] EvalSourceIterator produced a completion: urn=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev,#outs=6
+I1030 14:07:25.564204   60763 log.go:81] StepExecutor worker(10): applying step same on urn:pulumi:dev::dimo-node::command:remote:Command::k3sinstall (preview true)
+I1030 14:07:25.564282   60763 log.go:81] StepExecutor worker(10): step same on urn:pulumi:dev::dimo-node::command:remote:Command::k3sinstall retired
+I1030 14:07:25.564292   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::command:remote:Command::k3sinstall
+I1030 14:07:25.564298   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=command:remote:Command, urn=urn:pulumi:dev::dimo-node::command:remote:Command::k3sinstall, #outs=4
+I1030 14:07:25.683228   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::pulumi:providers:kubernetes::k3s
+I1030 14:07:25.683274   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.683285   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received register resource outputs
+I1030 14:07:25.683284   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:25.683296   60763 log.go:81] StepExecutor worker(-1): registered resource outputs urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev: old=#6, new=#6
+I1030 14:07:25.683304   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:25.683312   60763 log.go:81] StepExecutor worker(11): launching oneshot worker
+I1030 14:07:25.683347   60763 log.go:81] ResourceMonitor.RegisterResourceOutputs operation finished: urn=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, #outs=6
+I1030 14:07:25.683382   60763 log.go:81] StepExecutor worker(11): applying step same on urn:pulumi:dev::dimo-node::pulumi:providers:kubernetes::k3s (preview true)
+I1030 14:07:25.683457   60763 log.go:81] StepExecutor worker(11): step same on urn:pulumi:dev::dimo-node::pulumi:providers:kubernetes::k3s retired
+I1030 14:07:25.683468   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::pulumi:providers:kubernetes::k3s
+I1030 14:07:25.683477   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=pulumi:providers:kubernetes, urn=urn:pulumi:dev::dimo-node::pulumi:providers:kubernetes::k3s, #outs=4
+I1030 14:07:25.683819   60763 log.go:81] parsing source position &pulumirpc.SourcePosition{state:impl.MessageState{NoUnkeyedLiterals:pragma.NoUnkeyedLiterals{}, DoNotCompare:pragma.DoNotCompare{}, DoNotCopy:pragma.DoNotCopy{}, atomicMessageInfo:(*impl.MessageInfo)(nil)}, sizeCache:0, unknownFields:[]uint8(nil), Uri:"project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-kubernetes%2Fsdk%2Fv3@v3.30.2%2Fgo%2Fkubernetes%2Fcore%2Fv1%2Fnamespace.go", Line:40, Column:0}: parse "project://%2FUsers%2Fphilip%2Fgo%2Fpkg%2Fmod%2Fgithub.com%2Fpulumi%2Fpulumi-kubernetes%2Fsdk%2Fv3@v3.30.2%2Fgo%2Fkubernetes%2Fcore%2Fv1%2Fnamespace.go": invalid URL escape "%2F"
+I1030 14:07:25.683835   60763 log.go:81] parseProviderRequest(kubernetes): semver version is the empty string
+I1030 14:07:25.683856   60763 log.go:81] ResourceMonitor.RegisterResource received: t=kubernetes:core/v1:Namespace, name=dimo, custom=true, #props=3, parent=urn:pulumi:dev::dimo-node::pulumi:pulumi:Stack::dimo-node-dev, protect=false, provider=urn:pulumi:dev::dimo-node::pulumi:providers:kubernetes::k3s::44a58340-27a8-42e2-8153-62871fc1b149, deps=[urn:pulumi:dev::dimo-node::gcp:compute/firewall:Firewall::firewall urn:pulumi:dev::dimo-node::gcp:compute/instance:Instance::instance], deleteBeforeReplace=<nil>, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I1030 14:07:25.683864   60763 log.go:81] EvalSourceIterator produced a registration: t=kubernetes:core/v1:Namespace,name=dimo,#props=3
+I1030 14:07:25.683870   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I1030 14:07:25.683873   60763 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I1030 14:07:26.259919   60763 log.go:81] Checking step same for urn:pulumi:dev::dimo-node::kubernetes:core/v1:Namespace::dimo
+I1030 14:07:26.259961   60763 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I1030 14:07:26.259976   60763 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I1030 14:07:26.259983   60763 log.go:81] StepExecutor worker(12): launching oneshot worker
+I1030 14:07:26.260085   60763 log.go:81] StepExecutor worker(12): applying step same on urn:pulumi:dev::dimo-node::kubernetes:core/v1:Namespace::dimo (preview true)
+I1030 14:07:26.260194   60763 log.go:81] StepExecutor worker(12): step same on urn:pulumi:dev::dimo-node::kubernetes:core/v1:Namespace::dimo retired
+I1030 14:07:26.260205   60763 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::dimo-node::kubernetes:core/v1:Namespace::dimo
+I1030 14:07:26.260220   60763 log.go:81] ResourceMonitor.RegisterResource operation finished: t=kubernetes:core/v1:Namespace, urn=urn:pulumi:dev::dimo-node::kubernetes:core/v1:Namespace::dimo, #outs=8
+I1030 14:07:26.264118   60763 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? true, <nil>)
+I1030 14:07:26.264143   60763 log.go:81] StepExecutor worker(-1): StepExecutor.waitForCompletion(): waiting for worker threads to exit
+I1030 14:07:26.264149   60763 log.go:81] StepExecutor worker(-2): worker received nil chain, exiting
+I1030 14:07:26.264168   60763 log.go:81] StepExecutor worker(-1): StepExecutor.waitForCompletion(): worker threads all exited
+I1030 14:07:26.264173   60763 log.go:81] deploymentExecutor.Execute(...): step executor has completed
+I1030 14:07:26.264240   60763 log.go:81] deploymentExecutor.Execute(...): exiting provider canceller
+I1030 14:07:28.054923   60763 log.go:81] defaultSink::Error([38;5;1merror: [0m[0mconfirmation cancelled, not proceeding with the update: interrupt[0m)
+[38;5;1merror: [0m[0mconfirmation cancelled, not proceeding with the update: interrupt[0m
