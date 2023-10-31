@@ -83,6 +83,15 @@ To get started, clone this repository and run the following commands:
 ```
 
 ## Deployment Management Scripts
+```
+[coming soon]
+```
+
+## Usefull Commands
+Refresh the stacks state from the current resources
+```
+pulumi refresh
+```
 
 # Troubleshooting & Debugging
 ## Pulumi

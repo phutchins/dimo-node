@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -10,8 +8,10 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		slug := fmt.Sprintf("dimo/%v", ctx.Stack())
-		stackRef, err := pulumi.NewStackReference(ctx, slug, nil)
+		//slug := fmt.Sprintf("dimo-dev/infra/dev")
+		stackRef, err := pulumi.NewStackReference(ctx, "infraStackRef", &pulumi.StackReferenceArgs{
+			Name: pulumi.String("dimo-dev/infra/dev"),
+		})
 
 		if err != nil {
 			return err
@@ -19,10 +19,14 @@ func main() {
 
 		kubeConfig := stackRef.GetOutput(pulumi.String("kubeConfig"))
 
+		/*
+			kubeConfig.ApplyT(func(s string) error {
+				fmt.Printf("Kubeconfig: %s", s)
+				return nil
+			}) */
+
 		kubeProvider, err := kubernetes.NewProvider(ctx, "k3s", &kubernetes.ProviderArgs{
-			Kubeconfig: kubeConfig.ApplyT(func(s string) string {
-				return s
-			}).(pulumi.StringOutput),
+			Kubeconfig: kubeConfig.toStringOutput(),
 		}) // May want to make this do better checking to ensure that the node is all the way up
 		if err != nil {
 			return err

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/pulumi/pulumi-command/sdk/v3/go/command/remote"
+	"github.com/pulumi/pulumi-command/sdk/go/command/remote"
 	"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/compute"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
@@ -95,6 +95,9 @@ func main() {
 				pulumi.String(instanceTag),
 			},
 		}, pulumi.DependsOn([]pulumi.Resource{subnetwork}))
+		if err != nil {
+			return err
+		}
 
 		instanceTags := toPulumiStringArray([]string{"dimo"})
 
@@ -231,29 +234,26 @@ func main() {
 			});
 		*/
 
-		/*
-			getKubeConfig.Stdout.ApplyT(func(s string) error {
-				fmt.Printf("Kubeconfig: %s", s)
-				return nil
-			}) */
+		/* for troubleshooting
+		getKubeConfig.Stdout.ApplyT(func(s string) error {
+			fmt.Printf("Kubeconfig: %s", s)
+			return nil
+		}) */
 
 		ctx.Export("kubeConfig", getKubeConfig.Stdout.ApplyT(func(s string) string {
 			return s
 		}).(pulumi.StringOutput))
 
-		// Print the kubeconfig
+		ctx.Export("getKubeConfig", getKubeConfig)
 
 		kubeProvider, err := kubernetes.NewProvider(ctx, "k3s", &kubernetes.ProviderArgs{
-			Kubeconfig: getKubeConfig.Stdout,
-			//Kubeconfig: getKubeConfig.Stdout.ApplyT(func(s string) string {
-			//	return s
-			//}).(pulumi.StringOutput),
+			Kubeconfig: getKubeConfig.Stdout.ApplyT(func(s string) string {
+				return s
+			}).(pulumi.StringOutput),
 		}, pulumi.DependsOn([]pulumi.Resource{inst, firewall, getKubeConfig}))
 		if err != nil {
 			return err
 		}
-
-		//ctx.Export("kubeConfig", kubeProvider.Kubeconfig())
 
 		// Create a namespace
 		_, err = corev1.NewNamespace(ctx, "dimo", &corev1.NamespaceArgs{
@@ -261,12 +261,12 @@ func main() {
 				Name: pulumi.String("dimo"),
 			},
 		}, pulumi.Provider(kubeProvider),
-			pulumi.DependsOn([]pulumi.Resource{inst, firewall}))
+			pulumi.DependsOn([]pulumi.Resource{inst, kubeProvider}))
 		if err != nil {
 			return err
 		}
 
-		/* implement this later
+		/* implement this later if necessary
 		// Create the metallb-system namespace
 		metallbNamespace, err := corev1.NewNamespace(ctx, "metallb", &corev1.NamespaceArgs{
 			Metadata: &metav1.ObjectMetaArgs{
