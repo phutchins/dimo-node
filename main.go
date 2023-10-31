@@ -3,27 +3,23 @@ package main
 import (
 	"dependencies"
 	"infrastructure"
-
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
-	pulumi.Run(func(ctx *pulumi.Context) error {
-		err := infrastructure.Run(ctx)
-		if err != nil {
-			return err
-		}
+	err := infrastructure.Run("infra/dev")
+	if err != nil {
+		return
+	}
 
-		err = dependencies.Run(ctx)
-		if err != nil {
-			return err
-		}
+	err = dependencies.Run("deps/dev")
+	if err != nil {
+		return
+	}
 
-		//test := infraCtx.GetOutput("publicIp").(string)
+	//test := infraCtx.GetOutput("publicIp").(string)
 
-		//fmt.Printf("Public IP: %s", test)
+	//fmt.Printf("Public IP: %s", test)
 
-		return nil
-	})
+	return
 
 }

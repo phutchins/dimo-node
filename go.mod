@@ -6,7 +6,7 @@ toolchain go1.21.3
 
 require (
 	github.com/pulumi/pulumi-gcp/sdk/v5 v5.26.0
-	github.com/pulumi/pulumi/sdk/v3 v3.90.1
+	github.com/pulumi/pulumi/sdk/v3 v3.91.0
 )
 
 require (
@@ -59,6 +59,7 @@ require (
 	github.com/pulumi/esc v0.5.6 // indirect
 	github.com/pulumi/pulumi-command/sdk/v3 v3.0.0-20211217154656-b25da03b7e80 // indirect
 	github.com/pulumi/pulumi-gcp/sdk/v6 v6.67.0 // indirect
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.5.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect

@@ -66,9 +66,9 @@ pulumi stack init
 
 Set the following Pulumi configuration variables:
 ```
-pulumi config set gcp:project <project-name>
-pulumi config set gcp:zone <zone>
-pulumi config set gcp:region <region>
+pulumi config set gcp:project <project-name> (ex: dimo-dev-401815)
+pulumi config set gcp:zone <zone> (ex: us-central1-a)
+pulumi config set gcp:region <region> (ex: us-central1)
 ```
 
 Deploy the DIMO node
