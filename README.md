@@ -59,12 +59,17 @@ gcloud config set project <project-name>
 gcloud auth application-default login
 ```
 
+CD to each stack directory [ infrastructure | dependencies | application ] and
+do the following
+
 Initialize Pulumi
 ```
+# This will as you to name the stack, you can use the default <dev> name
 pulumi stack init
 ```
 
 Set the following Pulumi configuration variables:
+(these will be set as defaults later)
 ```
 pulumi config set gcp:project <project-name> (ex: dimo-dev-401815)
 pulumi config set gcp:zone <zone> (ex: us-central1-a)
@@ -73,8 +78,11 @@ pulumi config set gcp:region <region> (ex: us-central1)
 
 Deploy the DIMO node
 ```
+# Use -y to automatically respond yes
 pulumi up
 ```
+
+Repeat in the next stack directory
 
 ### Cloud Production Deployment (coming soon)
 To get started, clone this repository and run the following commands:
