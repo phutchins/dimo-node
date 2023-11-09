@@ -1,7 +1,0 @@
-name: infra
-runtime: go
-description: A Pulumi to create the infrastructure for dimo
-config:
-  gcp:project: dimo-dev-401815
-  gcp:zone: us-central1-a
-  gcp:region: us-central1

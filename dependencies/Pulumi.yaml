@@ -1,3 +1,0 @@
-name: deps
-runtime: go
-description: A Pulumi to create the dependencies for a Dimo node
