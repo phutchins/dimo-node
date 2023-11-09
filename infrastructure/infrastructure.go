@@ -165,19 +165,21 @@ func BuildInfrastructure(ctx *pulumi.Context) (err error) {
 		return err
 	}
 
-	testCommand := pulumi.Sprintf("uname -a")
-	runTestCommand, err := remote.NewCommand(ctx, "test", &remote.CommandArgs{
-		Create:     testCommand,
-		Connection: connection,
-	}, pulumi.DependsOn([]pulumi.Resource{inst, firewall}))
-	if err != nil {
-		return err
-	}
+	/*
+		testCommand := pulumi.Sprintf("uname -a")
+		runTestCommand, err := remote.NewCommand(ctx, "test", &remote.CommandArgs{
+			Create:     testCommand,
+			Connection: connection,
+		}, pulumi.DependsOn([]pulumi.Resource{inst, firewall}))
+		if err != nil {
+			return err
+		}
 
-	runTestCommand.Stdout.ApplyT(func(s string) error {
-		fmt.Printf("Test: %s", s)
-		return nil
-	})
+		runTestCommand.Stdout.ApplyT(func(s string) error {
+			fmt.Printf("Test: %s", s)
+			return nil
+		})
+	*/
 
 	getKubeConfigCmd := pulumi.Sprintf("sudo cat /etc/rancher/k3s/k3s.yaml | sed \"s/.*server: .*/    server: https:\\/\\/%s:6443/g\"", publicIp)
 

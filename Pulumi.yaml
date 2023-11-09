@@ -6,3 +6,6 @@ config:
   gcp:project: dimo-dev-401815
   gcp:region: us-central1
   gcp:zone: us-central1-a
+  pulumi:disable-default-providers:
+    - aws
+    - kubernetes

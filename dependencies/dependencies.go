@@ -1,6 +1,8 @@
 package dependencies
 
 import (
+	"fmt"
+
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -12,6 +14,13 @@ func InstallDependencies(ctx *pulumi.Context, KubeConfig pulumi.StringOutput) (e
 	// Get kubeconfig from exported to context
 	//kubeConfig := stackRef.GetOutput(pulumi.String("kubeConfig"))
 	//var getKubeConfig *remote.Command = stackRef.GetOutput(pulumi.String("getKubeConfig"))
+
+	KubeConfig.ApplyT(func(kc string) error {
+		fmt.Printf("KubeConfig: %v", kc)
+		return nil
+	})
+
+	ctx.Export("kubeConfig", KubeConfig)
 
 	kubeProvider, err := kubernetes.NewProvider(ctx, "k3sDeps", &kubernetes.ProviderArgs{
 		Kubeconfig: KubeConfig,
@@ -48,7 +57,7 @@ func InstallDependencies(ctx *pulumi.Context, KubeConfig pulumi.StringOutput) (e
 	// Deploy the postgres cluster with helm chart
 	postgresCluster, err := helm.NewChart(ctx, "zalando-postgres-cluster", helm.ChartArgs{
 		Chart: pulumi.String("zalando-postgres-cluster"),
-		Path:  pulumi.String("./charts/"),
+		Path:  pulumi.String("./dependencies/charts/"),
 		//FetchArgs: helm.FetchArgs{
 		//	Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
 		//},
