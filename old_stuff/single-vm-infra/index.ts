@@ -7,7 +7,10 @@ import * as resource from "@pulumi/pulumi/dynamic";
 import * as fs from "fs";
 import * as k8s from "@kubernetes/client-node";
 
-
+// TODO
+// - Break out the k3s portion of the provider into its own file
+// - Create a k8s provider in a file that creates a GKE cluster
+// - Create a k8s provider in a file that creates a AKS cluster
 
 
 // Import the program's configuration settings.

@@ -10,7 +10,7 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		infrastructure.BuildInfrastructure(ctx)
 
-		dependencies.InstallDependencies(ctx, infrastructure.KubeConfig)
+		dependencies.InstallDependencies(ctx)
 
 		return nil
 	})
