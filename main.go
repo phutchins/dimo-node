@@ -8,9 +8,12 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		infrastructure.BuildInfrastructure(ctx)
+		kubeProvider, err := infrastructure.BuildInfrastructure(ctx)
+		if err != nil {
+			return err
+		}
 
-		dependencies.InstallDependencies(ctx)
+		dependencies.InstallDependencies(ctx, kubeProvider)
 
 		return nil
 	})

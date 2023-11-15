@@ -1,6 +1,5 @@
 package infrastructure
 
-/*
 import (
 	"fmt"
 
@@ -55,68 +54,52 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 		return nil, err
 	}
 
-	// Create the Kubernetes provider
-	k8sProvider, err := NewKubernetesProvider(ctx, projectName, cluster.Endpoint, cluster.MasterAuth)
-	if err != nil {
-		return nil, err
-	}
-
 	return cluster, nil
 }
 
-func NewKubernetesProvider(ctx *pulumi.Context, projectName string, endpoint pulumi.StringOutput, masterAuth container.ClusterMasterAuthOutput) (*kubernetes.Provider, error) {
+func NewKubernetesProvider(ctx *pulumi.Context, cluster *container.Cluster) (*kubernetes.Provider, error) {
+	// Create a kubeconfig string
+	kubeconfig := pulumi.All(cluster.Name, cluster.Endpoint, cluster.MasterAuth).ApplyT(func(args []interface{}) (string, error) {
+		clusterName := args[0].(string)
+		endpoint := args[1].(string)
+		masterAuth := args[2].(*container.ClusterMasterAuth)
+		clusterCaCertificate := *masterAuth.ClusterCaCertificate
+
+		return fmt.Sprintf(`
+apiVersion: v1
+clusters:
+- cluster:
+	certificate-authority-data: %s
+	server: https://%s
+name: %s
+contexts:
+- context:
+	cluster: %s
+	user: %s
+name: %s
+current-context: %s
+kind: Config
+preferences: {}
+users:
+- name: %s
+user:
+	auth-provider:
+		config:
+			cmd-args: config config-helper --format=json
+			cmd-path: gcloud
+			expiry-key: '{.credential.token_expiry}'
+			token-key: '{.credential.access_token}'
+		name: gcp
+`, clusterCaCertificate, endpoint, clusterName, clusterName, clusterName, clusterName, clusterName, clusterName), nil
+	}).(pulumi.StringOutput)
+
 	// Create the Kubernetes provider
-	k8sProvider, err := kubernetes.NewProvider(ctx, projectName, &kubernetes.ProviderArgs{
-		Host: endpoint.ApplyString(func(endpoint string) string {
-			return fmt.Sprintf("https://%s", endpoint)
-		}),
-		Username: masterAuth.Username,
-		Password: masterAuth.Password,
-		ClientCertificate: &kubernetes.ProviderClientCertificateArgs{
-			CertificateData: masterAuth.ClientCertificateConfig.Certificate,
-			PrivateKeyData:  masterAuth.ClientCertificateConfig.PrivateKey,
-		},
-		ClusterCaCertificate: masterAuth.ClusterCaCertificate,
+	kubeProvider, err := kubernetes.NewProvider(ctx, "k8sProvider", &kubernetes.ProviderArgs{
+		Kubeconfig: kubeconfig,
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	return k8sProvider, nil
+	return kubeProvider, nil
 }
-
-/* Implement this when we start using GKE clusters
-// Reference: https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/gke/
-// Manufacture a GKE-style kubeconfig. Note that this is slightly "different"
-// because of the way GKE requires gcloud to be in the picture for cluster
-// authentication (rather than using the client cert/key directly).
-export const kubeconfig = pulumi.
-all([ cluster.name, cluster.endpoint, cluster.masterAuth ]).
-apply(([ name, endpoint, masterAuth ]) => {
-		const context = `${gcp.config.project}_${gcp.config.zone}_${name}`;
-		return `apiVersion: v1
-clusters:
-- cluster:
-certificate-authority-data: ${masterAuth.clusterCaCertificate}
-server: https://${endpoint}
-name: ${context}
-contexts:
-- context:
-cluster: ${context}
-user: ${context}
-name: ${context}
-current-context: ${context}
-kind: Config
-preferences: {}
-users:
-- name: ${context}
-user:
-exec:
-	apiVersion: client.authentication.k8s.io/v1beta1
-	command: gke-gcloud-auth-plugin
-	installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
-		https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
-	provideClusterInfo: true
-`;
-});
-*/

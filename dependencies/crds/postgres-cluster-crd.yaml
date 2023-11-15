@@ -1,0 +1,21 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: dimo-dev-1
+  namespace: postgres
+spec:
+  teamId: "dimo"
+  volume:
+    size: 1Gi
+  numberOfInstances: 2
+  users:
+    dimo-owner:  # database owner
+    - superuser
+    - createdb
+    dimo-user: []  # role for application
+  databases:
+    dimo: dimo-owner  # dbname: owner
+  preparedDatabases:
+    bar: {}
+  postgresql:
+    version: "15"

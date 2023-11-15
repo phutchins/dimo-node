@@ -101,6 +101,11 @@ Refresh the stacks state from the current resources
 pulumi refresh
 ```
 
+Get a decoded password from a secret
+```
+kubectl get secrets/db-user-pass --template={{.data.password}} | base64 -D
+```
+
 # Troubleshooting & Debugging
 ## Pulumi
 Running Pulumi in debug mode
@@ -108,13 +113,20 @@ Running Pulumi in debug mode
 pulumi up --logtostderr --logflow -v=10 2> out.txt
 ```
 
+
+
 # Helpful Links
-## Pulumi General
+## Infrastructure
+### Pulumi General
 - [Pulumi](https://www.pulumi.com/docs/)
 - [Pulumi GCP Provider](https://www.pulumi.com/docs/reference/pkg/gcp/)
 - [Pulumi Organizational Paterns](https://www.pulumi.com/blog/organizational-patterns-infra-repo/)
-## Pulumi Examples
+### Pulumi Examples
 - [EKS From Scratch](https://github.com/scottslowe/learning-tools/blob/main/pulumi/eks-from-scratch/vpc.go)
 - [Pulumi Self Hosted Installers](https://github.com/pulumi/pulumi-self-hosted-installers/blob/master/ecs-hosted/go/infrastructure/main.go)
-## Pulumi Golang
+### Pulumi Golang
 - [Using Go Generics in Pulumi](https://www.pulumi.com/blog/go-generics-preview/)
+## Dependencies
+### Database / Postgres
+- [Postgres Operator](https://postgres-operator.readthedocs.io/en/latest/)
+- [Postgres Cluster Creation/Configuration](https://github.com/zalando/postgres-operator/blob/master/manifests/complete-postgres-manifest.yaml)
