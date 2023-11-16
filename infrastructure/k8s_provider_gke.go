@@ -11,11 +11,12 @@ import (
 func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) (*container.Cluster, error) {
 	// Create the GKE cluster
 	cluster, err := container.NewCluster(ctx, projectName, &container.ClusterArgs{
-		InitialNodeCount: pulumi.Int(1),
-		Location:         pulumi.String(location),
-		MinMasterVersion: pulumi.String("latest"),
+		InitialNodeCount:      pulumi.Int(1),
+		RemoveDefaultNodePool: pulumi.Bool(true),
+		Location:              pulumi.String(location),
+		MinMasterVersion:      pulumi.String("latest"),
 		NodeConfig: &container.ClusterNodeConfigArgs{
-			MachineType: pulumi.String("n1-standard-4"),
+			MachineType: pulumi.String("n1-standard-2"),
 			OauthScopes: pulumi.StringArray{
 				pulumi.String("https://www.googleapis.com/auth/compute"),
 			},
@@ -26,14 +27,16 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 		return nil, err
 	}
 
+	ctx.Export("cluster.MasterAuth", cluster.MasterAuth)
+
 	// Create the medium node pool
 	_, err = container.NewNodePool(ctx, projectName+"-medium", &container.NodePoolArgs{
 		Cluster:   cluster.Name,
 		Location:  pulumi.String(location),
 		NodeCount: pulumi.Int(1),
 		NodeConfig: &container.NodePoolNodeConfigArgs{
-			MachineType: pulumi.String("n1-standard-4"),
-			DiskSizeGb:  pulumi.Int(100),
+			MachineType: pulumi.String("n1-standard-2"),
+			DiskSizeGb:  pulumi.Int(30),
 		},
 	})
 	if err != nil {
@@ -46,8 +49,8 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 		Location:  pulumi.String(location),
 		NodeCount: pulumi.Int(1),
 		NodeConfig: &container.NodePoolNodeConfigArgs{
-			MachineType: pulumi.String("n1-standard-2"),
-			DiskSizeGb:  pulumi.Int(50),
+			MachineType: pulumi.String("n1-standard-1"),
+			DiskSizeGb:  pulumi.Int(30),
 		},
 	})
 	if err != nil {
@@ -59,10 +62,11 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 
 func NewKubernetesProvider(ctx *pulumi.Context, cluster *container.Cluster) (*kubernetes.Provider, error) {
 	// Create a kubeconfig string
+	masterAuth := cluster.MasterAuth.ClusterCaCertificate()
 	kubeconfig := pulumi.All(cluster.Name, cluster.Endpoint, cluster.MasterAuth).ApplyT(func(args []interface{}) (string, error) {
 		clusterName := args[0].(string)
 		endpoint := args[1].(string)
-		masterAuth := args[2].(*container.ClusterMasterAuth)
+		//masterAuth := args[2].(*container.ClusterMasterAuth)
 		clusterCaCertificate := *masterAuth.ClusterCaCertificate
 
 		return fmt.Sprintf(`

@@ -56,10 +56,13 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 		return nil, err
 	}
 
-	network, subnetwork, err := CreateNetwork(ctx, cloudProvider, projectName, region)
-
 	switch deploymentType {
 	case "k3s":
+		network, subnetwork, err := CreateNetwork(ctx, cloudProvider, projectName, region)
+		if err != nil {
+			return nil, err
+		}
+
 		inst, err := CreateK3sCluster(ctx, network, subnetwork)
 		if err != nil {
 			return nil, err
