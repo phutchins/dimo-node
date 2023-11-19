@@ -2,7 +2,8 @@ package infrastructure
 
 import (
 	"github.com/dimo/dimo-node/utils"
-	"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/compute"
+	//"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/compute"
+	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/compute"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -21,7 +22,8 @@ var firewallOpenPorts = []string{
 // Configure what type of deployment and where it should be deployed
 const cloudProvider = "gcp"
 const deploymentType = "gke"
-const projectName = "dimo-dev"
+const projectName = "dimo-dev-401815"
+const createNodePools = false // Disable to save costs
 
 // Specific configuration that will likely end up being dynamic
 const instanceTag = pulumi.String("dimo")
@@ -37,6 +39,8 @@ const whitelistIp = pulumi.String("24.30.56.126/32")
 // Define variables needed outside the BuildInfrastructure() function
 var KubeConfig *pulumi.StringOutput
 var KubeProvider *kubernetes.Provider
+var Network *compute.Network
+var Subnetwork *compute.Subnetwork
 
 func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 	// Read the SSH Keys from Disk
@@ -56,12 +60,16 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 		return nil, err
 	}
 
+	network, subnetwork, err := CreateNetwork(ctx, cloudProvider, region, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	Network = network
+	Subnetwork = subnetwork
+
 	switch deploymentType {
 	case "k3s":
-		network, subnetwork, err := CreateNetwork(ctx, cloudProvider, projectName, region)
-		if err != nil {
-			return nil, err
-		}
 
 		inst, err := CreateK3sCluster(ctx, network, subnetwork)
 		if err != nil {
@@ -102,6 +110,13 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 		)
 		if err != nil {
 			return nil, err
+		}
+
+		if createNodePools {
+			err = CreateGKENodePools(ctx, projectName, cluster, region)
+			if err != nil {
+				return nil, err
+			}
 		}
 
 		// Create the Kubernetes provider

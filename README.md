@@ -52,6 +52,13 @@ ssh-keygen -t rsa -b 4096 -C "pulumi" -f keys/pulumi_key -N ""
 ```
 
 #### Google Cloud
+Ensure you have the following IAM roles for your GCP user (or service account)
+- Compute Admin
+- Kubernetes Engine Admin
+- Service Account Admin
+- Service Account User
+- Storage Admin
+
 Authenticate to Google Cloud
 ```
 gcloud auth login
@@ -59,12 +66,9 @@ gcloud config set project <project-name>
 gcloud auth application-default login
 ```
 
-CD to each stack directory [ infrastructure | dependencies | application ] and
-do the following
-
 Initialize Pulumi
 ```
-# This will as you to name the stack, you can use the default <dev> name
+# This will ask you to name the stack, you can use the default <dev> name
 pulumi stack init
 ```
 
@@ -81,8 +85,6 @@ Deploy the DIMO node
 # Use -y to automatically respond yes
 pulumi up
 ```
-
-Repeat in the next stack directory
 
 ### Cloud Production Deployment (coming soon)
 To get started, clone this repository and run the following commands:
@@ -111,6 +113,11 @@ kubectl get secrets/db-user-pass --template={{.data.password}} | base64 -D
 Running Pulumi in debug mode
 ```
 pulumi up --logtostderr --logflow -v=10 2> out.txt
+```
+
+List resources in stack with IDs
+```
+pulumi stack -i
 ```
 
 
