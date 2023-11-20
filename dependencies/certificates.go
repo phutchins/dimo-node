@@ -1,12 +1,18 @@
 package dependencies
 
 import (
+	"github.com/dimo/dimo-node/utils"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func InstallCertificateDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"cert-manager", "origin-ca-issuer"})
+	if err != nil {
+		return err
+	}
+
 	err = InstallCertManager(ctx, kubeProvider)
 	if err != nil {
 		return err
@@ -25,9 +31,9 @@ func InstallCertManager(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) 
 	certManager, err := helm.NewChart(ctx, "cert-manager", helm.ChartArgs{
 		Chart: pulumi.String("cert-manager"),
 		FetchArgs: helm.FetchArgs{
-			Repo: pulumi.String("https://charts.jetstack.io"),
+			Repo: pulumi.String("https://charts.jetstack.io/"),
 		},
-		Namespace: pulumi.String("dimo"),
+		Namespace: pulumi.String("cert-manager"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{
 				"imageRegistry": pulumi.String("docker.io"),
@@ -67,9 +73,9 @@ func InstallOriginCAIssuer(ctx *pulumi.Context, kubeProvider *kubernetes.Provide
 	originCAIssuer, err := helm.NewChart(ctx, "origin-ca-issuer", helm.ChartArgs{
 		Chart: pulumi.String("origin-ca-issuer"),
 		FetchArgs: helm.FetchArgs{
-			Repo: pulumi.String("https://charts.jetstack.io"),
+			Repo: pulumi.String("https://cloudflare.github.io/origin-ca-issuer/charts"),
 		},
-		Namespace: pulumi.String("dimo"),
+		Namespace: pulumi.String("origin-ca-issuer"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{
 				"imageRegistry": pulumi.String("docker.io"),

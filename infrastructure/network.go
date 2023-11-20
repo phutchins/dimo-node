@@ -9,18 +9,18 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func CreateNetwork(ctx *pulumi.Context, cloudProvider string, region string, projectName string) (*compute.Network, *compute.Subnetwork, error) {
+func CreateNetwork(ctx *pulumi.Context, cloudProvider string, region string, projectName string, whitelistIp string) (*compute.Network, *compute.Subnetwork, error) {
 	switch cloudProvider {
 	case "aws":
-		return CreateAWSNetwork(ctx, region, projectName)
+		return CreateAWSNetwork(ctx, region, projectName, whitelistIp)
 	case "gcp":
-		return CreateGCPNetwork(ctx, region, projectName)
+		return CreateGCPNetwork(ctx, region, projectName, whitelistIp)
 	default:
 		return nil, nil, fmt.Errorf("cloud provider %s not supported", cloudProvider)
 	}
 }
 
-func CreateGCPNetwork(ctx *pulumi.Context, region string, projectName string) (*compute.Network, *compute.Subnetwork, error) {
+func CreateGCPNetwork(ctx *pulumi.Context, region string, projectName string, whitelistIp string) (*compute.Network, *compute.Subnetwork, error) {
 	networkName := fmt.Sprintf("%s-network", projectName)
 	subnetworkName := fmt.Sprintf("%s-subnetwork", projectName)
 	firewallName := fmt.Sprintf("%s-firewall", projectName)
@@ -54,7 +54,7 @@ func CreateGCPNetwork(ctx *pulumi.Context, region string, projectName string) (*
 		},
 		Direction: pulumi.String("INGRESS"),
 		SourceRanges: pulumi.StringArray{
-			whitelistIp,
+			pulumi.String(whitelistIp),
 		},
 		TargetTags: pulumi.StringArray{
 			pulumi.String(instanceTag),
@@ -70,6 +70,6 @@ func CreateGCPNetwork(ctx *pulumi.Context, region string, projectName string) (*
 	return network, subnetwork, nil
 }
 
-func CreateAWSNetwork(ctx *pulumi.Context, region string, projectName string) (*compute.Network, *compute.Subnetwork, error) {
+func CreateAWSNetwork(ctx *pulumi.Context, region string, projectName string, whitelistIp string) (*compute.Network, *compute.Subnetwork, error) {
 	return nil, nil, nil
 }

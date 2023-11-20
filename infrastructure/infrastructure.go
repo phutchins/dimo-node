@@ -4,8 +4,10 @@ import (
 	"github.com/dimo/dimo-node/utils"
 	//"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/compute"
 	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/compute"
+	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/container"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
 const osImage = "debian-11"
@@ -20,10 +22,18 @@ var firewallOpenPorts = []string{
 }
 
 // Configure what type of deployment and where it should be deployed
-const cloudProvider = "gcp"
-const deploymentType = "gke"
-const projectName = "dimo-dev-401815"
-const createNodePools = false // Disable to save costs
+// K3s (GCP)
+// const cloudProvider = "gcp"
+// const deploymentType = "k3s"
+// GCP (GCP)
+// const cloudProvider = "gcp"
+// const deploymentType = "gke"
+// EKS (AWS)
+//const cloudProvider = "aws"
+//const deploymentType = "eks"
+
+//const projectName = "dimo-dev-401815"
+//const createNodePools = false // Disable to save costs
 
 // Specific configuration that will likely end up being dynamic
 const instanceTag = pulumi.String("dimo")
@@ -31,36 +41,29 @@ const instanceTag = pulumi.String("dimo")
 // Specific configuration for GCP
 // const zone = pulumi.String("us-central1-a")
 // const machineType = "f1-micro"
-const region = "us-central1"
+//const region = "us-central1"
 
 // Configure your own access to the cluster or VM
-const whitelistIp = pulumi.String("24.30.56.126/32")
+//const whitelistIp = pulumi.String("24.30.56.126/32")
 
 // Define variables needed outside the BuildInfrastructure() function
 var KubeConfig *pulumi.StringOutput
 var KubeProvider *kubernetes.Provider
 var Network *compute.Network
 var Subnetwork *compute.Subnetwork
+var Cluster *container.Cluster
 
 func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
-	// Read the SSH Keys from Disk
-	sshKey, sshPrivKey, err := ReadSSHKeysFromDisk(pubKeyPath, privKeyPath)
-	if err != nil {
-		panic(err)
-	}
+	conf := config.New(ctx, "")
+	cloudProvider := conf.Require("cloud-provider")
+	deploymentType := conf.Require("deployment-type")
+	// TODO: Set sane defaults for these if not set
+	projectName := conf.Get("project-name")
+	createNodePools := conf.GetBool("create-node-pools")
+	region := conf.Get("region")
+	whitelistIp := conf.Get("whitelist-ip")
 
-	// Create a GCP network
-
-	_, err = compute.NewProjectMetadata(ctx, "ssh-keys", &compute.ProjectMetadataArgs{
-		Metadata: pulumi.StringMap{
-			"ssh-keys": pulumi.Sprintf("%s:%s", sshUser, sshKey),
-		},
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	network, subnetwork, err := CreateNetwork(ctx, cloudProvider, region, projectName)
+	network, subnetwork, err := CreateNetwork(ctx, cloudProvider, region, projectName, whitelistIp)
 	if err != nil {
 		return nil, err
 	}
@@ -68,8 +71,19 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 	Network = network
 	Subnetwork = subnetwork
 
+	// TODO: Move this switch statement into its own file and call it with GetKubeProvider()
 	switch deploymentType {
 	case "k3s":
+		// Read the SSH Keys from Disk
+		pubKey, privKey, err := ReadSSHKeysFromDisk(pubKeyPath, privKeyPath)
+		if err != nil {
+			panic(err)
+		}
+
+		err = AddSSHKeysMetadata(ctx, cloudProvider, pubKey, privKey)
+		if err != nil {
+			return nil, err
+		}
 
 		inst, err := CreateK3sCluster(ctx, network, subnetwork)
 		if err != nil {
@@ -79,7 +93,7 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 		accessConfigs := inst.NetworkInterfaces.Index(pulumi.Int(0)).AccessConfigs()
 		publicIp := accessConfigs.Index(pulumi.Int(0)).NatIp().Elem()
 
-		connection, err := GetKubeHostConnection(ctx, publicIp, sshPrivKey)
+		connection, err := GetKubeHostConnection(ctx, publicIp, privKey)
 		if err != nil {
 			return nil, err
 		}
@@ -120,18 +134,41 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 		}
 
 		// Create the Kubernetes provider
-		k8sProvider, err := NewKubernetesProvider(ctx, cluster)
+		k8sProvider, err := NewGKEKubernetesProvider(ctx, cluster)
 		if err != nil {
 			return nil, err
 		}
 
-		ctx.Export("k8sProvider", k8sProvider.URN())
 		KubeProvider = k8sProvider
-	case "aks":
-		//inst, err = CreateAKSCluster(ctx, network, subnetwork)
+	case "eks":
+		cluster, err := CreateEKSKubernetesCluster(
+			ctx,
+			projectName,
+			region,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		if createNodePools {
+			err = CreateEKSKubernetesNodePools(ctx, projectName, cluster, region)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		// Create the Kubernetes provider
+		k8sProvider, err := NewEKSKubernetesProvider(ctx, cluster)
+		if err != nil {
+			return nil, err
+		}
+
+		KubeProvider = k8sProvider
 	default:
 		return nil, err
 	}
+
+	ctx.Export("k8sProvider", KubeProvider.URN())
 
 	err = utils.CreateNamespaces(ctx, KubeProvider, []string{"dimo"})
 	if err != nil {

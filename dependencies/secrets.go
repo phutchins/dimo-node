@@ -1,12 +1,18 @@
 package dependencies
 
 import (
+	"github.com/dimo/dimo-node/utils"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func InstallSecretsDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"external-secrets"})
+	if err != nil {
+		return err
+	}
+
 	err = InstallExternalSecrets(ctx, kubeProvider)
 	if err != nil {
 		return err
@@ -22,16 +28,12 @@ func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provid
 	externalSecrets, err := helm.NewChart(ctx, "external-secrets", helm.ChartArgs{
 		Chart: pulumi.String("external-secrets"),
 		FetchArgs: helm.FetchArgs{
-			Repo: pulumi.String("https://external-secrets.github.io/kubernetes-external-secrets/"),
+			Repo: pulumi.String("https://charts.external-secrets.io/"),
 		},
-		Namespace: pulumi.String("dimo"),
+		Namespace: pulumi.String("external-secrets"),
 		Values: pulumi.Map{
-			"image": pulumi.Map{
-				"registry": pulumi.String("docker.io"),
-			},
-			"imagePullSecrets": pulumi.Array{
-				pulumi.String("regcred"),
-			},
+			"installCRDs":       pulumi.Bool(true),
+			"priorityClassName": pulumi.String("high-priority"),
 		},
 	}, pulumi.Provider(kubeProvider))
 	if err != nil {

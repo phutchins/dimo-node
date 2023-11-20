@@ -86,6 +86,29 @@ Deploy the DIMO node
 pulumi up
 ```
 
+#### Amazon Web Services
+Ensure you have the following IAM roles for your AWS user (or service account)
+- AmazonEC2FullAccess
+- AmazonVPCFullAccess
+- AmazonEKSClusterPolicy
+- AmazonEKSWorkerNodePolicy
+- AmazonEKS_CNI_Policy
+- AmazonEKSServicePolicy
+- AmazonEKSContainerRegistryPowerUser
+
+Install the AWS IAM Authenticator
+Doc: https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
+```
+brew install aws-iam-authenticator
+```
+
+Authenticate to AWS
+```
+aws configure
+```
+
+
+
 ### Cloud Production Deployment (coming soon)
 To get started, clone this repository and run the following commands:
 ```
@@ -106,6 +129,12 @@ pulumi refresh
 Get a decoded password from a secret
 ```
 kubectl get secrets/db-user-pass --template={{.data.password}} | base64 -D
+```
+
+Create / Set a variable for a stack
+```
+pulumi stack select [stack-name] # if not already selected
+pulumi config set <key> <value>
 ```
 
 # Troubleshooting & Debugging

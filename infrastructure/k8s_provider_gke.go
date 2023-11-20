@@ -2,7 +2,6 @@ package infrastructure
 
 import (
 	"fmt"
-	"strings"
 
 	//"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/container"
 	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/container"
@@ -36,8 +35,8 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 		Subnetwork:       Subnetwork.ID(),
 		NodeLocations:    pulumi.ToStringArray(nodeLocations),
 		NodeConfig: &container.ClusterNodeConfigArgs{
-			MachineType: pulumi.String("n1-standard-2"),
-			DiskSizeGb:  pulumi.Int(30),
+			MachineType: pulumi.String("n1-standard-2"), // TODO: Make this dynamic
+			DiskSizeGb:  pulumi.Int(30), // TODO: Make this dynamic/configurable
 			OauthScopes: pulumi.ToStringArray(oauthScopes),
 			Preemptible: pulumi.Bool(false),
 		},
@@ -87,33 +86,38 @@ func CreateGKENodePools(ctx *pulumi.Context, projectName string, cluster *contai
 	return nil
 }
 
-func NewKubernetesProvider(ctx *pulumi.Context, cluster *container.Cluster) (*kubernetes.Provider, error) {
+func NewGKEKubernetesProvider(ctx *pulumi.Context, cluster *container.Cluster) (*kubernetes.Provider, error) {
 	// Create a kubeconfig string
 	//masterAuth := cluster.MasterAuth.ClusterCaCertificate()
 	kubeConfig := pulumi.All(cluster.Name, cluster.Endpoint, cluster.MasterAuth).ApplyT(func(args []interface{}) (pulumi.StringOutput, error) {
 		masterAuth := args[2].(container.ClusterMasterAuth)
-		fmt.Printf("(pall) masterAuth: %v\n", masterAuth)
+		//fmt.Printf("(pall) masterAuth: %v\n", masterAuth)
 
-		clusterCaCertificate := masterAuth.ClusterCaCertificate
-		fmt.Printf("(pall) clusterCaCertificate: %s\n", *clusterCaCertificate)
+		//bytes := []byte(*masterAuth.ClusterCaCertificate)
+
+		// encode the byte slice in base64
+		//clusterCaCertificate := base64.StdEncoding.EncodeToString(bytes)
+		//clusterCaCertificate := masterAuth.ClusterCaCertificate
+		clusterCaCertificate := *masterAuth.ClusterCaCertificate
+		//fmt.Printf("(pall) clusterCaCertificate: %s\n", clusterCaCertificate)
 
 		clusterEndpoint := args[1].(string)
-		fmt.Printf("(pall) clusterEndpoint: %s\n", clusterEndpoint)
+		//fmt.Printf("(pall) clusterEndpoint: %s\n", clusterEndpoint)
 
 		clusterName := args[0].(string)
-		fmt.Printf("(pall) clusterName: %s\n", clusterName)
+		//fmt.Printf("(pall) clusterName: %s\n", clusterName)
 
 		kubeConfig := generateKubeconfig(
 			clusterEndpoint,
 			clusterName,
-			*clusterCaCertificate,
+			clusterCaCertificate,
 		)
 
-		fmt.Printf("(pall) Args[0]: %v\n", args[0])
-		fmt.Printf("(pall) Args[1]: %v\n", args[1])
+		//fmt.Printf("(pall) Args[0]: %v\n", args[0])
+		//fmt.Printf("(pall) Args[1]: %v\n", args[1])
 
 		kubeConfig.ApplyT(func(s string) string {
-			fmt.Printf("(pall) kubeConfig: %s\n", s)
+			//fmt.Printf("(pall) kubeConfig: %s\n", s)
 			return s
 		})
 
@@ -126,8 +130,8 @@ func NewKubernetesProvider(ctx *pulumi.Context, cluster *container.Cluster) (*ku
 		return kubeConfig, nil
 	})
 
-	kubeProvider, err := kubernetes.NewProvider(ctx, "k8sProvider", &kubernetes.ProviderArgs{
-		Kubeconfig: kubeConfig,
+	kubeProvider, err := kubernetes.NewProvider(ctx, "GKEk8sProvider", &kubernetes.ProviderArgs{
+		Kubeconfig: kubeConfig.(pulumi.StringOutput),
 	})
 	if err != nil {
 		return nil, err
@@ -142,35 +146,35 @@ func generateKubeconfig(clusterEndpoint string, clusterName string,
 	//context := pulumi.Sprintf("dimo_%s", clusterName).ToStringOutput()
 	context := clusterName
 
-	fmt.Printf("(gen config) clusterCaCertificate: %s\n", clusterCaCertificate)
-	fmt.Printf("(gen config) clusterEndpoint: %s\n", clusterEndpoint)
+	//fmt.Printf("(gen config) clusterCaCertificate: %s\n", clusterCaCertificate)
+	//fmt.Printf("(gen config) clusterEndpoint: %s\n", clusterEndpoint)
 
 	kubeConfig := fmt.Sprintf(`apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: %s
-		server: https://%s
-	name: %s
+    server: https://%s
+  name: %s
 contexts:
 - context:
-		cluster: %s
-		user: %s
-	name: %s
+    cluster: %s
+    user: %s
+  name: %s
 current-context: %s
 kind: Config
 preferences: {}
 users:
 - name: %s
-	user:
-		exec:
-			apiVersion: client.authentication.k8s.io/v1beta1
-			command: gke-gcloud-auth-plugin
-			installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
-				https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
-			provideClusterInfo: true`,
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: gke-gcloud-auth-plugin
+      installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
+        https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+      provideClusterInfo: true`,
 		clusterCaCertificate, clusterEndpoint, context, context, context, context, context, context)
 
-	kubeConfig = strings.Replace(kubeConfig, "\t", "  ", -1)
+	//kubeConfig = strings.Replace(kubeConfig, "\t", "  ", -1)
 
 	/*
 		pulumi.String(kubeConfig).ApplyT(func(s string) string {
@@ -179,7 +183,7 @@ users:
 		})
 	*/
 
-	fmt.Printf("(gen config) kubeConfig: %s\n", kubeConfig)
+	//fmt.Printf("(gen config) kubeConfig: %s\n", kubeConfig)
 	//fmt.Printf("(gen config) kubeConfig: %s\n\n", kubeConfig.(pulumi.StringOutput))
 
 	// Convert kubeConfig to pulumi.StringOutput
