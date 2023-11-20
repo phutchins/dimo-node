@@ -127,7 +127,7 @@ func NewKubernetesProvider(ctx *pulumi.Context, cluster *container.Cluster) (*ku
 	})
 
 	kubeProvider, err := kubernetes.NewProvider(ctx, "k8sProvider", &kubernetes.ProviderArgs{
-		Kubeconfig: kubeConfig.(pulumi.StringOutput),
+		Kubeconfig: kubeConfig,
 	})
 	if err != nil {
 		return nil, err
@@ -146,31 +146,31 @@ func generateKubeconfig(clusterEndpoint string, clusterName string,
 	fmt.Printf("(gen config) clusterEndpoint: %s\n", clusterEndpoint)
 
 	kubeConfig := fmt.Sprintf(`apiVersion: v1
-  clusters:
-  - cluster:
-      certificate-authority-data: %s
-      server: https://%s
-    name: %s
-  contexts:
-  - context:
-      cluster: %s
-      user: %s
-    name: %s
-  current-context: %s
-  kind: Config
-  preferences: {}
-  users:
-  - name: %s
-    user:
-      exec:
-        apiVersion: client.authentication.k8s.io/v1beta1
-        command: gke-gcloud-auth-plugin
-        installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
-          https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
-        provideClusterInfo: true
-  `, clusterCaCertificate, clusterEndpoint, context, context, context, context, context, context)
+clusters:
+- cluster:
+    certificate-authority-data: %s
+		server: https://%s
+	name: %s
+contexts:
+- context:
+		cluster: %s
+		user: %s
+	name: %s
+current-context: %s
+kind: Config
+preferences: {}
+users:
+- name: %s
+	user:
+		exec:
+			apiVersion: client.authentication.k8s.io/v1beta1
+			command: gke-gcloud-auth-plugin
+			installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
+				https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+			provideClusterInfo: true`,
+		clusterCaCertificate, clusterEndpoint, context, context, context, context, context, context)
 
-	kubeConfig = strings.Replace(kubeConfig, "\t", " ", -1)
+	kubeConfig = strings.Replace(kubeConfig, "\t", "  ", -1)
 
 	/*
 		pulumi.String(kubeConfig).ApplyT(func(s string) string {
