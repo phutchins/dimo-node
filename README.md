@@ -37,21 +37,28 @@ To better understand the DIMO node and its components, please review the followi
 ## Getting Started
 You have a few options for getting started with this repository. You can either clone the repository and run the deployment management scripts locally, or you can use the deployment management scripts to deploy a DIMO node to a cloud provider.
 
-### Local Deployment (coming soon)
-To get started, clone this repository and run the following commands:
-```
-[coming soon]
-```
-
-### Cloud Dev Deployment
+## Cloud Dev Deployment
 To get started, clone this repository and run the following commands:
 
-Generate ssh keys for the DIMO node
+Generate ssh keys for the DIMO node (key is used for ssh access to the K3s VM)
 ```
 ssh-keygen -t rsa -b 4096 -C "pulumi" -f keys/pulumi_key -N ""
 ```
 
-#### Google Cloud
+Configure which cloud provider you want to deploy to and the type of deployment
+```
+pulumi config set cloud-provider <cloud-provider> (ex: gcp | aws)
+pulumi config set deployment-type <deployment-type> (ex: gke | eks | k3s)
+```
+
+Acceptable Option Combinations
+- gcp / gke
+- aws / eks
+- gcp / k3s
+
+NOTE: If k3s deployment has only been tested with Google Cloud
+
+### Google Cloud
 Ensure you have the following IAM roles for your GCP user (or service account)
 - Compute Admin
 - Kubernetes Engine Admin
@@ -73,7 +80,7 @@ pulumi stack init
 ```
 
 Set the following Pulumi configuration variables:
-(these will be set as defaults later)
+(defaults set to Google Cloud)
 ```
 pulumi config set gcp:project <project-name> (ex: dimo-dev-401815)
 pulumi config set gcp:zone <zone> (ex: us-central1-a)
@@ -86,7 +93,7 @@ Deploy the DIMO node
 pulumi up
 ```
 
-#### Amazon Web Services
+### Amazon Web Services
 Ensure you have the following IAM roles for your AWS user (or service account)
 - AmazonEC2FullAccess
 - AmazonVPCFullAccess
@@ -135,6 +142,30 @@ Create / Set a variable for a stack
 ```
 pulumi stack select [stack-name] # if not already selected
 pulumi config set <key> <value>
+```
+
+# Cluster Command Line Access
+## Google Cloud
+```
+gcloud container clusters get-credentials <cluster-name> --zone <zone> --project <project-name>
+```
+
+## Amazon Web Services
+### Prerequisites
+Install the AWS IAM Authenticator
+Doc: https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
+```
+brew install aws-iam-authenticator
+```
+
+Authenticate to AWS
+```
+aws configure
+```
+
+### Get Cluster Credentials
+```
+aws eks --region <region> update-kubeconfig --name <cluster-name>
 ```
 
 # Troubleshooting & Debugging

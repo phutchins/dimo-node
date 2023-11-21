@@ -1,4 +1,5 @@
 config:
+  aws:region: us-east-2
   dimo-node:cloud-provider: aws
   dimo-node:create-node-pools: "true"
   dimo-node:deployment-type: eks

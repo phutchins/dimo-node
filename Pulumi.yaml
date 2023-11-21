@@ -6,6 +6,9 @@ config:
   gcp:project: dimo-dev-401815
   gcp:region: us-central1
   gcp:zone: us-central1-a
+  aws:region: us-east-2
+  dimo-node:cloud-provider: gcp
+  dimo-node:create-node-pools: "true"
+  dimo-node:deployment-type: gke
   pulumi:disable-default-providers:
-    - aws
     - kubernetes

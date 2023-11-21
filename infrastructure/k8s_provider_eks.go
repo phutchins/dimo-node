@@ -10,6 +10,11 @@ import (
 // Example can be found here: https://github.com/scottslowe/learning-tools/blob/main/pulumi/eks-from-scratch/main.go
 
 func CreateEKSKubernetesCluster(ctx *pulumi.Context, projectName string, location string) (*eks.Cluster, error) {
+	err := buildAWSNetworking(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	createIam(ctx)
 
 	// Create a Security Group that we can use to actually connect to our cluster
@@ -49,12 +54,14 @@ func CreateEKSKubernetesCluster(ctx *pulumi.Context, projectName string, locatio
 		VpcConfig: &eks.ClusterVpcConfigArgs{
 			EndpointPrivateAccess: pulumi.Bool(false),
 			EndpointPublicAccess:  pulumi.Bool(true),
-			SecurityGroupIds:      pulumi.StringArray{clusterSg.ID()},
 			SubnetIds:             privateSubnets,
+			SecurityGroupIds:      pulumi.StringArray{clusterSg.ID()},
 		},
-		Tags: pulumi.StringMap{
-			"Name": pulumi.String(projectName),
-		},
+		/*
+			Tags: pulumi.StringMap{
+				"Name": pulumi.String(projectName),
+			},
+		*/
 		/*
 			    ScalingConfig: &eks.NodeGroupScalingConfigArgs{
 						DesiredSize: pulumi.Int(3),
@@ -65,6 +72,32 @@ func CreateEKSKubernetesCluster(ctx *pulumi.Context, projectName string, locatio
 	if err != nil {
 		return nil, err
 	}
+
+	// Create a node group for the EKS cluster
+	_, err = eks.NewNodeGroup(ctx, "node-group", &eks.NodeGroupArgs{
+		ClusterName: cluster.Name,
+		NodeRoleArn: eksNodeRoleArn,
+		SubnetIds:   privateSubnets,
+		ScalingConfig: &eks.NodeGroupScalingConfigArgs{
+			DesiredSize: pulumi.Int(3),
+			MaxSize:     pulumi.Int(6),
+			MinSize:     pulumi.Int(3),
+		},
+		UpdateConfig: &eks.NodeGroupUpdateConfigArgs{
+			MaxUnavailable: pulumi.Int(1),
+		},
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	ctx.Export("cluster", cluster)
+	/*
+		cluster.CertificateAuthority.ApplyT(func(ca eks.ClusterCertificateAuthority) error {
+			fmt.Println("cluster: ", ca.Data)
+			return nil
+		})
+	*/
 
 	return cluster, nil
 }
@@ -127,12 +160,17 @@ func CreateEKSKubernetesNodePools(ctx *pulumi.Context, projectName string, clust
 	// Create an EKS node pool
 
 	_, err = eks.NewNodeGroup(ctx, projectName+"-small", &eks.NodeGroupArgs{
-		ClusterName:   cluster.Name,
-		InstanceTypes: pulumi.StringArray{pulumi.String("t2.small")},
+		ClusterName: cluster.Name,
+		//InstanceTypes: pulumi.StringArray{pulumi.String("t2.small")},
+		NodeRoleArn: eksNodeRoleArn,
+		//SubnetIds:   privateSubnets,
 		ScalingConfig: &eks.NodeGroupScalingConfigArgs{
 			DesiredSize: pulumi.Int(3),
 			MinSize:     pulumi.Int(1),
 			MaxSize:     pulumi.Int(5),
+		},
+		UpdateConfig: &eks.NodeGroupUpdateConfigArgs{
+			MaxUnavailable: pulumi.Int(1),
 		},
 		//InstanceProfile: instanceProfile1.Name,
 		/*
@@ -146,12 +184,17 @@ func CreateEKSKubernetesNodePools(ctx *pulumi.Context, projectName string, clust
 	}
 
 	_, err = eks.NewNodeGroup(ctx, projectName+"-medium", &eks.NodeGroupArgs{
-		ClusterName:   cluster.Name,
-		InstanceTypes: pulumi.StringArray{pulumi.String("t2.medium")},
+		ClusterName: cluster.Name,
+		//InstanceTypes: pulumi.StringArray{pulumi.String("t2.medium")},
+		NodeRoleArn: eksNodeRoleArn,
+		//SubnetIds:   privateSubnets,
 		ScalingConfig: &eks.NodeGroupScalingConfigArgs{
 			DesiredSize: pulumi.Int(3),
 			MinSize:     pulumi.Int(1),
 			MaxSize:     pulumi.Int(5),
+		},
+		UpdateConfig: &eks.NodeGroupUpdateConfigArgs{
+			MaxUnavailable: pulumi.Int(1),
 		},
 		/*
 			Labels: map[string]string{
@@ -170,14 +213,14 @@ func NewEKSKubernetesProvider(ctx *pulumi.Context, cluster *eks.Cluster) (*kuber
 	// Create a kubeconfig string
 	//masterAuth := cluster.MasterAuth.ClusterCaCertificate()
 	kubeConfig := pulumi.All(cluster.Name, cluster.Endpoint, cluster.CertificateAuthority).ApplyT(func(args []interface{}) (pulumi.StringOutput, error) {
-		certificateAuthority := args[2].(eks.ClusterCertificateAuthorityOutput)
-		clusterCaCertificate := certificateAuthority.Data().Elem()
+		//certificateAuthority := args[2].(eks.ClusterCertificateAuthorityOutput)
+		//clusterCaCertificate := certificateAuthority.Data().Elem()
 		clusterEndpoint := args[1].(string)
 		clusterName := args[0].(string)
 
 		kubeConfig := generateEKSKubeconfig(
 			clusterEndpoint,
-			clusterCaCertificate,
+			cluster.CertificateAuthority.Data().Elem(),
 			clusterName,
 		)
 

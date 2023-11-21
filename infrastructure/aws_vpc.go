@@ -14,7 +14,8 @@ var publicSubnets pulumi.StringArray
 var privateSubnets pulumi.StringArray
 
 // Builds base infrastructure when called
-func buildInfrastructure(ctx *pulumi.Context) (err error) {
+func buildAWSNetworking(ctx *pulumi.Context) (err error) {
+	fmt.Println("Building AWS Networking")
 	// Look up AZ information for configured region and gather details
 	desiredAzState := "available"
 	rawAzInfo, err := aws.GetAvailabilityZones(ctx, &aws.GetAvailabilityZonesArgs{
@@ -24,9 +25,11 @@ func buildInfrastructure(ctx *pulumi.Context) (err error) {
 		return err
 	}
 	numOfAzs := len(rawAzInfo.Names)
+
 	azNames := make([]string, pulumi.Int(numOfAzs))
 	for i := 0; i < numOfAzs; i++ {
 		azNames[i] = rawAzInfo.Names[i]
+		fmt.Println("AZ Name: ", azNames[i])
 	}
 
 	// Create a new VPC and make the ID accessible outside the function
@@ -34,6 +37,7 @@ func buildInfrastructure(ctx *pulumi.Context) (err error) {
 		CidrBlock:          pulumi.String("10.0.0.0/16"),
 		EnableDnsHostnames: pulumi.Bool(true),
 		EnableDnsSupport:   pulumi.Bool(true),
+
 		Tags: pulumi.StringMap{
 			"kubernetes.io/cluster/testcluster": pulumi.String("shared"),
 		},
