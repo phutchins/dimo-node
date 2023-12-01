@@ -22,13 +22,18 @@ func InstallDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Provider)
 	if err != nil {
 		return err
 	}
-	/*
 
-		err = InstallLinkerD(ctx)
-		if err != nil {
-			return err
-		}
-	*/
+	/*
+	err = InstallLinkerD(ctx)
+	if err != nil {
+		return err
+	} */
+
+	// NGINX Ingress Operator
+
+	// External DNS
+
+	// Prometheus
 
 	/*
 		err = InstallKafka(ctx)

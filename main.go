@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/dimo/dimo-node/applications"
 	"github.com/dimo/dimo-node/dependencies"
 	"github.com/dimo/dimo-node/infrastructure"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -14,6 +15,8 @@ func main() {
 		}
 
 		dependencies.InstallDependencies(ctx, kubeProvider)
+
+		applications.InstallApplications(ctx, kubeProvider)
 
 		return nil
 	})

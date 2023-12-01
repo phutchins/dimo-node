@@ -144,14 +144,14 @@ pulumi stack select [stack-name] # if not already selected
 pulumi config set <key> <value>
 ```
 
-# Cluster Command Line Access
-## Google Cloud
+## Cluster Command Line Access
+### Google Cloud
 ```
 gcloud container clusters get-credentials <cluster-name> --zone <zone> --project <project-name>
 ```
 
-## Amazon Web Services
-### Prerequisites
+### Amazon Web Services
+#### Prerequisites
 Install the AWS IAM Authenticator
 Doc: https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
 ```
@@ -167,6 +167,9 @@ aws configure
 ```
 aws eks --region <region> update-kubeconfig --name <cluster-name>
 ```
+
+## Managing Multiple Stacks
+[coming soon]
 
 # Troubleshooting & Debugging
 ## Pulumi
