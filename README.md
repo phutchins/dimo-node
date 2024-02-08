@@ -200,3 +200,12 @@ pulumi stack -i
 ### Database / Postgres
 - [Postgres Operator](https://postgres-operator.readthedocs.io/en/latest/)
 - [Postgres Cluster Creation/Configuration](https://github.com/zalando/postgres-operator/blob/master/manifests/complete-postgres-manifest.yaml)
+
+
+# FAQ & Troubleshooting
+## Pulumi
+### Error: "Could not get server version from Kubernetes..."
+Try running the following command in order to refresh the stack state from the current resources
+```
+pulumi refresh
+```
