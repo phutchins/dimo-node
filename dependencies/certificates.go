@@ -18,10 +18,12 @@ func InstallCertificateDependencies(ctx *pulumi.Context, kubeProvider *kubernete
 		return err
 	}
 
-	err = InstallOriginCAIssuer(ctx, kubeProvider)
-	if err != nil {
-		return err
-	}
+	/*
+		err = InstallOriginCAIssuer(ctx, kubeProvider)
+		if err != nil {
+			return err
+		}
+	*/
 
 	return nil
 }

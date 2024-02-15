@@ -16,6 +16,9 @@ func InstallDatabaseDependencies(ctx *pulumi.Context) (err error) {
 		return err
 	}
 
+	// Maybe use the crunchyroll operator instead of the zalando one
+	// https://www.pulumi.com/ai/answers/s7UarM5px7wLQgmwWRmrMB/orchestrating-postgresql-on-kubernetes-with-crunchydatas-operator
+	// https://access.crunchydata.com/documentation/postgres-operator/latest
 	// Deploy the postgres operator with helm chart
 	postgresOperator, err := helm.NewChart(ctx, "postgres-operator", helm.ChartArgs{
 		Chart: pulumi.String("postgres-operator"),

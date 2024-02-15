@@ -16,11 +16,9 @@ func InstallContractEventProcessor(ctx *pulumi.Context, kubeProvider *kubernetes
 
 	//Deploy the users-api from helm chart
 	usersApi, err := helm.NewChart(ctx, "contract-event-processor", helm.ChartArgs{
-		Chart: pulumi.String("contract-event-processor"),
-		FetchArgs: helm.FetchArgs{
-			Repo: pulumi.String("https://dimo-network.github.io/contract-event-processor"),
-		},
-		Namespace: pulumi.String("device-data"),
+		Chart:     pulumi.String("contract-event-processor"),
+		Path:      pulumi.String("./cluster-helm-charts/charts"),
+		Namespace: pulumi.String("contract-event-processor"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{
 				"imageRegistry": pulumi.String("docker.io"), // We need to push public versions of the images to docker.io
@@ -45,7 +43,7 @@ func InstallContractEventProcessor(ctx *pulumi.Context, kubeProvider *kubernetes
 		return err
 	}
 
-	ctx.Export("deviceDataAPI", usersApi.URN())
+	ctx.Export("ContractEventProcessor", usersApi.URN())
 
 	return nil
 }

@@ -10,3 +10,9 @@
 [submodule "applications/contract-event-processor"]
 	path = applications/contract-event-processor
 	url = git@github.com:DIMO-Network/contract-event-processor.git
+[submodule "applications/cluster-helm-charts"]
+	path = applications/cluster-helm-charts
+	url = git@github.com:DIMO-Network/cluster-helm-charts.git
+[submodule "applications/certificate-webhook-api"]
+	path = applications/certificate-webhook-api
+	url = git@github.com:DIMO-Network/certificate-webhook-api.git

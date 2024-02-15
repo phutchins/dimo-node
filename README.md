@@ -201,6 +201,23 @@ pulumi stack -i
 - [Postgres Operator](https://postgres-operator.readthedocs.io/en/latest/)
 - [Postgres Cluster Creation/Configuration](https://github.com/zalando/postgres-operator/blob/master/manifests/complete-postgres-manifest.yaml)
 
+# Considerations & Technical Notes
+## Pulumi
+### API & Resource Type Usage Choices
+- [Pulumi API Reference](https://www.pulumi.com/docs/reference/pkg/)
+- [Pulumi GCP Provider](https://www.pulumi.com/docs/reference/pkg/gcp/)
+- [Pulumi AWS Provider](https://www.pulumi.com/docs/reference/pkg/aws/)
+- [Pulumi Azure Provider](https://www.pulumi.com/docs/reference/pkg/azure/)
+- [Pulumi Kubernetes Provider](https://www.pulumi.com/docs/reference/pkg/kubernetes/)
+- [Pulumi Helm Provider](https://www.pulumi.com/docs/reference/pkg/helm/)
+
+Pulumi provides a few different ways to deploy Helm resources to a Kubernetes cluster. 
+
+The more mature and more tightly integrated API is the [Helm V3 Chart](https://www.pulumi.com/registry/packages/kubernetes/api-docs/helm/v3/chart). This approach is more tightly integrated with Pulumi allowing more visibility into the values and resources.
+
+The other approach is to use the [Helm Release](https://www.pulumi.com/registry/packages/kubernetes/api-docs/helm/v3/release) resource. This approach is less tightly integrated with Pulumi and is more of a "fire and forget" approach. This approach is less verbose and more concise but may not be as flexible as the Helm V3 Chart approach. It however does allow for more flexibility in the Helm release lifecycle, supports hooks, and enables configuration of custom Chart.yaml file names.
+
+- Choosing the Right Helm Resource For Your Use Case](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case/)
 
 # FAQ & Troubleshooting
 ## Pulumi

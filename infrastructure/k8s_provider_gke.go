@@ -13,8 +13,8 @@ import (
 // ignoreChanges: ["verticalPodAutoscaling"],
 var nodeLocations = []string{
 	"us-central1-a",
-	"us-central1-b",
-	"us-central1-c",
+	//"us-central1-b",
+	//"us-central1-c",
 }
 
 var oauthScopes = []string{
@@ -29,14 +29,15 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 	cluster, err := container.NewCluster(ctx, projectName, &container.ClusterArgs{
 		InitialNodeCount: pulumi.Int(1),
 		//RemoveDefaultNodePool: pulumi.Bool(true),
-		Location:         pulumi.String(location),
+		Location: pulumi.String("us-central1-a"),
+		//Location:         pulumi.String(location),
 		MinMasterVersion: pulumi.String("latest"),
 		Network:          Network.ID(),
 		Subnetwork:       Subnetwork.ID(),
-		NodeLocations:    pulumi.ToStringArray(nodeLocations),
+		//NodeLocations:    pulumi.ToStringArray(nodeLocations),
 		NodeConfig: &container.ClusterNodeConfigArgs{
-			MachineType: pulumi.String("n1-standard-2"), // TODO: Make this dynamic
-			DiskSizeGb:  pulumi.Int(30), // TODO: Make this dynamic/configurable
+			MachineType: pulumi.String("n1-standard-1"), // TODO: Make this dynamic
+			DiskSizeGb:  pulumi.Int(30),                 // TODO: Make this dynamic/configurable
 			OauthScopes: pulumi.ToStringArray(oauthScopes),
 			Preemptible: pulumi.Bool(false),
 		},

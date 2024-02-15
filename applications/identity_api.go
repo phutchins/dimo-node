@@ -12,10 +12,8 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) 
 	environmentName := conf.Require("environment")
 	//Deploy the users-api from helm chart
 	usersApi, err := helm.NewChart(ctx, "identity-api", helm.ChartArgs{
-		Chart: pulumi.String("identity-api"),
-		FetchArgs: helm.FetchArgs{
-			Repo: pulumi.String("https://dimo-network.github.io/identity-api"),
-		},
+		Chart:     pulumi.String("identity-api"),
+		Path:      pulumi.String("./identity-api/charts"),
 		Namespace: pulumi.String("identity"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{

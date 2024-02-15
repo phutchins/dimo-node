@@ -5,7 +5,7 @@ description: A Pulumi to run a DIMO node
 config:
   gcp:project: dimo-dev-401815
   gcp:region: us-central1
-  gcp:zone: us-central1-a
+  gcp:zone: us-central1-c
   aws:region: us-east-2
   dimo-node:cloud-provider: gcp
   dimo-node:create-node-pools: "false"

@@ -12,10 +12,8 @@ func InstallDeviceDataApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider
 	environmentName := conf.Require("environment")
 	//Deploy the users-api from helm chart
 	usersApi, err := helm.NewChart(ctx, "device-data-api", helm.ChartArgs{
-		Chart: pulumi.String("device-data-api"),
-		FetchArgs: helm.FetchArgs{
-			Repo: pulumi.String("https://dimo-network.github.io/device-data-api"),
-		},
+		Chart:     pulumi.String("device-data-api"),
+		Path:      pulumi.String("./device-data-api/charts"),
 		Namespace: pulumi.String("device-data"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{
@@ -25,7 +23,7 @@ func InstallDeviceDataApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
 				"pullPolicy": pulumi.String("IfNotPResent"),
-				"repository": pulumi.String("dimo-network/device-data-api"), // build and push from local for now
+				"repository": pulumi.String("dimozone/device-data-api"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{
 				"enabled": pulumi.Bool(true),
@@ -50,20 +48,20 @@ func InstallDeviceDataApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider
 				},
 			},
 			"env": pulumi.Map{
-				"ENVIRONMENT":                       pulumi.String(environmentName),
-				"PORT":                              pulumi.String("8080"),
-				"LOG_LEVEL":                         pulumi.String("info"),
-				"SERVICE_NAME":                      pulumi.String("device-data-api"), // ?
-				"JWT_KEY_SET_URL":                   pulumi.String("https://auth.dimo.zone/keys"), // Comes from DEX
-				"DEPLOYMENT_BASE_URL":               pulumi.String("https://device-data-api.dimo.zone"),
-				"DEVICE_DATA_INDEX_NAME":            pulumi.String("device-status-prod*"),
-				"DEVICE_DATA_INDEX_NAME_V2":         pulumi.String("vss-status-prod*"),
-				"DEVICES_APIGRPC_ADDR":              pulumi.String("devices-api-prod:8086"),
-				"ENABLE_PRIVILEGES":                 pulumi.Bool(true), // Should prob always be true
-				"TOKEN_EXCHANGE_JWK_KEY_SET_URL":    pulumi.String("http://dex-roles-rights-" + environmentName + ".prod.svc.cluster.local:5556/keys"), // TODO: Replace this other prod with cluster url stuff
-				"VEHICLE_NFT_ADDRESS":               pulumi.String("0xba5738a18d83d41847dffbdc6101d37c69c9b0cf"), // Might not need to be here later?
+				"ENVIRONMENT":                    pulumi.String(environmentName),
+				"PORT":                           pulumi.String("8080"),
+				"LOG_LEVEL":                      pulumi.String("info"),
+				"SERVICE_NAME":                   pulumi.String("device-data-api"),             // ?
+				"JWT_KEY_SET_URL":                pulumi.String("https://auth.dimo.zone/keys"), // Comes from DEX
+				"DEPLOYMENT_BASE_URL":            pulumi.String("https://device-data-api.dimo.zone"),
+				"DEVICE_DATA_INDEX_NAME":         pulumi.String("device-status-prod*"),
+				"DEVICE_DATA_INDEX_NAME_V2":      pulumi.String("vss-status-prod*"),
+				"DEVICES_APIGRPC_ADDR":           pulumi.String("devices-api-prod:8086"),
+				"ENABLE_PRIVILEGES":              pulumi.Bool(true),                                                                                 // Should prob always be true
+				"TOKEN_EXCHANGE_JWK_KEY_SET_URL": pulumi.String("http://dex-roles-rights-" + environmentName + ".prod.svc.cluster.local:5556/keys"), // TODO: Replace this other prod with cluster url stuff
+				"VEHICLE_NFT_ADDRESS":            pulumi.String("0xba5738a18d83d41847dffbdc6101d37c69c9b0cf"),                                       // Might not need to be here later?
 				//"DEVICE_DEFINITIONS_GRPC_ADDR":      pulumi.String("device-definitions-api-prod:8086"), // See if service works without this
-				"USERS_API_GRPC_ADDR":               pulumi.String("users-api-prod:8086"),
+				"USERS_API_GRPC_ADDR": pulumi.String("users-api-prod:8086"),
 				//"AWS_BUCKET_NAME":                   pulumi.String("dimo-network-device-data-export-prod"), // Needs to go away
 				//"NATS_URL":                          pulumi.String("nats-prod:4222"), // Why?
 				"KAFKA_BROKERS":                     pulumi.String("kafka-" + environmentName + "-dimo-kafka-kafka-brokers:9092"),

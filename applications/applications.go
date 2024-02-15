@@ -15,18 +15,15 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider)
 		"device-data-api",
 		"contract-event-processor",
 		"mqtt-broker",
-		"dex",
+		"dex-auth-n", // Authentication
+		"dex-auth-z", // Authorization
 		"webhook-validator",
 		"certificate-authority",
 	}
 
-	// Identity API
-
-	// Certificate API
-
-	// MQDT Broker
-
 	// Users API - https://github.com/DIMO-Network/users-api/tree/main/charts/users-api
+	// Chart Link [ ]
+	// 
 	if slices.Contains(applications, "users-api") {
 		err = InstallUsersApi(ctx, kubeProvider)
 		if err != nil {
@@ -58,56 +55,69 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider)
 		}
 	}
 
-	/*
-		// MQTT Broker - Cluster Helm Charts (single instance, two services inside)
-		// May need to create a config map with bogus pub/priv keypair for now
-		// Pull most everything in
-		// Will need to set up ingress
-		if slices.Contains(applications, "mqtt-broker") {
-			err = InstallMqttBroker(ctx, kubeProvider)
-			if err != nil {
-				return err
-			}
+	// MQTT Broker - Cluster Helm Charts (single instance, two services inside)
+	// May need to create a config map with bogus pub/priv keypair for now
+	// Pull most everything in
+	// Will need to set up ingress
+	if slices.Contains(applications, "mqtt-broker") {
+		err = InstallMQTTBroker(ctx, kubeProvider)
+		if err != nil {
+			return err
 		}
+	}
 
-		// Dex - Cluster Helm Charts (two sets of values files, values/values-prod (dex1 - Auth N) )
-		// roles-rights/roles-rights-prod (dex2 - Auth Z) - turns auth token into vehicle auth token
+	// Dex - Cluster Helm Charts (two sets of values files, values/values-prod (dex1 - Auth N) )
+	// roles-rights/roles-rights-prod (dex2 - Auth Z) - turns auth token into vehicle auth token
 
-		// Dex1 - Auth N
-		// Static clients block will go away and move to on chain (try to skip it for now)
-		// issuer is just URL config (issued by)
-		// Create the dex-X-secret (dont include environment from and don't create)
-		if slices.Contains(applications, "dex1") {
-			err = InstallDex1(ctx, kubeProvider)
-			if err != nil {
-				return err
-			}
+	// Dex1 - Auth N
+	// Static clients block will go away and move to on chain (try to skip it for now)
+	// issuer is just URL config (issued by)
+	// Create the dex-X-secret (dont include environment from and don't create)
+	if slices.Contains(applications, "dex-auth-n") {
+		err = InstallDexAuthN(ctx, kubeProvider)
+		if err != nil {
+			return err
 		}
+	}
 
-		// Dex2 - Auth Z
-		if slices.Contains(applications, "dex2") {
-			err = InstallDex1(ctx, kubeProvider)
-			if err != nil {
-				return err
-			}
+	// Dex2 - Auth Z
+	// Token expires quicker than the other (10 min)
+	// Not exposed publicly
+	// Connector may not be necessary (even though it says it is lol)
+	if slices.Contains(applications, "dex-auth-z") {
+		err = InstallDexAuthZ(ctx, kubeProvider)
+		if err != nil {
+			return err
 		}
+	}
 
-		// Webhook Validator
-		if slices.Contains(applications, "webhook-validator") {
-			err = InstallWebhookValidator(ctx, kubeProvider)
-			if err != nil {
-				return err
-			}
+	// token-exchange-api
+	//   ENVIRONMENT: prod
+	//   JWT_KEY_SET_URL: https://auth.dimo.zone/keys
+	//   DEX_GRPC_ADDRESS: dex-roles-rights-prod:5557
+	//   USERS_API_GRPC_ADDRESS: users-api-prod:8086
+	//   CONTRACT_ADDRESS_WHITELIST: '0xba5738a18d83d41847dffbdc6101d37c69c9b0cf'
+	//     - address is vehicle contract address
+
+	// Webhook Validator
+	// Token Base Uri is used in the certificateResponseData
+	// Already configured with chain_id 137 (polygon)
+	if slices.Contains(applications, "webhook-validator") {
+		err = InstallWebhookValidator(ctx, kubeProvider)
+		if err != nil {
+			return err
 		}
+	}
 
-		// Certificate Authority
-		if slices.Contains(applications, "certificate-authority") {
-			err = InstallCertificateAuthority(ctx, kubeProvider)
-			if err != nil {
-				return err
-			}
+	// Certificate Authority
+	// Before needed to manually create KMS keys (generate) - There is a GIST for this but now is a CLI
+	//   ^ for aws, need to figure out GCP
+	if slices.Contains(applications, "certificate-authority") {
+		err = InstallCertificateAuthority(ctx, kubeProvider)
+		if err != nil {
+			return err
 		}
+	}
 
-	*/
 	return nil
 }
