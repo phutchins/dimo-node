@@ -13,7 +13,7 @@ func InstallDeviceDataApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider
 	//Deploy the users-api from helm chart
 	usersApi, err := helm.NewChart(ctx, "device-data-api", helm.ChartArgs{
 		Chart:     pulumi.String("device-data-api"),
-		Path:      pulumi.String("./device-data-api/charts"),
+		Path:      pulumi.String("./applications/device-data-api/charts"),
 		Namespace: pulumi.String("device-data"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{
@@ -22,7 +22,7 @@ func InstallDeviceDataApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider
 			"image": pulumi.Map{
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
-				"pullPolicy": pulumi.String("IfNotPResent"),
+				"pullPolicy": pulumi.String("IfNotPresent"),
 				"repository": pulumi.String("dimozone/device-data-api"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{

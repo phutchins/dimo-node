@@ -120,6 +120,7 @@ require (
 	github.com/pulumi/pulumi-aws/sdk/v5 v5.42.0 // indirect
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.9.0 // indirect
 	github.com/pulumi/pulumi-gcp/sdk/v7 v7.1.0 // indirect
+	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.30.2
 	github.com/pulumi/pulumi/sdk v1.13.1 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect

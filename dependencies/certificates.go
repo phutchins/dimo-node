@@ -30,9 +30,10 @@ func InstallCertificateDependencies(ctx *pulumi.Context, kubeProvider *kubernete
 
 func InstallCertManager(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) error {
 	// Install cert-manager helm chart
-	certManager, err := helm.NewChart(ctx, "cert-manager", helm.ChartArgs{
+
+	certManager, err := helm.NewRelease(ctx, "cert-manager", &helm.ReleaseArgs{
 		Chart: pulumi.String("cert-manager"),
-		FetchArgs: helm.FetchArgs{
+		RepositoryOpts: &helm.RepositoryOptsArgs{
 			Repo: pulumi.String("https://charts.jetstack.io/"),
 		},
 		Namespace: pulumi.String("cert-manager"),
@@ -64,6 +65,43 @@ func InstallCertManager(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) 
 	if err != nil {
 		return err
 	}
+
+	/*
+		certManager, err := helm.NewChart(ctx, "cert-manager", helm.ChartArgs{
+			Chart: pulumi.String("cert-manager"),
+			FetchArgs: helm.FetchArgs{
+				Repo: pulumi.String("https://charts.jetstack.io/"),
+			},
+			Namespace: pulumi.String("cert-manager"),
+			Values: pulumi.Map{
+				"global": pulumi.Map{
+					"imageRegistry": pulumi.String("docker.io"),
+				},
+				"installCRDs": pulumi.Bool(true),
+				"imagePullSecrets": pulumi.Array{
+					pulumi.String("regcred"),
+				},
+				"webhook": pulumi.Map{
+					"image": pulumi.Map{
+						"imagePullPolicy": pulumi.String("IfNotPresent"),
+					},
+				},
+				"certManager": pulumi.Map{
+					"image": pulumi.Map{
+						"imagePullPolicy": pulumi.String("IfNotPresent"),
+					},
+				},
+				"cainjector": pulumi.Map{
+					"image": pulumi.Map{
+						"imagePullPolicy": pulumi.String("IfNotPresent"),
+					},
+				},
+			},
+		}, pulumi.Provider(kubeProvider))
+		if err != nil {
+			return err
+		}
+	*/
 
 	ctx.Export("certManager", certManager.URN())
 

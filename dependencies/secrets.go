@@ -23,6 +23,8 @@ func InstallSecretsDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Pr
 	return nil
 }
 
+// Could set up the GCP or other cloud provider secret store here
+
 func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) error {
 	// Install external-secrets helm chart
 	externalSecrets, err := helm.NewChart(ctx, "external-secrets", helm.ChartArgs{

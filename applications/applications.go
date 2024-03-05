@@ -3,6 +3,7 @@ package applications
 import (
 	"slices"
 
+	"github.com/dimo/dimo-node/utils"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -21,9 +22,14 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider)
 		"certificate-authority",
 	}
 
+	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"certificate-webhook-api", "certificate-authority", "device-data", "contract-event-processor", "identity"})
+	if err != nil {
+		return err
+	}
+
 	// Users API - https://github.com/DIMO-Network/users-api/tree/main/charts/users-api
 	// Chart Link [ ]
-	// 
+	//
 	if slices.Contains(applications, "users-api") {
 		err = InstallUsersApi(ctx, kubeProvider)
 		if err != nil {

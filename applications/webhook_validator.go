@@ -13,7 +13,7 @@ func InstallWebhookValidator(ctx *pulumi.Context, kubeProvider *kubernetes.Provi
 	//Deploy the users-api from helm chart
 	usersApi, err := helm.NewChart(ctx, "certificate-webhook-api", helm.ChartArgs{
 		Chart:     pulumi.String("certificate-webhook-api"),
-		Path:      pulumi.String("./certificate-webhook-api/charts/certificate-webhook-api"),
+		Path:      pulumi.String("./applications/certificate-webhook-api/charts"),
 		Namespace: pulumi.String("certificate-webhook-api"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{
@@ -22,7 +22,7 @@ func InstallWebhookValidator(ctx *pulumi.Context, kubeProvider *kubernetes.Provi
 			"image": pulumi.Map{
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
-				"pullPolicy": pulumi.String("IfNotPResent"),
+				"pullPolicy": pulumi.String("IfNotPresent"),
 				"repository": pulumi.String("dimo-network/certificate-webhook-api"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{

@@ -22,7 +22,7 @@ func InstallDexAuthZ(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (er
 			"image": pulumi.Map{
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
-				"pullPolicy": pulumi.String("IfNotPResent"),
+				"pullPolicy": pulumi.String("IfNotPresent"),
 				"repository": pulumi.String("dimo-network/dimo-dex"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{

@@ -1,6 +1,7 @@
 package applications
 
 import (
+	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/secretmanager"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -9,6 +10,58 @@ import (
 func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
 	//conf := config.New(ctx, "")
 	//environmentName := conf.Require("environment")
+
+	// Create a secret for the dex-auth-n called dex-apple-auth-secret
+	_, err = secretmanager.NewSecret(ctx, "dex-apple-auth-secret", &secretmanager.SecretArgs{
+		Labels: pulumi.StringMap{
+			"label": pulumi.String("my-label"),
+		},
+		Replication: &secretmanager.SecretReplicationArgs{
+			UserManaged: &secretmanager.SecretReplicationUserManagedArgs{
+				Replicas: secretmanager.SecretReplicationUserManagedReplicaArray{
+					&secretmanager.SecretReplicationUserManagedReplicaArgs{
+						Location: pulumi.String("us-central1"),
+					},
+					&secretmanager.SecretReplicationUserManagedReplicaArgs{
+						Location: pulumi.String("us-east1"),
+					},
+				},
+			},
+		},
+		SecretId: pulumi.String("secret"),
+	})
+	if err != nil {
+		return err
+	}
+	//return nil
+
+	secret_basic, err := secretmanager.NewSecret(ctx, "secret-basic", &secretmanager.SecretArgs{
+		SecretId: pulumi.String("secret-version"),
+		Labels: pulumi.StringMap{
+			"label": pulumi.String("my-label"),
+		},
+		Replication: &secretmanager.SecretReplicationArgs{
+			UserManaged: &secretmanager.SecretReplicationUserManagedArgs{
+				Replicas: secretmanager.SecretReplicationUserManagedReplicaArray{
+					&secretmanager.SecretReplicationUserManagedReplicaArgs{
+						Location: pulumi.String("us-central1"),
+					},
+				},
+			},
+		},
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = secretmanager.NewSecretVersion(ctx, "secret-version-basic", &secretmanager.SecretVersionArgs{
+		Secret:     secret_basic.ID(),
+		SecretData: pulumi.String("secret-data"),
+	})
+	if err != nil {
+		return err
+	}
+
 	//Deploy the users-api from helm chart
 	dexAuthN, err := helm.NewRelease(ctx, "dex-auth-n", &helm.ReleaseArgs{
 		Chart: pulumi.String("./applications/cluster-helm-charts/charts/dimo-dex"),
@@ -53,7 +106,7 @@ func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (er
 	// 		"image": pulumi.Map{
 	// 			"registry":   pulumi.String("docker.io"),
 	// 			"tag":        pulumi.String("latest"),
-	// 			"pullPolicy": pulumi.String("IfNotPResent"),
+	// 			"pullPolicy": pulumi.String("IfNotPresent"),
 	// 			"repository": pulumi.String("dimo-network/dimo-dex"), // build and push from local for now
 	// 		},
 	// 		"ingress": pulumi.Map{

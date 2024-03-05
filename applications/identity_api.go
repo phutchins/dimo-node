@@ -13,7 +13,7 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) 
 	//Deploy the users-api from helm chart
 	usersApi, err := helm.NewChart(ctx, "identity-api", helm.ChartArgs{
 		Chart:     pulumi.String("identity-api"),
-		Path:      pulumi.String("./identity-api/charts"),
+		Path:      pulumi.String("./applications/identity-api/charts"),
 		Namespace: pulumi.String("identity"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{
@@ -22,7 +22,7 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) 
 			"image": pulumi.Map{
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
-				"pullPolicy": pulumi.String("IfNotPResent"),
+				"pullPolicy": pulumi.String("IfNotPresent"),
 				"repository": pulumi.String("dimo-network/identity-api"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{

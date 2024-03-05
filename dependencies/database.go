@@ -81,5 +81,32 @@ func InstallDatabaseDependencies(ctx *pulumi.Context) (err error) {
 
 	ctx.Export("postgresClusterCRD", postgresClusterCRD.URN())
 
+	/*
+		_, err = apiextensions.NewCustomResource(ctx, "acid-minimal-cluster", &apiextensions.CustomResourceArgs{
+			ApiVersion: pulumi.String("acid.zalan.do/v1"),
+			Kind:       pulumi.String("postgresql"),
+			Metadata: metav1.ObjectMetaArgs{
+				Name:      pulumi.String("acid-minimal-cluster"),
+				Namespace: pulumi.String("postgres"),
+			},
+			OtherFields: map[string]interface{}{
+				"spec": pulumi.Map{
+					"teamId":            pulumi.String("acid"),
+					"volume":            pulumi.Map{"size": pulumi.String("1Gi"), "storageClass": pulumi.String("standard")},
+					"numberOfInstances": pulumi.Int(2),
+					"users":             pulumi.Map{"zalando": pulumi.Array{}},
+					"databases":         pulumi.Map{"foo": pulumi.String("zalando")},
+					"postgresql": pulumi.Map{
+						"version": pulumi.String("13"),
+					},
+				},
+			},
+			// TODO: Add NS dependency back to this: pulumi.DependsOn([]pulumi.Resource{ns})
+		}, pulumi.Provider(infrastructure.KubeProvider))
+		if err != nil {
+			return err
+		}
+	*/
+
 	return nil
 }

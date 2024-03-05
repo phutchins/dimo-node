@@ -8,7 +8,7 @@ config:
   gcp:zone: us-central1-c
   aws:region: us-east-2
   dimo-node:cloud-provider: gcp
-  dimo-node:create-node-pools: "false"
+  dimo-node:create-node-pools: false
   dimo-node:deployment-type: gke
   pulumi:disable-default-providers:
     - kubernetes
