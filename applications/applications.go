@@ -5,10 +5,11 @@ import (
 
 	"github.com/dimo/dimo-node/utils"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, SecretsProvider *helm.Chart) (err error) {
 	// Use this later to configure sets of applications to install
 	applications := []string{
 		//"users-api",
@@ -80,7 +81,7 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider)
 	// issuer is just URL config (issued by)
 	// Create the dex-X-secret (dont include environment from and don't create)
 	if slices.Contains(applications, "dex-auth-n") {
-		err = InstallDexAuthN(ctx, kubeProvider)
+		err = InstallDexAuthN(ctx, kubeProvider, SecretsProvider)
 		if err != nil {
 			return err
 		}

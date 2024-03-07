@@ -14,9 +14,9 @@ func main() {
 			return err
 		}
 
-		dependencies.InstallDependencies(ctx, kubeProvider)
+		err, SecretsProvider := dependencies.InstallDependencies(ctx, kubeProvider)
 
-		err = applications.InstallApplications(ctx, kubeProvider)
+		err = applications.InstallApplications(ctx, kubeProvider, SecretsProvider)
 		if err != nil {
 			return err
 		}

@@ -3,18 +3,38 @@ package applications
 import (
 	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/secretmanager"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, SecretsProvider *helm.Chart) (err error) {
 	//conf := config.New(ctx, "")
 	//environmentName := conf.Require("environment")
 
 	// Create a secret for the dex-auth-n called dex-apple-auth-secret
-	_, err = secretmanager.NewSecret(ctx, "dex-apple-auth-secret", &secretmanager.SecretArgs{
+
+	// Do it with the external secrets provider crd instead of through google?
+	_, err = apiextensions.NewCustomResource(ctx, "external-secret-dex-auth-n", &apiextensions.CustomResourceArgs{
+		ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
+		Kind:       pulumi.String("ExternalSecret"),
+		Metadata: &metav1.ObjectMetaArgs{
+			Name:      pulumi.String("dex-apple-auth-secret"),
+			Namespace: pulumi.String("dex"),
+		},
+		OtherFields: map[string]interface{}{
+			"key":  pulumi.String("secret"),
+			"name": pulumi.String("daas-secret"),
+		},
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}))
+	if err != nil {
+		return err
+	}
+
+	daas, err := secretmanager.NewSecret(ctx, "dex-apple-auth-secret", &secretmanager.SecretArgs{
 		Labels: pulumi.StringMap{
-			"label": pulumi.String("my-label"),
+			"label": pulumi.String("dex-auth-n-secret"),
 		},
 		Replication: &secretmanager.SecretReplicationArgs{
 			UserManaged: &secretmanager.SecretReplicationUserManagedArgs{
@@ -29,38 +49,50 @@ func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (er
 			},
 		},
 		SecretId: pulumi.String("secret"),
-	})
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{}))
 	if err != nil {
 		return err
 	}
+
+	// Create a secret version for the dex-auth-n called daas-secret-version
+	_, err = secretmanager.NewSecretVersion(ctx, "daas-secret-version", &secretmanager.SecretVersionArgs{
+		Secret:     pulumi.String("dex-apple-auth-secret"),
+		SecretData: pulumi.String("secret-data"),
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{daas}))
+	if err != nil {
+		return err
+	}
+
 	//return nil
 
-	secret_basic, err := secretmanager.NewSecret(ctx, "secret-basic", &secretmanager.SecretArgs{
-		SecretId: pulumi.String("secret-version"),
-		Labels: pulumi.StringMap{
-			"label": pulumi.String("my-label"),
-		},
-		Replication: &secretmanager.SecretReplicationArgs{
-			UserManaged: &secretmanager.SecretReplicationUserManagedArgs{
-				Replicas: secretmanager.SecretReplicationUserManagedReplicaArray{
-					&secretmanager.SecretReplicationUserManagedReplicaArgs{
-						Location: pulumi.String("us-central1"),
+	/*
+		secret_basic, err := secretmanager.NewSecret(ctx, "secret-basic", &secretmanager.SecretArgs{
+			SecretId: pulumi.String("secret-version"),
+			Labels: pulumi.StringMap{
+				"label": pulumi.String("my-label"),
+			},
+			Replication: &secretmanager.SecretReplicationArgs{
+				UserManaged: &secretmanager.SecretReplicationUserManagedArgs{
+					Replicas: secretmanager.SecretReplicationUserManagedReplicaArray{
+						&secretmanager.SecretReplicationUserManagedReplicaArgs{
+							Location: pulumi.String("us-central1"),
+						},
 					},
 				},
 			},
-		},
-	})
-	if err != nil {
-		return err
-	}
+		})
+		if err != nil {
+			return err
+		}
 
-	_, err = secretmanager.NewSecretVersion(ctx, "secret-version-basic", &secretmanager.SecretVersionArgs{
-		Secret:     secret_basic.ID(),
-		SecretData: pulumi.String("secret-data"),
-	})
-	if err != nil {
-		return err
-	}
+		_, err = secretmanager.NewSecretVersion(ctx, "secret-version-basic", &secretmanager.SecretVersionArgs{
+			Secret:     secret_basic.ID(),
+			SecretData: pulumi.String("secret-data"),
+		})
+		if err != nil {
+			return err
+		}
+	*/
 
 	//Deploy the users-api from helm chart
 	dexAuthN, err := helm.NewRelease(ctx, "dex-auth-n", &helm.ReleaseArgs{

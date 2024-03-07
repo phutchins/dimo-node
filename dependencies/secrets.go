@@ -2,47 +2,128 @@ package dependencies
 
 import (
 	"github.com/dimo/dimo-node/utils"
+	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/serviceaccount"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func InstallSecretsDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+// Define global variable for SecretsProvider
+var SecretsProvider *helm.Chart
+
+func InstallSecretsDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error, SecretsProvider *helm.Chart) {
 	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"external-secrets"})
 	if err != nil {
-		return err
+		return err, nil
 	}
 
-	err = InstallExternalSecrets(ctx, kubeProvider)
+	//err = CreateESSecrets(ctx, kubeProvider)
+
+	err, SecretsProvider = InstallExternalSecrets(ctx, kubeProvider)
 	if err != nil {
-		return err
+		return err, nil
 	}
 
 	// TODO: Create link to external secret stores (add param to function for secret store location)
+
+	return nil, SecretsProvider
+}
+
+// If we're not using roles, use a service account key
+func CreateESSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) error {
+	// Create a secret to store the GCP service account key
+	_, err := corev1.NewSecret(ctx, "secret-service-account-key", &corev1.SecretArgs{
+		Metadata: &metav1.ObjectMetaArgs{
+			Name:      pulumi.String("secret-service-account-key"),
+			Namespace: pulumi.String("external-secrets"),
+		},
+		StringData: pulumi.StringMap{
+			"KEYID":     pulumi.String(""),
+			"SECRETKEY": pulumi.String(""),
+		},
+		Type: pulumi.String("Opaque"),
+	}, pulumi.Provider(kubeProvider))
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
 
 // Could set up the GCP or other cloud provider secret store here
-
-func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) error {
+func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error, SecretsProvider *helm.Chart) {
 	// Install external-secrets helm chart
-	externalSecrets, err := helm.NewChart(ctx, "external-secrets", helm.ChartArgs{
+	SecretsProvider, err = helm.NewChart(ctx, "external-secrets", helm.ChartArgs{
 		Chart: pulumi.String("external-secrets"),
 		FetchArgs: helm.FetchArgs{
 			Repo: pulumi.String("https://charts.external-secrets.io/"),
 		},
 		Namespace: pulumi.String("external-secrets"),
 		Values: pulumi.Map{
-			"installCRDs":       pulumi.Bool(true),
+			"installCRDs": pulumi.Bool(true),
+			"crds": pulumi.Map{
+				"createClusterSecretStore": pulumi.Bool(true),
+			},
 			"priorityClassName": pulumi.String("high-priority"),
 		},
 	}, pulumi.Provider(kubeProvider))
 	if err != nil {
-		return err
+		return err, nil
 	}
 
-	ctx.Export("externalSecrets", externalSecrets.URN())
+	// Seems that the ClusterSecretStore resource definition is not being created
+	// so had to manually create it
 
-	return nil
+	ctx.Export("externalSecrets", SecretsProvider.URN())
+
+	//exampleSecret := pulumi.String("cluster-secret")
+	//exampleSecretVersion := pulumi.String("cluster-secret-version")
+
+	clusterSecretStore, err := apiextensions.NewCustomResource(ctx, "ClusterSecretStore", &apiextensions.CustomResourceArgs{
+		ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
+		Kind:       pulumi.String("ClusterSecretStore"),
+		Metadata: &metav1.ObjectMetaArgs{
+			Name: pulumi.String("cluster-secret-store"),
+		},
+		OtherFields: map[string]interface{}{
+			"spec": map[string]interface{}{
+				"provider": map[string]interface{}{
+					"gcpsm": map[string]interface{}{
+						"projectID": pulumi.String("dimo-dev-401815"),
+					},
+				},
+			},
+		},
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}))
+	if err != nil {
+		return err, nil
+	}
+
+	ctx.Export("externalSecret", clusterSecretStore.URN())
+
+	serviceAccountName := "secret-service-account@dimo-dev-401815.iam.gserviceaccount.com"
+
+	// IAM Policy Binding to allow the Kubernetes Service Account to access Secret Manager secrets
+	sa, err := serviceaccount.NewAccount(ctx, "secretServiceAccountIam", &serviceaccount.AccountArgs{
+		AccountId: pulumi.String("secret-service-account"),
+	}, pulumi.Provider(kubeProvider))
+	if err != nil {
+		return err, nil
+	}
+
+	_, err = serviceaccount.NewIAMBinding(ctx, "secretServiceAccountIamBinding", &serviceaccount.IAMBindingArgs{
+		ServiceAccountId: sa.Name,
+		Role:             pulumi.String("roles/secretmanager.secretAccessor"),
+		Members: pulumi.StringArray{
+			pulumi.String("serviceaccount:" + serviceAccountName),
+		},
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{sa}))
+	if err != nil {
+		return err, nil
+	}
+
+	return nil, SecretsProvider
 }
