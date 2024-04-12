@@ -1,7 +1,6 @@
 package applications
 
 import (
-	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/secretmanager"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
@@ -13,6 +12,42 @@ func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, Sec
 	//conf := config.New(ctx, "")
 	//environmentName := conf.Require("environment")
 
+	/*
+		externalSecret, err := apiextensions.NewCustomResource(ctx, "my-external-secret", &apiextensions.CustomResourceArgs{
+			ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
+			Kind:       pulumi.String("ExternalSecret"),
+			Metadata: &v1.ObjectMetaArgs{
+				Name:      pulumi.String("my-external-secret"),
+				Namespace: pulumi.String("default"), // Change to the namespace where you want the secret to be created
+			},
+			OtherFields: map[string]any{
+				"spec": pulumi.Map{
+					"backendType": pulumi.String("secretsManager"), // Match this with your secret store backend like "gcpSecretsManager"
+					"data": pulumi.Array{
+						pulumi.Map{
+							"secretKey": pulumi.String("username"),
+							"remoteRef": pulumi.Map{
+								"key":      pulumi.String("my-app/credentials"),
+								"property": pulumi.String("username"),
+							},
+						},
+						pulumi.Map{
+							"secretKey": pulumi.String("password"),
+							"remoteRef": pulumi.Map{
+								"key":      pulumi.String("my-app/credentials"),
+								"property": pulumi.String("password"),
+							},
+						},
+					},
+					"refreshInterval": pulumi.String("1h"),
+				},
+			},
+		})
+		if err != nil {
+			return err
+		}
+	*/
+
 	// Create a secret for the dex-auth-n called dex-apple-auth-secret
 
 	// Do it with the external secrets provider crd instead of through google?
@@ -23,15 +58,31 @@ func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, Sec
 			Name:      pulumi.String("dex-apple-auth-secret"),
 			Namespace: pulumi.String("dex"),
 		},
-		OtherFields: map[string]interface{}{
-			"key":  pulumi.String("secret"),
-			"name": pulumi.String("daas-secret"),
+		OtherFields: map[string]any{
+			"spec": map[string]any{
+				"secretStoreRef": map[string]any{
+					"name": pulumi.String("cluster-secret-store"),
+				},
+				"target": map[string]any{
+					"name": pulumi.String("daas-secret"),
+				},
+				"data": pulumi.Array{
+					pulumi.Map{
+						"secretKey": pulumi.String("secret"),
+						"remoteRef": pulumi.Map{
+							"key": pulumi.String("daas-secret"),
+						},
+					},
+				},
+			},
 		},
 	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}))
+
 	if err != nil {
 		return err
 	}
 
+	/* Example of how to create a secret in the google secret manager
 	daas, err := secretmanager.NewSecret(ctx, "dex-apple-auth-secret", &secretmanager.SecretArgs{
 		Labels: pulumi.StringMap{
 			"label": pulumi.String("dex-auth-n-secret"),
@@ -62,6 +113,7 @@ func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, Sec
 	if err != nil {
 		return err
 	}
+	*/
 
 	//return nil
 

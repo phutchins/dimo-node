@@ -102,6 +102,9 @@ func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provid
 		return err, nil
 	}
 
+	// Add asure key store and AWS here (switch and set up)
+	// Consider how to migrate from cluster secret store to namespace store
+
 	ctx.Export("externalSecret", clusterSecretStore.URN())
 
 	serviceAccountName := "secret-service-account@dimo-dev-401815.iam.gserviceaccount.com"
@@ -109,18 +112,19 @@ func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provid
 	// IAM Policy Binding to allow the Kubernetes Service Account to access Secret Manager secrets
 	sa, err := serviceaccount.NewAccount(ctx, "secretServiceAccountIam", &serviceaccount.AccountArgs{
 		AccountId: pulumi.String("secret-service-account"),
-	}, pulumi.Provider(kubeProvider))
+	})
 	if err != nil {
 		return err, nil
 	}
 
 	_, err = serviceaccount.NewIAMBinding(ctx, "secretServiceAccountIamBinding", &serviceaccount.IAMBindingArgs{
 		ServiceAccountId: sa.Name,
-		Role:             pulumi.String("roles/secretmanager.secretAccessor"),
+		//Role:             pulumi.String("roles/secretmanager.secretAccessor"),
+		Role: pulumi.String("roles/iam.serviceAccountUser"),
 		Members: pulumi.StringArray{
-			pulumi.String("serviceaccount:" + serviceAccountName),
+			pulumi.String("serviceAccount:" + serviceAccountName),
 		},
-	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{sa}))
+	}, pulumi.DependsOn([]pulumi.Resource{sa}))
 	if err != nil {
 		return err, nil
 	}
