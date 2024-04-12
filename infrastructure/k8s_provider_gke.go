@@ -27,7 +27,7 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 	// Array of node locations
 
 	cluster, err := container.NewCluster(ctx, projectName, &container.ClusterArgs{
-		InitialNodeCount: pulumi.Int(1),
+		InitialNodeCount: pulumi.Int(2),
 		//RemoveDefaultNodePool: pulumi.Bool(true),
 		Location: pulumi.String("us-central1-a"),
 		//Location:         pulumi.String(location),
@@ -55,24 +55,27 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 
 func CreateGKENodePools(ctx *pulumi.Context, projectName string, cluster *container.Cluster, location string) (err error) {
 	// Create the medium node pool
-	_, err = container.NewNodePool(ctx, projectName+"-medium", &container.NodePoolArgs{
-		Cluster:       cluster.Name,
-		Location:      pulumi.String(location),
-		NodeCount:     pulumi.Int(1),
-		NodeLocations: pulumi.ToStringArray(nodeLocations),
-		NodeConfig: &container.NodePoolNodeConfigArgs{
-			MachineType: pulumi.String("n1-standard-2"),
-			DiskSizeGb:  pulumi.Int(30),
-		},
-	})
-	if err != nil {
-		return err
-	}
+	/*
+		_, err = container.NewNodePool(ctx, projectName+"-medium", &container.NodePoolArgs{
+			Cluster:       cluster.Name,
+			Location:      pulumi.String(location),
+			NodeCount:     pulumi.Int(1),
+			NodeLocations: pulumi.ToStringArray(nodeLocations),
+			NodeConfig: &container.NodePoolNodeConfigArgs{
+				MachineType: pulumi.String("n1-standard-2"),
+				DiskSizeGb:  pulumi.Int(30),
+			},
+		})
+		if err != nil {
+			return err
+		}
+	*/
 
 	// Create the small node pool
 	_, err = container.NewNodePool(ctx, projectName+"-small", &container.NodePoolArgs{
-		Cluster:       cluster.Name,
-		Location:      pulumi.String(location),
+		Cluster:  cluster.Name,
+		Location: pulumi.String("us-central1-a"),
+		//Location:      pulumi.String(location),
 		NodeCount:     pulumi.Int(1),
 		NodeLocations: pulumi.ToStringArray(nodeLocations),
 		NodeConfig: &container.NodePoolNodeConfigArgs{

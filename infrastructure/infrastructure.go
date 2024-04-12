@@ -150,14 +150,12 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 			return nil, err
 		}
 
-		/*
-			if createNodePools {
-				err = CreateEKSKubernetesNodePools(ctx, projectName, cluster, region)
-				if err != nil {
-					return nil, err
-				}
+		if createNodePools {
+			err = CreateEKSKubernetesNodePools(ctx, projectName, cluster, region)
+			if err != nil {
+				return nil, err
 			}
-		*/
+		}
 
 		// Create the Kubernetes provider
 		k8sProvider, err := NewEKSKubernetesProvider(ctx, cluster)

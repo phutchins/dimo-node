@@ -107,11 +107,12 @@ func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provid
 
 	ctx.Export("externalSecret", clusterSecretStore.URN())
 
-	serviceAccountName := "secret-service-account@dimo-dev-401815.iam.gserviceaccount.com"
+	// TODO: Move this to configuration
+	serviceAccountName := "new-secret-service-account@dimo-dev-401815.iam.gserviceaccount.com"
 
 	// IAM Policy Binding to allow the Kubernetes Service Account to access Secret Manager secrets
 	sa, err := serviceaccount.NewAccount(ctx, "secretServiceAccountIam", &serviceaccount.AccountArgs{
-		AccountId: pulumi.String("secret-service-account"),
+		AccountId: pulumi.String("new-secret-service-account"),
 	})
 	if err != nil {
 		return err, nil

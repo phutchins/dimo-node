@@ -27,7 +27,7 @@ func InstallContractEventProcessor(ctx *pulumi.Context, kubeProvider *kubernetes
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
 				"pullPolicy": pulumi.String("IfNotPresent"),
-				"repository": pulumi.String("dimo-network/contract-event-processor"), // build and push from local for now
+				"repository": pulumi.String("dimozone/contract-event-processor"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{
 				"enabled": pulumi.Bool(false),

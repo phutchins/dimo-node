@@ -23,7 +23,7 @@ func InstallCertificateAuthority(ctx *pulumi.Context, kubeProvider *kubernetes.P
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
 				"pullPolicy": pulumi.String("IfNotPresent"),
-				"repository": pulumi.String("dimo-network/certificate-authority"), // build and push from local for now
+				"repository": pulumi.String("dimozone/certificate-authority"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{
 				"enabled": pulumi.Bool(true),

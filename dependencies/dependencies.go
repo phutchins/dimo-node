@@ -24,6 +24,11 @@ func InstallDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Provider)
 		return err, nil
 	}
 
+	err = InstallMonitoringDependencies(ctx, kubeProvider)
+	if err != nil {
+		return err, nil
+	}
+
 	/*
 		err = InstallLinkerD(ctx)
 		if err != nil {

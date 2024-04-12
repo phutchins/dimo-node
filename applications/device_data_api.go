@@ -21,7 +21,7 @@ func InstallDeviceDataApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider
 			},
 			"image": pulumi.Map{
 				"registry":   pulumi.String("docker.io"),
-				"tag":        pulumi.String("latest"),
+				"tag":        pulumi.String("0.9.4"),
 				"pullPolicy": pulumi.String("IfNotPresent"),
 				"repository": pulumi.String("dimozone/device-data-api"), // build and push from local for now
 			},

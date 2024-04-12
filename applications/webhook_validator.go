@@ -23,7 +23,7 @@ func InstallWebhookValidator(ctx *pulumi.Context, kubeProvider *kubernetes.Provi
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
 				"pullPolicy": pulumi.String("IfNotPresent"),
-				"repository": pulumi.String("dimo-network/certificate-webhook-api"), // build and push from local for now
+				"repository": pulumi.String("dimozone/certificate-webhook-api"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{
 				"enabled": pulumi.Bool(true),

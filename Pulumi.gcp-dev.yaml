@@ -1,4 +1,5 @@
 config:
+  gcp:project: dimo-dev-401815
   dimo-node:cloud-provider: gcp
   dimo-node:create-node-pools: false
   dimo-node:deployment-type: gke

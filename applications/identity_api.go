@@ -2,14 +2,64 @@ package applications
 
 import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
-func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, SecretsProvider *helm.Chart) (err error) {
 	conf := config.New(ctx, "")
 	environmentName := conf.Require("environment")
+
+	_, err = apiextensions.NewCustomResource(ctx, "external-secret-identity-api", &apiextensions.CustomResourceArgs{
+		ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
+		Kind:       pulumi.String("ExternalSecret"),
+		Metadata: &metav1.ObjectMetaArgs{
+			Name:      pulumi.String("identity-api-secret"),
+			Namespace: pulumi.String("identity"),
+		},
+		OtherFields: map[string]any{
+			"spec": map[string]any{
+				"secretStoreRef": map[string]any{
+					"name": pulumi.String("cluster-secret-store"),
+				},
+				"target": map[string]any{
+					"name": pulumi.String("identity-api-secret"),
+				},
+				"data": pulumi.Array{
+					pulumi.Map{
+						"secretKey": pulumi.String("secret"),
+						"remoteRef": pulumi.Map{
+							"key": pulumi.String("identity-api-secret"),
+						},
+					},
+				},
+			},
+		},
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}),
+		pulumi.Transformations([]pulumi.ResourceTransformation{
+			func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
+				if args.Type == "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" ||
+					args.Type == "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration" {
+					return &pulumi.ResourceTransformationResult{
+						Props: args.Props,
+						Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
+							"spec.data",
+							"spec.secretStoreRef",
+						})),
+					}
+				}
+				return nil
+			},
+		}),
+	)
+
+	if err != nil {
+		return err
+	}
+
 	//Deploy the users-api from helm chart
 	usersApi, err := helm.NewChart(ctx, "identity-api", helm.ChartArgs{
 		Chart:     pulumi.String("identity-api"),
@@ -23,7 +73,7 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) 
 				"registry":   pulumi.String("docker.io"),
 				"tag":        pulumi.String("latest"),
 				"pullPolicy": pulumi.String("IfNotPresent"),
-				"repository": pulumi.String("dimo-network/identity-api"), // build and push from local for now
+				"repository": pulumi.String("dimozone/identity-api"), // build and push from local for now
 			},
 			"ingress": pulumi.Map{
 				"enabled": pulumi.Bool(true),

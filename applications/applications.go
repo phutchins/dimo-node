@@ -41,7 +41,7 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 
 	// Identity API
 	if slices.Contains(applications, "identity-api") {
-		err = InstallIdentityApi(ctx, kubeProvider)
+		err = InstallIdentityApi(ctx, kubeProvider, SecretsProvider)
 		if err != nil {
 			return err
 		}

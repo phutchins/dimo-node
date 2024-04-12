@@ -1,0 +1,8 @@
+config:
+  dimo-node:cloud-provider: gcp
+  dimo-node:create-node-pools: false
+  dimo-node:deployment-type: gke
+  dimo-node:project-name: dimo-dev-401815
+  dimo-node:region: us-central1
+  dimo-node:whitelist-ip: 24.30.56.126/32
+  dimo-node:environment: dev
