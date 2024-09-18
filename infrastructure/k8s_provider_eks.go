@@ -4,6 +4,8 @@ import (
 	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/ec2"
 	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/eks"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
+	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -201,6 +203,19 @@ func CreateEKSKubernetesNodePools(ctx *pulumi.Context, projectName string, clust
 				"preemptible": "true",
 			},
 		*/
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = schedulingv1.NewPriorityClass(ctx, "high-priority", &schedulingv1.PriorityClassArgs{
+		Value: pulumi.Int(100000), // High priority value
+		Metadata: &metav1.ObjectMetaArgs{
+			Name: pulumi.String("high-priority"),
+		},
+		Description:      pulumi.String("This is a high priority class"),
+		GlobalDefault:    pulumi.Bool(false),
+		PreemptionPolicy: pulumi.String("PreemptLowerPriority"),
 	})
 	if err != nil {
 		return err

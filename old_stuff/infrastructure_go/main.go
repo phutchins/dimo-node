@@ -3,9 +3,12 @@ package main
 import (
 	"github.com/pulumi/pulumi-google-native/sdk/go/google/compute/beta",
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
 func main() {
+	conf := config.New(ctx, "")
+	location := conf.Get("location")
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Define the VM startup script that will install k3s
 		startupScript := `#!/bin/bash
@@ -14,7 +17,7 @@ curl -sfL https://get.k3s.io | sh -`
 
 		// Create a new GCP VM Instance
 		vm, err := beta.NewInstance(ctx, "myVm", &beta.InstanceArgs{
-			Zone:                       pulumi.String("us-central1-a"),
+			Zone:                       pulumi.String(location),
 			Name:                       pulumi.String("my-instance"),
 			MachineType:                pulumi.String("e2-medium"), // or choose another instance type
 			MinCpuPlatform:             pulumi.String("Intel Haswell"), // or choose another CPU platform

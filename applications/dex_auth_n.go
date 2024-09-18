@@ -9,7 +9,6 @@ import (
 )
 
 func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, SecretsProvider *helm.Chart) (err error) {
-	//conf := config.New(ctx, "")
 	//environmentName := conf.Require("environment")
 
 	/*
@@ -57,6 +56,9 @@ func InstallDexAuthN(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, Sec
 		Metadata: &metav1.ObjectMetaArgs{
 			Name:      pulumi.String("dex-apple-auth-secret"),
 			Namespace: pulumi.String("dex"),
+			Annotations: pulumi.StringMap{
+				"app.kubernetes.io/managed-by": pulumi.String("Helm"),
+			},
 		},
 		OtherFields: map[string]any{
 			"spec": map[string]any{

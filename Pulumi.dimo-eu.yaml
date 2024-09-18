@@ -1,14 +1,14 @@
 config:
-  gcp:project: dimo-dev-401815
+  gcp:project: dimo-eu
   dimo-node:cloud-provider: gcp
   dimo-node:create-node-pools: false
   dimo-node:deployment-type: gke
-  dimo-node:project-name: dimo-dev-401815
-  dimo-node:region: us-east1
-  dimo-node:location: us-east1-b
+  dimo-node:project-name: dimo-eu
+  dimo-node:region: europe-west1
+  dimo-node:location: europe-west1-b
   dimo-node:locations:
-    - us-east1-b
-    - us-east1-c
-    - us-east1-d
+    - europe-west1-b
+    - europe-west1-c
+    - eucope-west1-d
   dimo-node:whitelist-ip: 24.30.56.126/32
   dimo-node:environment: dev

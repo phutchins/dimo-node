@@ -4,8 +4,8 @@ description: A Pulumi to run a DIMO node
 
 config:
   gcp:project: dimo-eu
-  gcp:region: europe-west1
-  gcp:zone: europe-west1-b
+  gcp:region: us-east1
+  gcp:zone: us-east1-b
   aws:region: us-east-2
   dimo-node:cloud-provider: gcp
   dimo-node:create-node-pools: false

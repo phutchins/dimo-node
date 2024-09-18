@@ -1,6 +1,8 @@
 package infrastructure
 
 import (
+	"strings"
+
 	"github.com/dimo/dimo-node/utils"
 	//"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/compute"
 	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/compute"
@@ -61,6 +63,9 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 	projectName := conf.Get("project-name")
 	createNodePools := conf.GetBool("create-node-pools")
 	region := conf.Get("region")
+	location := conf.Get("location")
+	locationsStr := conf.Get("locations")
+	locations := strings.Split(locationsStr, ",")
 	whitelistIp := conf.Get("whitelist-ip")
 
 	network, subnetwork, err := CreateNetwork(ctx, cloudProvider, region, projectName, whitelistIp)
@@ -121,13 +126,14 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 			ctx,
 			projectName,
 			region,
+			location,
 		)
 		if err != nil {
 			return nil, err
 		}
 
 		if createNodePools {
-			err = CreateGKENodePools(ctx, projectName, cluster, region)
+			err = CreateGKENodePools(ctx, projectName, cluster, region, locations)
 			if err != nil {
 				return nil, err
 			}
@@ -135,6 +141,11 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 
 		// Create the Kubernetes provider
 		k8sProvider, err := NewGKEKubernetesProvider(ctx, cluster)
+		if err != nil {
+			return nil, err
+		}
+
+		err = CreateGKEKubePriorities(ctx, cluster, k8sProvider)
 		if err != nil {
 			return nil, err
 		}

@@ -67,7 +67,7 @@ func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provid
 			"crds": pulumi.Map{
 				"createClusterSecretStore": pulumi.Bool(true),
 			},
-			"priorityClassName": pulumi.String("high-priority"),
+			"priorityClassName": pulumi.String("gmp-critical"),
 		},
 	}, pulumi.Provider(kubeProvider))
 	if err != nil {

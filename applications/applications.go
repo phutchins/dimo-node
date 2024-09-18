@@ -49,7 +49,7 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 
 	// Device Data API
 	if slices.Contains(applications, "device-data-api") {
-		err = InstallDeviceDataApi(ctx, kubeProvider)
+		err = InstallDeviceDataApi(ctx, kubeProvider, SecretsProvider)
 		if err != nil {
 			return err
 		}

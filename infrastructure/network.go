@@ -36,7 +36,7 @@ func CreateGCPNetwork(ctx *pulumi.Context, region string, projectName string, wh
 	subnetwork, err := compute.NewSubnetwork(ctx, subnetworkName, &compute.SubnetworkArgs{
 		IpCidrRange: pulumi.String("10.0.1.0/24"),
 		Network:     network.Name,
-		Region:      pulumi.String("us-central1"),
+		Region:      pulumi.String(region),
 		//Region:      pulumi.String(region),
 	}, pulumi.DependsOn([]pulumi.Resource{network}))
 	if err != nil {

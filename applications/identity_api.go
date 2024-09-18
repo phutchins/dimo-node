@@ -13,6 +13,17 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 	conf := config.New(ctx, "")
 	environmentName := conf.Require("environment")
 
+	//transform := func(_ context.Context, args *pulumi.ResourceTransformArgs) *pulumi.ResourceTransformResult {
+	//if args.Type == "aws:ec2/vpc:Vpc" || args.Type == "aws:ec2/subnet:Subnet" {
+	//    args.Opts.IgnoreChanges = append(args.Opts.IgnoreChanges, "tags")
+	//    return &pulumi.ResourceTransformResult{
+	//        Props: args.Props,
+	//        Opts:  args.Opts,
+	//    }
+	//}
+	//return nil
+	//}
+
 	_, err = apiextensions.NewCustomResource(ctx, "external-secret-identity-api", &apiextensions.CustomResourceArgs{
 		ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
 		Kind:       pulumi.String("ExternalSecret"),
@@ -38,23 +49,37 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 				},
 			},
 		},
-	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}),
-		pulumi.Transformations([]pulumi.ResourceTransformation{
-			func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
-				if args.Type == "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" ||
-					args.Type == "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration" {
-					return &pulumi.ResourceTransformationResult{
-						Props: args.Props,
-						Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
-							"spec.data",
-							"spec.secretStoreRef",
-						})),
-					}
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}), pulumi.IgnoreChanges([]string{"spec"}), pulumi.Transformations([]pulumi.ResourceTransformation{
+		func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
+			if args.Type == "kubernetes:external-secrets.io/v1beta1:ExternalSecret" {
+				return &pulumi.ResourceTransformationResult{
+					Props: args.Props,
+					Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
+						"spec.data",
+						"spec.secretStoreRef.name",
+					})),
 				}
-				return nil
-			},
-		}),
-	)
+			}
+			return nil
+		},
+	}))
+	//}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}), pulumi.IgnoreChanges([]string{"spec"}))
+	//	pulumi.Transformations([]pulumi.ResourceTransformation{
+	//		func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
+	//			if args.Type == "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" ||
+	//				args.Type == "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration" {
+	//				return &pulumi.ResourceTransformationResult{
+	//					Props: args.Props,
+	//					Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
+	//						"spec.data",
+	//						"spec.secretStoreRef.name",
+	//					})),
+	//				}
+	//			}
+	//			return nil
+	//		},
+	//	}),
+	//)
 
 	if err != nil {
 		return err

@@ -6,34 +6,46 @@ import (
 	//"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/container"
 	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/container"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
+	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // Consider
 // ignoreChanges: ["verticalPodAutoscaling"],
-var nodeLocations = []string{
-	"us-central1-a",
-	//"us-central1-b",
-	//"us-central1-c",
-}
 
 var oauthScopes = []string{
 	"https://www.googleapis.com/auth/monitoring",
 	"https://www.googleapis.com/auth/logging.write",
 }
 
-func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) (*container.Cluster, error) {
+func CreateGKECluster(ctx *pulumi.Context, projectName string, region string, location string) (*container.Cluster, error) {
 	// Create the GKE cluster
 	// Array of node locations
 
 	cluster, err := container.NewCluster(ctx, projectName, &container.ClusterArgs{
-		InitialNodeCount: pulumi.Int(2),
+		InitialNodeCount: pulumi.Int(3),
 		//RemoveDefaultNodePool: pulumi.Bool(true),
-		Location: pulumi.String("us-central1-a"),
-		//Location:         pulumi.String(location),
+		//Location: pulumi.String("us-east1-b"),
+		Location:         pulumi.String(location),
 		MinMasterVersion: pulumi.String("latest"),
-		Network:          Network.ID(),
-		Subnetwork:       Subnetwork.ID(),
+		ClusterAutoscaling: &container.ClusterClusterAutoscalingArgs{
+			Enabled: pulumi.Bool(true),
+			ResourceLimits: container.ClusterClusterAutoscalingResourceLimitArray{
+				&container.ClusterClusterAutoscalingResourceLimitArgs{
+					Maximum:      pulumi.Int(10),
+					Minimum:      pulumi.Int(1),
+					ResourceType: pulumi.String("cpu"),
+				},
+				&container.ClusterClusterAutoscalingResourceLimitArgs{
+					Maximum:      pulumi.Int(64),
+					Minimum:      pulumi.Int(1),
+					ResourceType: pulumi.String("memory"),
+				},
+			},
+		},
+		Network:    Network.ID(),
+		Subnetwork: Subnetwork.ID(),
 		//NodeLocations:    pulumi.ToStringArray(nodeLocations),
 		NodeConfig: &container.ClusterNodeConfigArgs{
 			MachineType: pulumi.String("n1-standard-1"), // TODO: Make this dynamic
@@ -53,7 +65,7 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, location string) 
 	return cluster, nil
 }
 
-func CreateGKENodePools(ctx *pulumi.Context, projectName string, cluster *container.Cluster, location string) (err error) {
+func CreateGKENodePools(ctx *pulumi.Context, projectName string, cluster *container.Cluster, region string, locations []string) (err error) {
 	// Create the medium node pool
 	/*
 		_, err = container.NewNodePool(ctx, projectName+"-medium", &container.NodePoolArgs{
@@ -73,16 +85,34 @@ func CreateGKENodePools(ctx *pulumi.Context, projectName string, cluster *contai
 
 	// Create the small node pool
 	_, err = container.NewNodePool(ctx, projectName+"-small", &container.NodePoolArgs{
-		Cluster:  cluster.Name,
-		Location: pulumi.String("us-central1-a"),
-		//Location:      pulumi.String(location),
-		NodeCount:     pulumi.Int(1),
-		NodeLocations: pulumi.ToStringArray(nodeLocations),
+		Cluster: cluster.Name,
+		//Location: pulumi.String("us-east1-b"),
+		Location:  pulumi.String(region),
+		NodeCount: pulumi.Int(1),
+		//NodeLocations: pulumi.ToStringArray(nodeLocations),
+		NodeLocations: pulumi.ToStringArray(locations),
 		NodeConfig: &container.NodePoolNodeConfigArgs{
 			MachineType: pulumi.String("n1-standard-1"),
 			DiskSizeGb:  pulumi.Int(30),
 		},
 	})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func CreateGKEKubePriorities(ctx *pulumi.Context, cluster *container.Cluster, kubeProvider *kubernetes.Provider) (err error) {
+	_, err = schedulingv1.NewPriorityClass(ctx, "high-priority", &schedulingv1.PriorityClassArgs{
+		Value: pulumi.Int(100000), // High priority value
+		Metadata: &metav1.ObjectMetaArgs{
+			Name: pulumi.String("high-priority"),
+		},
+		Description:      pulumi.String("This is a high priority class"),
+		GlobalDefault:    pulumi.Bool(false),
+		PreemptionPolicy: pulumi.String("PreemptLowerPriority"),
+	}, pulumi.Provider(kubeProvider))
 	if err != nil {
 		return err
 	}

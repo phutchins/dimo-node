@@ -39,7 +39,7 @@ func InstallDatabaseDependencies(ctx *pulumi.Context) (err error) {
 		},
 		OtherFields: map[string]any{
 			"spec": map[string]any{
-				"postgresVersion": pulumi.Int(13),
+				"postgresVersion": pulumi.Int(16),
 				"instances": pulumi.Array{
 					pulumi.Map{
 						"name":     pulumi.String("instance1"),
