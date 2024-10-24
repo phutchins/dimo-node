@@ -27,32 +27,31 @@ func InstallMonitoringDependencies(ctx *pulumi.Context, kubeProvider *kubernetes
 		return err
 	}
 
-	/*
-		// Create the Prometheus Operator CRD
-		_, err = apiextensions.NewCustomResourceDefinition(ctx, "prometheus-operator", &apiextensions.CustomResourceDefinitionArgs{
-			Metadata: &metav1.ObjectMetaArgs{
-				Name: pulumi.String("prometheus-operator"),
-			},
-			Spec: &apiextensions.CustomResourceDefinitionSpecArgs{
-				Group: pulumi.String("monitoring.coreos.com"),
-				Versions: apiextensions.CustomResourceDefinitionVersionArray{
-					&apiextensions.CustomResourceDefinitionVersionArgs{
-						Name:    pulumi.String("v1"),
-						Served:  pulumi.Bool(true),
-						Storage: pulumi.Bool(true),
-					},
-				},
-				Scope: pulumi.String("Namespaced"),
-				Names: &apiextensions.CustomResourceDefinitionNamesArgs{
-					Plural: pulumi.String("prometheuses"),
-					Kind:   pulumi.String("Prometheus"),
-				},
-			},
-		})
-		if err != nil {
-			return err
-		}
-	*/
+	//
+	//// Create the Prometheus Operator CRD
+	//_, err = apiextensions.NewCustomResourceDefinition(ctx, "prometheus-operator", &apiextensions.CustomResourceDefinitionArgs{
+	//	Metadata: &metav1.ObjectMetaArgs{
+	//		Name: pulumi.String("prometheus-operator"),
+	//	},
+	//	Spec: &apiextensions.CustomResourceDefinitionSpecArgs{
+	//		Group: pulumi.String("monitoring.coreos.com"),
+	//		Versions: apiextensions.CustomResourceDefinitionVersionArray{
+	//			&apiextensions.CustomResourceDefinitionVersionArgs{
+	//				Name:    pulumi.String("v1"),
+	//				Served:  pulumi.Bool(true),
+	//				Storage: pulumi.Bool(true),
+	//			},
+	//		},
+	//		Scope: pulumi.String("Namespaced"),
+	//		Names: &apiextensions.CustomResourceDefinitionNamesArgs{
+	//			Plural: pulumi.String("prometheuses"),
+	//			Kind:   pulumi.String("Prometheus"),
+	//		},
+	//	},
+	//})
+	//if err != nil {
+	//	return err
+	//}
 
 	return nil
 }

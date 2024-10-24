@@ -7,7 +7,7 @@ import (
 	//"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
-func InstallDexAuthZ(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+func InstallDexAuthZ(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, SecretsProvider *helm.Chart) (err error) {
 	//conf := config.New(ctx, "")
 	//environmentName := conf.Require("environment")
 	//Deploy the users-api from helm chart
@@ -47,7 +47,20 @@ func InstallDexAuthZ(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (er
 				"BASE_IMAGE_URL": pulumi.String("https://dex-auth-z.dimo.zone/v1"),
 			},
 		},
-	}, pulumi.Provider(kubeProvider))
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}), pulumi.IgnoreChanges([]string{"spec"}), pulumi.Transformations([]pulumi.ResourceTransformation{
+		func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
+			if args.Type == "kubernetes:external-secrets.io/v1beta1:ExternalSecret" {
+				return &pulumi.ResourceTransformationResult{
+					Props: args.Props,
+					Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
+						"spec.data",
+						"spec.secretStoreRef.name",
+					})),
+				}
+			}
+			return nil
+		},
+	}))
 	if err != nil {
 		return err
 	}

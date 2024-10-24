@@ -13,6 +13,7 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 	// Use this later to configure sets of applications to install
 	applications := []string{
 		//"users-api",
+		"prometheus",
 		"identity-api",
 		"device-data-api",
 		"contract-event-processor",
@@ -27,6 +28,14 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"certificate-webhook-api", "certificate-authority", "device-data", "contract-event-processor", "identity", "dex"})
 	if err != nil {
 		return err
+	}
+
+	// Install Prometheus
+	if slices.Contains(applications, "prometheus") {
+		err = InstallPrometheus(ctx, kubeProvider)
+		if err != nil {
+			return err
+		}
 	}
 
 	// Users API - https://github.com/DIMO-Network/users-api/tree/main/charts/users-api
@@ -93,7 +102,7 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 	// Not exposed publicly
 	// Connector may not be necessary (even though it says it is lol)
 	if slices.Contains(applications, "dex-auth-z") {
-		err = InstallDexAuthZ(ctx, kubeProvider)
+		err = InstallDexAuthZ(ctx, kubeProvider, SecretsProvider)
 		if err != nil {
 			return err
 		}
