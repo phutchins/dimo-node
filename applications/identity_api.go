@@ -49,15 +49,20 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 				},
 			},
 		},
-	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}), pulumi.IgnoreChanges([]string{"spec"}), pulumi.Transformations([]pulumi.ResourceTransformation{
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}), pulumi.ReplaceOnChanges([]string{"*"}), pulumi.Transformations([]pulumi.ResourceTransformation{
 		func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
 			if args.Type == "kubernetes:external-secrets.io/v1beta1:ExternalSecret" {
 				return &pulumi.ResourceTransformationResult{
 					Props: args.Props,
-					Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
-						"spec.data",
-						"spec.secretStoreRef.name",
-					})),
+					Opts: append(args.Opts,
+						pulumi.ReplaceOnChanges([]string{"*"}),
+						pulumi.IgnoreChanges([]string{
+							"metadata.annotations",
+							"metadata.labels",
+							"spec.data",
+							"spec.secretStoreRef",
+						}),
+					),
 				}
 			}
 			return nil
@@ -134,7 +139,27 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 				"clusterName": pulumi.String("kafka-" + environmentName + "-dimo-kafka"), // TODO: Make this a configurable env value
 			},
 		},
-	}, pulumi.Provider(kubeProvider))
+	}, pulumi.Provider(kubeProvider),
+		pulumi.Transformations([]pulumi.ResourceTransformation{
+			func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
+				if args.Type == "kubernetes:networking.k8s.io/v1:Ingress" {
+					return &pulumi.ResourceTransformationResult{
+						Props: args.Props,
+						Opts: append(args.Opts, pulumi.DeleteBeforeReplace(true), pulumi.IgnoreChanges([]string{
+							"metadata.annotations", // Ignore all annotation changes instead of specific ones
+						})),
+					}
+				} else if args.Type == "kubernetes:apps/v1:Deployment" {
+					return &pulumi.ResourceTransformationResult{
+						Props: args.Props,
+						Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
+							"spec.template.metadata.annotations.checksum/config",
+						})),
+					}
+				}
+				return nil
+			},
+		}))
 	if err != nil {
 		return err
 	}

@@ -42,24 +42,24 @@ func InstallCertManager(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) 
 				"imageRegistry": pulumi.String("docker.io"),
 			},
 			"installCRDs": pulumi.Bool(true),
-			"imagePullSecrets": pulumi.Array{
-				pulumi.String("regcred"),
-			},
-			"webhook": pulumi.Map{
-				"image": pulumi.Map{
-					"imagePullPolicy": pulumi.String("IfNotPresent"),
-				},
-			},
-			"certManager": pulumi.Map{
-				"image": pulumi.Map{
-					"imagePullPolicy": pulumi.String("IfNotPresent"),
-				},
-			},
-			"cainjector": pulumi.Map{
-				"image": pulumi.Map{
-					"imagePullPolicy": pulumi.String("IfNotPresent"),
-				},
-			},
+			// "imagePullSecrets": pulumi.Array{
+			// 	pulumi.String("regcred"),
+			// },
+			// "webhook": pulumi.Map{
+			// 	"image": pulumi.Map{
+			// 		"imagePullPolicy": pulumi.String("IfNotPresent"),
+			// 	},
+			// },
+			// "certManager": pulumi.Map{
+			// 	"image": pulumi.Map{
+			// 		"imagePullPolicy": pulumi.String("IfNotPresent"),
+			// 	},
+			// },
+			// "cainjector": pulumi.Map{
+			// 	"image": pulumi.Map{
+			// 		"imagePullPolicy": pulumi.String("IfNotPresent"),
+			// 	},
+			// },
 		},
 	}, pulumi.Provider(kubeProvider))
 	if err != nil {

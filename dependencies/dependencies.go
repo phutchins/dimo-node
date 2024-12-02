@@ -9,6 +9,12 @@ import (
 // Define variables needed globally in the dependencies package
 
 func InstallDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error, SecretsProvider *helm.Chart) {
+	// Remove or comment out this call since the function doesn't exist
+	// err = InstallDNSDependencies(ctx)
+	// if err != nil {
+	//     return err, nil
+	// }
+
 	err = InstallDatabaseDependencies(ctx)
 	if err != nil {
 		return err, nil

@@ -3,7 +3,7 @@
 	url = https://github.com/DIMO-Network/devices-api.git
 [submodule "applications/identity-api"]
 	path = applications/identity-api
-	url = https://github.com/DIMO-Network/identity-api.git
+	url = git@github.com:DIMO-Network/identity-api.git
 [submodule "applications/device-data-api"]
 	path = applications/device-data-api
 	url = git@github.com:DIMO-Network/device-data-api.git

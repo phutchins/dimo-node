@@ -13,21 +13,29 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 	// Use this later to configure sets of applications to install
 	applications := []string{
 		//"users-api",
-		"prometheus",
+		//"prometheus",
+		"kube-prometheus-stack",
 		"identity-api",
-		"device-data-api",
-		"contract-event-processor",
-		"mqtt-broker",
-		"dex-auth-n", // Authentication
-		"dex-auth-z", // Authorization
-		"webhook-validator",
-		"certificate-authority",
-		"dex",
+		//"device-data-api",
+		//"contract-event-processor",
+		//"mqtt-broker",
+		//"dex-auth-n", // Authentication
+		//"dex-auth-z", // Authorization
+		//"webhook-validator",
+		//"certificate-authority",
+		//"dex",
 	}
 
 	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"certificate-webhook-api", "certificate-authority", "device-data", "contract-event-processor", "identity", "dex"})
 	if err != nil {
 		return err
+	}
+
+	if slices.Contains(applications, "kube-prometheus-stack") {
+		err = InstallKubePrometheus(ctx, kubeProvider)
+		if err != nil {
+			return err
+		}
 	}
 
 	// Install Prometheus
