@@ -1,6 +1,8 @@
 package dependencies
 
 import (
+	"os/exec"
+
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
@@ -9,14 +11,27 @@ import (
 )
 
 func InstallLetsEncrypt(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) error {
+	// Add cleanup step
+	cleanup := exec.Command("kubectl", "delete", "crds",
+		"certificaterequests.cert-manager.io",
+		"certificates.cert-manager.io",
+		"challenges.acme.cert-manager.io",
+		"clusterissuers.cert-manager.io",
+		"issuers.cert-manager.io",
+		"orders.acme.cert-manager.io",
+		"--ignore-not-found=true")
+	cleanup.Run()
+
 	// Install cert-manager helm chart
 	_, err := helm.NewChart(ctx, "cert-manager", helm.ChartArgs{
-		Chart:     pulumi.String("cert-manager"),
-		Version:   pulumi.String("v1.13.2"),
-		Repo:      pulumi.String("https://charts.jetstack.io"),
+		Chart:   pulumi.String("cert-manager"),
+		Version: pulumi.String("v1.13.2"),
+		FetchArgs: helm.FetchArgs{
+			Repo: pulumi.String("https://charts.jetstack.io"),
+		},
 		Namespace: pulumi.String("cert-manager"),
 		Values: pulumi.Map{
-			"installCRDs": pulumi.Bool(true),
+			"installCRDs": pulumi.Bool(false),
 			"global": pulumi.Map{
 				"leaderElection": pulumi.Map{
 					"namespace": pulumi.String("cert-manager"),

@@ -1,5 +1,5 @@
 config:
-  gcp:project: dimo-eu
+  dimo-node:gcp-project: dimo-eu
   dimo-node:cloud-provider: gcp
   dimo-node:create-node-pools: "false"
   dimo-node:deployment-type: gke
@@ -12,4 +12,4 @@ config:
     - eucope-west1-d
   dimo-node:whitelist-ip: 24.30.56.126/32
   dimo-node:environment: dev
-encryptionsalt: v1:bkfJhOzrlCU=:v1:3JgwWIgAVKhH0YY8:vy1z4WXScOamVtehJa6gBXNCkK//Tw==
+encryptionsalt: v1:2EbepXrqNQQ=:v1:SA1p63jpBIDSm6M0:DgZCGHmRfC1VfFwP69W96qtJHjJ3kQ==

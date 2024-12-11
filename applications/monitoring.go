@@ -3,6 +3,8 @@ package applications
 import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	//"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
+	"os/exec"
+
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
@@ -10,6 +12,7 @@ import (
 )
 
 func InstallPrometheus(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+	ctx.Log.Info("Installing Prometheus chart...", nil)
 	_, err = helm.NewChart(ctx, "prometheus", helm.ChartArgs{
 		Chart: pulumi.String("prometheus"),
 		FetchArgs: helm.FetchArgs{
@@ -73,73 +76,36 @@ func InstallPrometheus(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (
 }
 
 func InstallKubePrometheus(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
-	_, err = helm.NewChart(ctx, "kube-prometheus-stack", helm.ChartArgs{
+	ctx.Log.Info("Installing Kube-Prometheus-Stack chart...", nil)
+
+	// First, delete conflicting resources in kube-system namespace
+	cleanup := exec.Command("kubectl", "delete", "service",
+		"kube-prometheus-stack-kube-controller-manager",
+		"kube-prometheus-stack-kube-scheduler",
+		"kube-prometheus-stack-kubelet",
+		"-n", "kube-system", "--ignore-not-found=true")
+	cleanup.Run()
+
+	_, err = helm.NewRelease(ctx, "kube-prometheus-stack", &helm.ReleaseArgs{
+		Name:    pulumi.String("kube-prometheus-stack"),
 		Chart:   pulumi.String("kube-prometheus-stack"),
 		Version: pulumi.String("66.3.0"),
-		FetchArgs: helm.FetchArgs{
+		RepositoryOpts: &helm.RepositoryOptsArgs{
 			Repo: pulumi.String("https://prometheus-community.github.io/helm-charts"),
 		},
-		Namespace: pulumi.String("monitoring"),
-		Values: pulumi.Map{
-			"crds": pulumi.Map{
-				"create": pulumi.Bool(true),
-			},
-			"grafana": pulumi.Map{
-				"adminPassword": pulumi.String("admin"),
-				"ingress": pulumi.Map{
-					"enabled":          pulumi.Bool(true),
-					"ingressClassName": pulumi.String("nginx"),
-					"hosts": pulumi.Array{
-						pulumi.String("grafana.driveomid.xyz"),
-					},
-					"annotations": pulumi.StringMap{
-						"kubernetes.io/ingress.class":    pulumi.String("nginx"),
-						"cert-manager.io/cluster-issuer": pulumi.String("letsencrypt-prod"),
-					},
-					"tls": pulumi.Array{
-						pulumi.Map{
-							"secretName": pulumi.String("grafana-tls"),
-							"hosts": pulumi.Array{
-								pulumi.String("grafana.driveomid.xyz"),
-							},
-						},
-					},
-				},
-			},
-			"prometheus": pulumi.Map{
-				"serviceAccount": pulumi.Map{
-					"create": pulumi.Bool(true),
-					"name":   pulumi.String("prometheus"),
-				},
-				"ingress": pulumi.Map{
-					"enabled":          pulumi.Bool(true),
-					"ingressClassName": pulumi.String("nginx"),
-					"hosts": pulumi.Array{
-						pulumi.String("prometheus.driveomid.xyz"),
-					},
-					"annotations": pulumi.StringMap{
-						"kubernetes.io/ingress.class":    pulumi.String("nginx"),
-						"cert-manager.io/cluster-issuer": pulumi.String("letsencrypt-prod"),
-					},
-					"tls": pulumi.Array{
-						pulumi.Map{
-							"secretName": pulumi.String("prometheus-tls"),
-							"hosts": pulumi.Array{
-								pulumi.String("prometheus.driveomid.xyz"),
-							},
-						},
-					},
-				},
-			},
-			"rbac": pulumi.Map{
-				"create": pulumi.Bool(true),
-			},
-		},
+		Namespace:       pulumi.String("monitoring"),
+		CreateNamespace: pulumi.Bool(true),
+		SkipAwait:       pulumi.Bool(true),
+		WaitForJobs:     pulumi.Bool(false),
+		CleanupOnFail:   pulumi.Bool(true),
+		Replace:         pulumi.Bool(true),
 	}, pulumi.Provider(kubeProvider))
+
 	return err
 }
 
 func InstallGrafana(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) (err error) {
+	ctx.Log.Info("Installing Grafana chart...", nil)
 	_, err = helm.NewChart(ctx, "grafana", helm.ChartArgs{
 		Chart: pulumi.String("grafana"),
 		FetchArgs: helm.FetchArgs{
