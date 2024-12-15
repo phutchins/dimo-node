@@ -12,4 +12,8 @@ config:
     - eucope-west1-d
   dimo-node:whitelist-ip: 24.30.56.126/32
   dimo-node:environment: dev
-encryptionsalt: v1:2EbepXrqNQQ=:v1:SA1p63jpBIDSm6M0:DgZCGHmRfC1VfFwP69W96qtJHjJ3kQ==
+  dimo-node:passwords.postgres-root:
+    secure: v1:0/B2O5FP4amEvcUd:lP5SNB2XXlNbxudEUdwdy71Hzya3kSX44G6HgygfSj94RXXvKLjJzny2VZ0m6HcW
+  dimo-node:passwords.identity-api-db:
+    secure: v1:R5hx2lAAU/Uwg/O4:znBZH/y+IRHGxq+pFwSwbwATdlcQwqQEDGXjQdaFJk3Vr9wL4cdnNqg4OQNfj0fJ
+encryptionsalt: v1:ZYOiy97tIDQ=:v1:uNzWn7IOw7o/v+xl:piqlzhLqKT2Fg3GDKT16UKQiu+Q/Mw==

@@ -13,7 +13,7 @@ func InstallCertificateDependencies(ctx *pulumi.Context, kubeProvider *kubernete
 		return err
 	}
 
-	err = InstallCertManager(ctx, kubeProvider)
+	_, err = InstallCertManager(ctx, kubeProvider)
 	if err != nil {
 		return err
 	}
@@ -28,7 +28,7 @@ func InstallCertificateDependencies(ctx *pulumi.Context, kubeProvider *kubernete
 	return nil
 }
 
-func InstallCertManager(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) error {
+func InstallOldCertManager(ctx *pulumi.Context, kubeProvider *kubernetes.Provider) error {
 	// Install cert-manager helm chart
 
 	certManager, err := helm.NewRelease(ctx, "cert-manager", &helm.ReleaseArgs{

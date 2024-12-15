@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-test-job
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - name: postgres-client
+        image: postgres:14
+        command: ["/bin/sh", "-c"]
+        args:
+        - psql "postgresql://dimoapp:w%5D5lKc-%2FF-Cja%5Eew%4001Ror_%2C@dimo-postgres-cluster-primary:5432/dimoapp" -c "CREATE SCHEMA IF NOT EXISTS dimoapp; SET search_path TO dimoapp; CREATE TABLE IF NOT EXISTS test (id serial PRIMARY KEY, name text); INSERT INTO test (name) VALUES ('test1'), ('test2'); SELECT * FROM test;"
+      restartPolicy: Never
+  backoffLimit: 4 
