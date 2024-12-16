@@ -26,7 +26,7 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 		//"dex",
 	}
 
-	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"certificate-webhook-api", "certificate-authority", "device-data", "contract-event-processor", "identity", "dex"})
+	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"certificate-webhook-api", "certificate-authority", "device-data", "contract-event-processor", "identity", "dex", "monitoring"})
 	if err != nil {
 		return err
 	}

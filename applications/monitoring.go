@@ -3,7 +3,6 @@ package applications
 import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	//"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
-	"os/exec"
 
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
@@ -79,12 +78,12 @@ func InstallKubePrometheus(ctx *pulumi.Context, kubeProvider *kubernetes.Provide
 	ctx.Log.Info("Installing Kube-Prometheus-Stack chart...", nil)
 
 	// First, delete conflicting resources in kube-system namespace
-	cleanup := exec.Command("kubectl", "delete", "service",
-		"kube-prometheus-stack-kube-controller-manager",
-		"kube-prometheus-stack-kube-scheduler",
-		"kube-prometheus-stack-kubelet",
-		"-n", "kube-system", "--ignore-not-found=true")
-	cleanup.Run()
+	// cleanup := exec.Command("kubectl", "delete", "service",
+	// 	"kube-prometheus-stack-kube-controller-manager",
+	// 	"kube-prometheus-stack-kube-scheduler",
+	// 	"kube-prometheus-stack-kubelet",
+	// 	"-n", "kube-system", "--ignore-not-found=true")
+	// cleanup.Run()
 
 	_, err = helm.NewRelease(ctx, "kube-prometheus-stack", &helm.ReleaseArgs{
 		Name:    pulumi.String("kube-prometheus-stack"),
