@@ -52,6 +52,12 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, region string, lo
 			DiskSizeGb:  pulumi.Int(30),                 // TODO: Make this dynamic/configurable
 			OauthScopes: pulumi.ToStringArray(oauthScopes),
 			Preemptible: pulumi.Bool(false),
+			WorkloadMetadataConfig: &container.ClusterNodeConfigWorkloadMetadataConfigArgs{
+				Mode: pulumi.String("GKE_METADATA"),
+			},
+		},
+		WorkloadIdentityConfig: &container.ClusterWorkloadIdentityConfigArgs{
+			WorkloadPool: pulumi.String(projectName + ".svc.id.goog"),
 		},
 	})
 	if err != nil {

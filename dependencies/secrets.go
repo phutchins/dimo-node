@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/dimo/dimo-node/utils"
+	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/projects"
 	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/serviceaccount"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
@@ -119,8 +120,8 @@ func InstallSecretsDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Pr
 									"name":      "external-secrets-ksa",
 									"namespace": "external-secrets",
 								},
-								"clusterLocation": pulumi.String("europe-west3"),
-								"clusterName":     pulumi.String("dimo-eu"),
+								"clusterLocation": pulumi.String("europe-west1-b"),
+								"clusterName":     pulumi.String("dimo-eu-cd89583"),
 							},
 						},
 					},
@@ -190,18 +191,18 @@ func CreateGSA(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, projectID
 
 	// Commenting out until I get the permissions needed in GCP
 	// // Grant Secret Manager access at the project level using IAM binding instead of member
-	// _, err = projects.NewIAMBinding(ctx, "secret-accessor-binding", &projects.IAMBindingArgs{
-	// 	Project: pulumi.String(projectID),
-	// 	Role:    pulumi.String("roles/secretmanager.secretAccessor"),
-	// 	Members: pulumi.StringArray{
-	// 		gsa.Email.ApplyT(func(email string) string {
-	// 			return fmt.Sprintf("serviceAccount:%s", email)
-	// 		}).(pulumi.StringOutput),
-	// 	},
-	// })
-	// if err != nil {
-	// 	return nil, err
-	// }
+	_, err = projects.NewIAMBinding(ctx, "secret-accessor-binding", &projects.IAMBindingArgs{
+		Project: pulumi.String(projectID),
+		Role:    pulumi.String("roles/secretmanager.secretAccessor"),
+		Members: pulumi.StringArray{
+			gsa.Email.ApplyT(func(email string) string {
+				return fmt.Sprintf("serviceAccount:%s", email)
+			}).(pulumi.StringOutput),
+		},
+	})
+	if err != nil {
+		return nil, err
+	}
 
 	return gsa, nil
 }
