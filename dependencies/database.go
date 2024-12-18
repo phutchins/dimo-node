@@ -13,7 +13,7 @@ import (
 // Define variables needed globally in the dependencies package
 
 func InstallDatabaseDependencies(ctx *pulumi.Context) (err error) {
-	err = utils.CreateNamespaces(ctx, infrastructure.KubeProvider, []string{"postgres"})
+	_, err = utils.CreateNamespaces(ctx, infrastructure.KubeProvider, []string{"postgres"})
 	if err != nil {
 		return err
 	}

@@ -19,6 +19,7 @@ type PasswordConfig struct {
 var defaultConfigs = []PasswordConfig{
 	{ServiceName: "postgres-root", Length: 32, UseSpecial: true},
 	{ServiceName: "identity-api-db", Length: 32, UseSpecial: true},
+	{ServiceName: "prometheus-grafana", Length: 16, UseSpecial: true},
 }
 
 // GenerateSecurePassword generates a cryptographically secure password

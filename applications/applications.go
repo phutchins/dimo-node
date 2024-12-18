@@ -26,25 +26,26 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 		//"dex",
 	}
 
-	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"certificate-webhook-api", "certificate-authority", "device-data", "contract-event-processor", "identity", "dex", "monitoring"})
+	// Create namespaces for applications
+	namespaceMap, err := utils.CreateNamespaces(ctx, kubeProvider, []string{"device-data", "users", "identity-api", "monitoring"})
 	if err != nil {
 		return err
 	}
 
 	if slices.Contains(applications, "kube-prometheus-stack") {
-		err = InstallKubePrometheus(ctx, kubeProvider)
+		err = InstallKubePrometheus(ctx, kubeProvider, namespaceMap["monitoring"])
 		if err != nil {
 			return err
 		}
 	}
 
-	// Install Prometheus
-	if slices.Contains(applications, "prometheus") {
-		err = InstallPrometheus(ctx, kubeProvider)
-		if err != nil {
-			return err
-		}
-	}
+	// // Install Prometheus
+	// if slices.Contains(applications, "prometheus") {
+	// 	err = InstallPrometheus(ctx, kubeProvider)
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// }
 
 	// Users API - https://github.com/DIMO-Network/users-api/tree/main/charts/users-api
 	// Chart Link [ ]

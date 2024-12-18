@@ -27,8 +27,9 @@ func CreateGKECluster(ctx *pulumi.Context, projectName string, region string, lo
 		InitialNodeCount: pulumi.Int(3),
 		//RemoveDefaultNodePool: pulumi.Bool(true),
 		//Location: pulumi.String("us-east1-b"),
-		Location:         pulumi.String(location),
-		MinMasterVersion: pulumi.String("latest"),
+		Location:           pulumi.String(location),
+		DeletionProtection: pulumi.Bool(false), // TODO: Source this from the config
+		MinMasterVersion:   pulumi.String("latest"),
 		ClusterAutoscaling: &container.ClusterClusterAutoscalingArgs{
 			Enabled: pulumi.Bool(true),
 			ResourceLimits: container.ClusterClusterAutoscalingResourceLimitArray{

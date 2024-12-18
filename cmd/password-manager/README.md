@@ -37,6 +37,7 @@ To retrieve a password for a specific service:
 
 - `postgres-root`: PostgreSQL root user password
 - `identity-api-db`: Identity API database user password
+- `prometheus-grafana`: Grafana UI password
 
 ## Integration with Pulumi
 

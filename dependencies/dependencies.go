@@ -4,63 +4,10 @@ import (
 	"github.com/dimo/dimo-node/utils"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
-	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/networking/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func createGrafanaIngress(ctx *pulumi.Context, provider *kubernetes.Provider) error {
-	_, err := networkingv1.NewIngress(ctx, "grafana-ingress", &networkingv1.IngressArgs{
-		Metadata: &metav1.ObjectMetaArgs{
-			Name:      pulumi.String("grafana"),
-			Namespace: pulumi.String("monitoring"),
-			Annotations: pulumi.StringMap{
-				"nginx.ingress.kubernetes.io/ssl-redirect": pulumi.String("true"),
-				"cert-manager.io/cluster-issuer":           pulumi.String("letsencrypt-prod"),
-			},
-		},
-		Spec: &networkingv1.IngressSpecArgs{
-			IngressClassName: pulumi.String("nginx"),
-			Tls: networkingv1.IngressTLSArray{
-				&networkingv1.IngressTLSArgs{
-					Hosts:      pulumi.StringArray{pulumi.String("monitoring.driveomid.xyz")},
-					SecretName: pulumi.String("grafana-tls"),
-				},
-			},
-			Rules: networkingv1.IngressRuleArray{
-				&networkingv1.IngressRuleArgs{
-					Host: pulumi.String("monitoring.driveomid.xyz"),
-					Http: &networkingv1.HTTPIngressRuleValueArgs{
-						Paths: networkingv1.HTTPIngressPathArray{
-							&networkingv1.HTTPIngressPathArgs{
-								Path:     pulumi.String("/"),
-								PathType: pulumi.String("Prefix"),
-								Backend: &networkingv1.IngressBackendArgs{
-									Service: &networkingv1.IngressServiceBackendArgs{
-										Name: pulumi.String("kube-prometheus-stack-grafana"),
-										Port: &networkingv1.ServiceBackendPortArgs{
-											Number: pulumi.Int(80),
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	}, pulumi.Provider(provider))
-
-	return err
-}
-
 func InstallDependencies(ctx *pulumi.Context, provider *kubernetes.Provider) (error, *helm.Chart) {
-	// Install external-secrets operator and get the ClusterSecretStore
-	secretsProvider, err := InstallSecretsDependencies(ctx, provider)
-	if err != nil {
-		return err, nil
-	}
-
 	// Install nginx-ingress
 	if err := InstallNginxIngress(ctx, provider); err != nil {
 		return err, nil
@@ -71,8 +18,9 @@ func InstallDependencies(ctx *pulumi.Context, provider *kubernetes.Provider) (er
 		return err, nil
 	}
 
-	// Create Grafana ingress
-	if err := createGrafanaIngress(ctx, provider); err != nil {
+	// Install external-secrets operator and get the ClusterSecretStore
+	secretsProvider, err := InstallSecretsDependencies(ctx, provider)
+	if err != nil {
 		return err, nil
 	}
 
@@ -81,7 +29,7 @@ func InstallDependencies(ctx *pulumi.Context, provider *kubernetes.Provider) (er
 
 func InstallNginxIngress(ctx *pulumi.Context, provider *kubernetes.Provider) error {
 	// Create namespace for nginx-ingress
-	err := utils.CreateNamespaces(ctx, provider, []string{"ingress-nginx"})
+	namespaces, err := utils.CreateNamespaces(ctx, provider, []string{"ingress-nginx"})
 	if err != nil {
 		return err
 	}
@@ -125,7 +73,7 @@ func InstallNginxIngress(ctx *pulumi.Context, provider *kubernetes.Provider) err
 				},
 			},
 		},
-	}, pulumi.Provider(provider))
+	}, pulumi.Provider(provider), pulumi.DependsOn([]pulumi.Resource{namespaces["ingress-nginx"]}))
 
 	if err != nil {
 		return err

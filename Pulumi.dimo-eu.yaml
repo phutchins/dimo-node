@@ -4,6 +4,7 @@ config:
   dimo-node:create-node-pools: "false"
   dimo-node:deployment-type: gke
   dimo-node:project-name: dimo-eu
+  dimo-node:cluster-name: dimo-eu-31990bf
   dimo-node:region: europe-west1
   dimo-node:location: europe-west1-b
   dimo-node:locations:
@@ -13,7 +14,9 @@ config:
   dimo-node:whitelist-ip: 24.30.56.126/32
   dimo-node:environment: dev
   dimo-node:passwords.postgres-root:
-    secure: v1:0/B2O5FP4amEvcUd:lP5SNB2XXlNbxudEUdwdy71Hzya3kSX44G6HgygfSj94RXXvKLjJzny2VZ0m6HcW
+    secure: v1:9Orpj6+URMQUBNdk:1ft6Gq8UPb/Wlp/MZCn1Bo71tq7teuZfDCUvHa+foxtImlMYQ6FcsfFO0dSksEzI
   dimo-node:passwords.identity-api-db:
-    secure: v1:R5hx2lAAU/Uwg/O4:znBZH/y+IRHGxq+pFwSwbwATdlcQwqQEDGXjQdaFJk3Vr9wL4cdnNqg4OQNfj0fJ
+    secure: v1:BdI7RTgoqtnw0GYw:3adbnqCsRiHfCZ7Jm6pVdWGFujEBYhh6PluVRIrcNziQN/c03/S2RmnsG3zus7FS
+  dimo-node:passwords.prometheus-grafana:
+    secure: v1:UzoAqUph/J/uoiG2:UY8iyPKPiB9mAz6xkRLY497gRGWAlE9koN3094/UESM=
 encryptionsalt: v1:ZYOiy97tIDQ=:v1:uNzWn7IOw7o/v+xl:piqlzhLqKT2Fg3GDKT16UKQiu+Q/Mw==
