@@ -3,7 +3,6 @@ package dependencies
 import (
 	"fmt"
 
-	"github.com/dimo/dimo-node/utils"
 	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/projects"
 	"github.com/pulumi/pulumi-gcp/sdk/v7/go/gcp/serviceaccount"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
@@ -88,22 +87,6 @@ func InstallSecretsDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Pr
 		return nil, err
 	}
 
-	// Wait a bit for the webhook to be ready
-	// webhookWait, err := corev1.NewConfigMap(ctx, "webhook-wait", &corev1.ConfigMapArgs{
-	// 	Metadata: &metav1.ObjectMetaArgs{
-	// 		Name:      pulumi.String("webhook-wait"),
-	// 		Namespace: pulumi.String("external-secrets"),
-	// 	},
-	// 	Data: pulumi.StringMap{
-	// 		"wait": pulumi.String("true"),
-	// 	},
-	// }, pulumi.Provider(kubeProvider),
-	// 	pulumi.DependsOn([]pulumi.Resource{SecretsProvider}))
-
-	// if err != nil {
-	// 	return err, nil
-	// }
-
 	// Create ClusterSecretStore after webhook is ready
 	clusterSecretStore, err := apiextensions.NewCustomResource(ctx, "ClusterSecretStore", &apiextensions.CustomResourceArgs{
 		ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
@@ -140,8 +123,8 @@ func InstallSecretsDependencies(ctx *pulumi.Context, kubeProvider *kubernetes.Pr
 	ctx.Export("externalSecrets", SecretsProvider.URN())
 	ctx.Export("externalSecret", clusterSecretStore.URN())
 
-	// Create database secrets after ClusterSecretStore is ready
-	err = createDatabaseSecrets(ctx, kubeProvider, clusterSecretStore, projectID)
+	// Create External Secrets for passwords
+	err = ManagePasswordSecrets(ctx, kubeProvider, clusterSecretStore)
 	if err != nil {
 		return nil, err
 	}
@@ -191,8 +174,7 @@ func CreateGSA(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, projectID
 		return nil, err
 	}
 
-	// Commenting out until I get the permissions needed in GCP
-	// // Grant Secret Manager access at the project level using IAM binding instead of member
+	// Grant Secret Manager access at the project level using IAM binding instead of member
 	_, err = projects.NewIAMBinding(ctx, "secret-accessor-binding", &projects.IAMBindingArgs{
 		Project: pulumi.String(projectID),
 		Role:    pulumi.String("roles/secretmanager.secretAccessor"),
@@ -206,7 +188,7 @@ func CreateGSA(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, projectID
 		return nil, err
 	}
 
-	// In the CreateGSA function, add this additional IAM binding
+	// Grant Secret Manager viewer role
 	_, err = projects.NewIAMBinding(ctx, "secret-viewer-binding", &projects.IAMBindingArgs{
 		Project: pulumi.String(projectID),
 		Role:    pulumi.String("roles/secretmanager.viewer"),
@@ -224,17 +206,7 @@ func CreateGSA(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, projectID
 }
 
 func CreateKSA(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, gsaEmail pulumi.StringOutput, ns *corev1.Namespace) (ksa *corev1.ServiceAccount, err error) {
-	// ksa, err = corev1.NewServiceAccount(ctx, "external-secrets", &corev1.ServiceAccountArgs{
-	// 	Metadata: &metav1.ObjectMetaArgs{
-	// 		Name:      pulumi.String("external-secrets"),
-	// 		Namespace: pulumi.String("external-secrets"),
-	// 		Annotations: pulumi.StringMap{
-	// 			"iam.gke.io/gcp-service-account": gsaEmail,
-	// 		},
-	// 	},
-	// })
-
-	// 3. Create a Kubernetes Service Account
+	// Create a Kubernetes Service Account
 	ksa, err = corev1.NewServiceAccount(ctx, "secret-service-account", &corev1.ServiceAccountArgs{
 		Metadata: &metav1.ObjectMetaArgs{
 			Namespace: pulumi.String("external-secrets"),
@@ -249,7 +221,7 @@ func CreateKSA(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, gsaEmail 
 		return nil, err
 	}
 
-	// 4. Create a Kubernetes ClusterRoleBinding
+	// Create a Kubernetes ClusterRoleBinding
 	_, err = rbacv1.NewClusterRoleBinding(ctx, "secret-service-account-binding", &rbacv1.ClusterRoleBindingArgs{
 		Metadata: &metav1.ObjectMetaArgs{
 			Name: pulumi.String("secret-service-account-binding"),
@@ -273,188 +245,4 @@ func CreateKSA(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, gsaEmail 
 	}
 
 	return ksa, nil
-}
-
-// Could set up the GCP or other cloud provider secret store here
-func InstallExternalSecrets(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, ns *corev1.Namespace) (*helm.Chart, error) {
-	// Get project ID from config
-	conf := config.New(ctx, "")
-	projectID := conf.Require("gcp-project")
-
-	gsa, err := CreateGSA(ctx, kubeProvider, projectID)
-	if err != nil {
-		return nil, err
-	}
-
-	ksa, err := CreateKSA(ctx, kubeProvider, gsa.Email, ns)
-	if err != nil {
-		return nil, err
-	}
-
-	ctx.Export("ksa", ksa.URN())
-
-	// Install external-secrets helm chart
-	SecretsProvider, err = helm.NewChart(ctx, "external-secrets", helm.ChartArgs{
-		Chart: pulumi.String("external-secrets"),
-		FetchArgs: helm.FetchArgs{
-			Repo: pulumi.String("https://charts.external-secrets.io/"),
-		},
-		Namespace: pulumi.String("external-secrets"),
-		Values: pulumi.Map{
-			"installCRDs": pulumi.Bool(true),
-			// "webhook": pulumi.Map{
-			// 	"create": pulumi.Bool(true),
-			// 	"port":   pulumi.Int(9443),
-			// 	"service": pulumi.Map{
-			// 		"name": pulumi.String("external-secrets-webhook"),
-			// 		"type": pulumi.String("ClusterIP"),
-			// 	},
-			// },
-			"serviceAccount": pulumi.Map{
-				"create": pulumi.Bool(false),
-				"name":   pulumi.String("external-secrets-ksa"),
-			},
-			"priorityClassName": pulumi.String("gmp-critical"),
-		},
-	}, pulumi.Provider(kubeProvider))
-	if err != nil {
-		return nil, err
-	}
-
-	ctx.Export("externalSecrets", SecretsProvider.URN())
-
-	return SecretsProvider, nil
-}
-
-func createDatabaseSecrets(ctx *pulumi.Context, provider *kubernetes.Provider, clusterSecretStore *apiextensions.CustomResource, projectID string) error {
-	stack := ctx.Stack()
-
-	// Get passwords from Pulumi config
-	_, err := utils.GetPassword(stack, "postgres-root")
-	if err != nil {
-		return fmt.Errorf("failed to get postgres root password: %v", err)
-	}
-
-	_, err = utils.GetPassword(stack, "identity-api-db")
-	if err != nil {
-		return fmt.Errorf("failed to get identity-api password: %v", err)
-	}
-
-	_, err = utils.GetPassword(stack, "prometheus-grafana")
-	if err != nil {
-		return fmt.Errorf("failed to get prometheus-grafana password: %v", err)
-	}
-
-	// Create ExternalSecret for PostgreSQL root password
-	_, err = apiextensions.NewCustomResource(ctx, "postgres-root-secret", &apiextensions.CustomResourceArgs{
-		ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
-		Kind:       pulumi.String("ExternalSecret"),
-		Metadata: &metav1.ObjectMetaArgs{
-			Name:      pulumi.String("postgres-root-secret"),
-			Namespace: pulumi.String("default"),
-		},
-		OtherFields: map[string]interface{}{
-			"spec": map[string]interface{}{
-				"refreshInterval": "1h",
-				"secretStoreRef": map[string]interface{}{
-					"name": "cluster-secret-store",
-					"kind": "ClusterSecretStore",
-				},
-				"target": map[string]interface{}{
-					"name": "postgres-root-secret",
-				},
-				"data": []map[string]interface{}{
-					{
-						"secretKey": "password",
-						"remoteRef": map[string]interface{}{
-							"key":      fmt.Sprintf("projects/%s/secrets/postgres-root-password", projectID),
-							"property": "latest",
-						},
-					},
-				},
-			},
-		},
-	}, pulumi.Provider(provider),
-		pulumi.DependsOn([]pulumi.Resource{clusterSecretStore}))
-	if err != nil {
-		return fmt.Errorf("failed to create postgres root secret: %v", err)
-	}
-
-	// Create ExternalSecret for Identity API database password
-	_, err = apiextensions.NewCustomResource(ctx, "identity-api-db-secret", &apiextensions.CustomResourceArgs{
-		ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
-		Kind:       pulumi.String("ExternalSecret"),
-		Metadata: &metav1.ObjectMetaArgs{
-			Name:      pulumi.String("identity-api-db-secret"),
-			Namespace: pulumi.String("default"),
-		},
-		OtherFields: map[string]interface{}{
-			"spec": map[string]interface{}{
-				"refreshInterval": "1h",
-				"secretStoreRef": map[string]interface{}{
-					"name": "cluster-secret-store",
-					"kind": "ClusterSecretStore",
-				},
-				"target": map[string]interface{}{
-					"name": "identity-api-db-secret",
-				},
-				"data": []map[string]interface{}{
-					{
-						"secretKey": "password",
-						"remoteRef": map[string]interface{}{
-							"key":      fmt.Sprintf("projects/%s/secrets/identity-api-db-password", projectID),
-							"property": "latest",
-						},
-					},
-				},
-			},
-		},
-	}, pulumi.Provider(provider),
-		pulumi.DependsOn([]pulumi.Resource{clusterSecretStore}))
-	if err != nil {
-		return fmt.Errorf("failed to create identity-api db secret: %v", err)
-	}
-
-	// Create ExternalSecret for Grafana password
-	_, err = apiextensions.NewCustomResource(ctx, "grafana-password-secret", &apiextensions.CustomResourceArgs{
-		ApiVersion: pulumi.String("external-secrets.io/v1beta1"),
-		Kind:       pulumi.String("ExternalSecret"),
-		Metadata: &metav1.ObjectMetaArgs{
-			Name:      pulumi.String("grafana-password-secret"),
-			Namespace: pulumi.String("monitoring"),
-		},
-		OtherFields: map[string]interface{}{
-			"spec": map[string]interface{}{
-				"refreshInterval": "1h",
-				"secretStoreRef": map[string]interface{}{
-					"name": "cluster-secret-store",
-					"kind": "ClusterSecretStore",
-				},
-				"target": map[string]interface{}{
-					"name":           "grafana-password-secret",
-					"creationPolicy": "Owner",
-				},
-				"data": []map[string]interface{}{
-					{
-						"secretKey": "admin-user",
-						"remoteRef": map[string]interface{}{
-							"key": "prometheus-grafana-admin",
-						},
-					},
-					{
-						"secretKey": "password",
-						"remoteRef": map[string]interface{}{
-							"key": "prometheus-grafana",
-						},
-					},
-				},
-			},
-		},
-	}, pulumi.Provider(provider),
-		pulumi.DependsOn([]pulumi.Resource{clusterSecretStore}))
-	if err != nil {
-		return fmt.Errorf("failed to create grafana password secret: %v", err)
-	}
-
-	return nil
 }
