@@ -43,6 +43,8 @@ func InstallNginxIngress(ctx *pulumi.Context, provider *kubernetes.Provider) err
 		Version:   pulumi.String("4.11.2"),
 		Namespace: pulumi.String("ingress-nginx"),
 		Values: pulumi.Map{
+			"enable-stub-status": pulumi.Bool(true),
+			"stub-status-path":   pulumi.String("/nginx_status"),
 			"controller": pulumi.Map{
 				"image": pulumi.Map{
 					"chroot": pulumi.Bool(true),
