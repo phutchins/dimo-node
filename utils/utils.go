@@ -21,17 +21,19 @@ func ToPulumiStringArray(a []string) pulumi.StringArrayInput {
 	return pulumi.StringArray(res)
 }
 
-func CreateNamespaces(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, namespaces []string) error {
+func CreateNamespaces(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, namespaces []string) (map[string]*corev1.Namespace, error) {
+	namespaceMap := make(map[string]*corev1.Namespace)
 	for _, namespace := range namespaces {
-		_, err := corev1.NewNamespace(ctx, fmt.Sprintf("%s", namespace), &corev1.NamespaceArgs{
+		ns, err := corev1.NewNamespace(ctx, fmt.Sprintf("%s", namespace), &corev1.NamespaceArgs{
 			Metadata: &metav1.ObjectMetaArgs{
 				Name: pulumi.String(namespace),
 			},
 		}, pulumi.Provider(kubeProvider))
 		if err != nil {
-			return err
+			return nil, err
 		}
+		namespaceMap[namespace] = ns
 	}
 
-	return nil
+	return namespaceMap, nil
 }

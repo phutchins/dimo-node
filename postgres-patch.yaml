@@ -1,0 +1,17 @@
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: dimo-postgres-cluster
+spec:
+  users:
+    - name: dimoapp
+      databases:
+        - dimoapp
+      options: "CREATEDB"
+  patroni:
+    dynamicConfiguration:
+      postgresql:
+        pg_hba:
+          - host all all all scram-sha-256
+  port: 5432
+  postgresVersion: 16

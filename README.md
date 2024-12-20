@@ -73,6 +73,15 @@ gcloud config set project <project-name>
 gcloud auth application-default login
 ```
 
+Login to Pulumi Locally
+- This will create a `.pulumi` directory in your home directory
+- When executing commmands with Pulumi, it will use credentials stored in the `.pulumi` directory by default
+- To use a different directory, you can set the `PULUMI_CONFIG_DIR` environment variable or use the `--local` flag when running pulumi login
+- To share state, we will need to move the state to a cloud storage bucket
+```
+pulumi login --local
+```
+
 Initialize Pulumi
 ```
 # This will ask you to name the stack, you can use the default <dev> name

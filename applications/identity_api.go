@@ -49,20 +49,7 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 				},
 			},
 		},
-	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}), pulumi.IgnoreChanges([]string{"spec"}), pulumi.Transformations([]pulumi.ResourceTransformation{
-		func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
-			if args.Type == "kubernetes:external-secrets.io/v1beta1:ExternalSecret" {
-				return &pulumi.ResourceTransformationResult{
-					Props: args.Props,
-					Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
-						"spec.data",
-						"spec.secretStoreRef.name",
-					})),
-				}
-			}
-			return nil
-		},
-	}))
+	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}), pulumi.DeleteBeforeReplace(true), pulumi.ReplaceOnChanges([]string{"spec"}))
 	//}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}), pulumi.IgnoreChanges([]string{"spec"}))
 	//	pulumi.Transformations([]pulumi.ResourceTransformation{
 	//		func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
@@ -86,9 +73,9 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 	}
 
 	//Deploy the users-api from helm chart
-	usersApi, err := helm.NewChart(ctx, "identity-api", helm.ChartArgs{
-		Chart:     pulumi.String("identity-api"),
-		Path:      pulumi.String("./applications/identity-api/charts"),
+	usersApi, err := helm.NewRelease(ctx, "identity-api", &helm.ReleaseArgs{
+		Name:      pulumi.String("identity-api"),
+		Chart:     pulumi.String("./applications/identity-api/charts/identity-api"),
 		Namespace: pulumi.String("identity"),
 		Values: pulumi.Map{
 			"global": pulumi.Map{
@@ -104,8 +91,7 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 				"enabled": pulumi.Bool(true),
 				"hosts": pulumi.Array{
 					pulumi.Map{
-						"host": pulumi.String("identity-api.dimo.zone"), // TODO: Get host from cloud provider
-						// Find how to only pass in identity-api and get the service from the environment
+						"host": pulumi.String("identity-api.dimo.zone"),
 						"paths": pulumi.Array{
 							pulumi.Map{
 								"path":     pulumi.String("/"),
@@ -115,9 +101,6 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 					},
 				},
 			},
-			// TODO: Would be nice to have the option to fork from some chain for testing etc... (tenderly)
-			// Could use mumbai testnet contracts also in the short term
-			// Define sets of addresses at the top level for different environments
 			"env": pulumi.Map{
 				"KAFKA_BROKERS":                       pulumi.String("kafka-prod-dimo-kafka-kafka-brokers:9092"),
 				"DIMO_REGISTRY_CHAIN_ID":              pulumi.Int(137),
@@ -131,10 +114,33 @@ func InstallIdentityApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider, 
 				"BASE_IMAGE_URL":                      pulumi.String("https://devices-api.dimo.zone/v1"),
 			},
 			"kafka": pulumi.Map{
-				"clusterName": pulumi.String("kafka-" + environmentName + "-dimo-kafka"), // TODO: Make this a configurable env value
+				"clusterName": pulumi.String("kafka-" + environmentName + "-dimo-kafka"),
 			},
 		},
-	}, pulumi.Provider(kubeProvider))
+		SkipAwait:     pulumi.Bool(true),
+		WaitForJobs:   pulumi.Bool(false),
+		CleanupOnFail: pulumi.Bool(true),
+	}, pulumi.Provider(kubeProvider),
+		pulumi.Transformations([]pulumi.ResourceTransformation{
+			func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
+				if args.Type == "kubernetes:networking.k8s.io/v1:Ingress" {
+					return &pulumi.ResourceTransformationResult{
+						Props: args.Props,
+						Opts: append(args.Opts, pulumi.DeleteBeforeReplace(true), pulumi.IgnoreChanges([]string{
+							"metadata.annotations",
+						})),
+					}
+				} else if args.Type == "kubernetes:apps/v1:Deployment" {
+					return &pulumi.ResourceTransformationResult{
+						Props: args.Props,
+						Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
+							"spec.template.metadata.annotations.checksum/config",
+						})),
+					}
+				}
+				return nil
+			},
+		}))
 	if err != nil {
 		return err
 	}

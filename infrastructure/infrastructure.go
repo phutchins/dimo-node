@@ -181,7 +181,7 @@ func BuildInfrastructure(ctx *pulumi.Context) (*kubernetes.Provider, error) {
 
 	ctx.Export("k8sProvider", KubeProvider.URN())
 
-	err = utils.CreateNamespaces(ctx, KubeProvider, []string{"dimo"})
+	_, err = utils.CreateNamespaces(ctx, KubeProvider, []string{"dimo"})
 	if err != nil {
 		return nil, err
 	}

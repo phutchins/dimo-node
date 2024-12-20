@@ -3,3 +3,14 @@ id_rsa
 id_rsa.pub
 id_rsa*
 node_modules
+password-manager
+.idea/
+.vscode/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+.env

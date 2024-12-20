@@ -47,7 +47,21 @@ func InstallCertificateAuthority(ctx *pulumi.Context, kubeProvider *kubernetes.P
 				"BASE_IMAGE_URL": pulumi.String("https://certificate-authority.dimo.zone/v1"),
 			},
 		},
-	}, pulumi.Provider(kubeProvider))
+	}, pulumi.Provider(kubeProvider),
+		pulumi.Transformations([]pulumi.ResourceTransformation{
+			func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
+				if args.Type == "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" ||
+					args.Type == "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration" {
+					return &pulumi.ResourceTransformationResult{
+						Props: args.Props,
+						Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
+							"spec.data",
+						})),
+					}
+				}
+				return nil
+			},
+		}), pulumi.Provider(kubeProvider))
 	if err != nil {
 		return err
 	}

@@ -13,30 +13,39 @@ func InstallApplications(ctx *pulumi.Context, kubeProvider *kubernetes.Provider,
 	// Use this later to configure sets of applications to install
 	applications := []string{
 		//"users-api",
-		"prometheus",
-		"identity-api",
-		"device-data-api",
-		"contract-event-processor",
-		"mqtt-broker",
-		"dex-auth-n", // Authentication
-		"dex-auth-z", // Authorization
-		"webhook-validator",
-		"certificate-authority",
-		"dex",
+		//"prometheus",
+		"kube-prometheus-stack",
+		//"identity-api",
+		//"device-data-api",
+		//"contract-event-processor",
+		//"mqtt-broker",
+		//"dex-auth-n", // Authentication
+		//"dex-auth-z", // Authorization
+		//"webhook-validator",
+		//"certificate-authority",
+		//"dex",
 	}
 
-	err = utils.CreateNamespaces(ctx, kubeProvider, []string{"certificate-webhook-api", "certificate-authority", "device-data", "contract-event-processor", "identity", "dex"})
+	// Create namespaces for applications
+	namespaceMap, err := utils.CreateNamespaces(ctx, kubeProvider, []string{"device-data", "users", "identity-api", "monitoring"})
 	if err != nil {
 		return err
 	}
 
-	// Install Prometheus
-	if slices.Contains(applications, "prometheus") {
-		err = InstallPrometheus(ctx, kubeProvider)
+	if slices.Contains(applications, "kube-prometheus-stack") {
+		err = InstallKubePrometheus(ctx, kubeProvider, namespaceMap["monitoring"])
 		if err != nil {
 			return err
 		}
 	}
+
+	// // Install Prometheus
+	// if slices.Contains(applications, "prometheus") {
+	// 	err = InstallPrometheus(ctx, kubeProvider)
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// }
 
 	// Users API - https://github.com/DIMO-Network/users-api/tree/main/charts/users-api
 	// Chart Link [ ]

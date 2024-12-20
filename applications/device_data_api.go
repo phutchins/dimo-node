@@ -38,23 +38,11 @@ func InstallDeviceDataApi(ctx *pulumi.Context, kubeProvider *kubernetes.Provider
 				},
 			},
 		},
-	}, pulumi.Provider(kubeProvider), pulumi.DependsOn([]pulumi.Resource{SecretsProvider}),
-		pulumi.Transformations([]pulumi.ResourceTransformation{
-			func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
-				if args.Type == "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" ||
-					args.Type == "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration" {
-					return &pulumi.ResourceTransformationResult{
-						Props: args.Props,
-						Opts: append(args.Opts, pulumi.IgnoreChanges([]string{
-							"spec.data",
-							"spec.secretStoreRef.name",
-						})),
-					}
-				}
-				return nil
-			},
-		}),
-	)
+	}, pulumi.Provider(kubeProvider),
+		pulumi.IgnoreChanges([]string{
+			"spec.data",
+			"spec.secretStoreRef.name",
+		}))
 
 	if err != nil {
 		return err

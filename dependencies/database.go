@@ -4,6 +4,7 @@ import (
 	"github.com/dimo/dimo-node/infrastructure"
 	"github.com/dimo/dimo-node/utils"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -12,7 +13,21 @@ import (
 // Define variables needed globally in the dependencies package
 
 func InstallDatabaseDependencies(ctx *pulumi.Context) (err error) {
-	err = utils.CreateNamespaces(ctx, infrastructure.KubeProvider, []string{"postgres"})
+	_, err = utils.CreateNamespaces(ctx, infrastructure.KubeProvider, []string{"postgres"})
+	if err != nil {
+		return err
+	}
+
+	// Create a secret for the PostgreSQL password
+	_, err = corev1.NewSecret(ctx, "dimoapp-password", &corev1.SecretArgs{
+		Metadata: &metav1.ObjectMetaArgs{
+			Name:      pulumi.String("dimo-postgres-cluster-pguser-dimoapp"),
+			Namespace: pulumi.String("postgres"),
+		},
+		StringData: pulumi.StringMap{
+			"verifier": pulumi.String("SCRAM-SHA-256$4096:w]5lKc-/F-Cja^ew@01Ror_,%"),
+		},
+	}, pulumi.Provider(infrastructure.KubeProvider))
 	if err != nil {
 		return err
 	}
@@ -53,9 +68,18 @@ func InstallDatabaseDependencies(ctx *pulumi.Context) (err error) {
 								},
 							},
 						},
-						// Define more instance-specific settings here.
 					},
 				},
+				"users": pulumi.Array{
+					pulumi.Map{
+						"name": pulumi.String("dimoapp"),
+						"databases": pulumi.Array{
+							pulumi.String("dimoapp"),
+						},
+						"options": pulumi.String("CREATEDB"),
+					},
+				},
+				"port": pulumi.Int(5432),
 				"backups": map[string]any{
 					"pgbackrest": pulumi.Map{
 						"image": pulumi.String("registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.45-2"),
