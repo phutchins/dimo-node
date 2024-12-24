@@ -19,13 +19,22 @@ func InstallDatabaseDependencies(ctx *pulumi.Context) (err error) {
 	}
 
 	// Create a secret for the PostgreSQL password
-	_, err = corev1.NewSecret(ctx, "dimoapp-password", &corev1.SecretArgs{
+	// _, err = corev1.NewSecret(ctx, "dimoapp-password", &corev1.SecretArgs{
+	// 	Metadata: &metav1.ObjectMetaArgs{
+	// 		Name:      pulumi.String("dimo-postgres-cluster-pguser-dimoapp"),
+	// 		Namespace: pulumi.String("postgres"),
+	// 	},
+	// 	StringData: pulumi.StringMap{
+	// 		"verifier": pulumi.String("SCRAM-SHA-256$4096:w]5lKc-/F-Cja^ew@01Ror_,%"),
+	// 	},
+	// }, pulumi.Provider(infrastructure.KubeProvider))
+	// if err != nil {
+	// 	return err
+	// }
+
+	postgresRootSecret, err := corev1.NewSecret(ctx, "postgres-root-secret", &corev1.SecretArgs{
 		Metadata: &metav1.ObjectMetaArgs{
-			Name:      pulumi.String("dimo-postgres-cluster-pguser-dimoapp"),
 			Namespace: pulumi.String("postgres"),
-		},
-		StringData: pulumi.StringMap{
-			"verifier": pulumi.String("SCRAM-SHA-256$4096:w]5lKc-/F-Cja^ew@01Ror_,%"),
 		},
 	}, pulumi.Provider(infrastructure.KubeProvider))
 	if err != nil {
@@ -72,12 +81,29 @@ func InstallDatabaseDependencies(ctx *pulumi.Context) (err error) {
 				},
 				"users": pulumi.Array{
 					pulumi.Map{
-						"name": pulumi.String("dimoapp"),
-						"databases": pulumi.Array{
-							pulumi.String("dimoapp"),
-						},
-						"options": pulumi.String("CREATEDB"),
+						"name": pulumi.String("postgres"), // This is the superuser
+						// Need to find a way to use the verifier that the PGO uses to set the password from secret
+						// May need to modify the PGO helm chart to use the secret
+						// "password": pulumi.Map{
+						// 	postgresRootSecret.StringData.ApplyT(func(data map[string]string) string {
+						// 	return data["password"]
+						// 	}).(pulumi.StringOutput)
+						// },
+						"password": postgresRootSecret.StringData.ApplyT(func(data map[string]string) string {
+							return data["password"]
+						}).(pulumi.StringOutput),
 					},
+					// pulumi.Map{
+					// 	"name": pulumi.String("dimoapp"),
+					// 	"databases": pulumi.Array{
+					// 		pulumi.String("dimoapp"),
+					// 	},
+					// 	"password": pulumi.Map{
+					// 		"type":       pulumi.String("Secret"),
+					// 		"secretName": pulumi.String("identity-api-db-secret"),
+					// 	},
+					// 	"options": pulumi.String("CREATEDB"),
+					// },
 				},
 				"port": pulumi.Int(5432),
 				"backups": map[string]any{

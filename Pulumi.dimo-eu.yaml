@@ -14,10 +14,10 @@ config:
   dimo-node:whitelist-ip: 24.30.56.126/32
   dimo-node:environment: dev
   dimo-node:passwords.postgres-root:
-    secure: v1:TR6ydnFhtVuz2bQ+:ML3gxmQktzgdiIXkHLnjczxuXmG+GK4osyUac9S2wUuqxHiUK7RmUiTi8a48YTAw
+    secure: v1:6STiNnBCLuX4COxx:QtjGJu+FL7eFtQiGxW3PcmAPTk5bMQ7kCzX0eGb0uTDnEDMCiBbYdNN+emsCMByO
   dimo-node:passwords.identity-api-db:
-    secure: v1:BdI7RTgoqtnw0GYw:3adbnqCsRiHfCZ7Jm6pVdWGFujEBYhh6PluVRIrcNziQN/c03/S2RmnsG3zus7FS
+    secure: v1:yzAvC2qUYYAR9Uc+:LjJSjPG3pit2BzUylwE22kUDK4aAPAyyoaUExLcrcXQnP0VBPE8FBCW86Q3FV/+k
   dimo-node:passwords.prometheus-grafana:
-    secure: v1:1nBsHdERcFN/Er1F:OKmsUKAbNVJQParhga0HNz1dv8C6VXlK2TV8+WKpHx8=
-  dimo-node:password-configs: '{"identity-api-db":{"serviceName":"identity-api-db","length":32,"useSpecial":true,"gcpSecretId":"identity-api-db-password","k8sSecretName":"identity-api-db-secret","k8sNamespace":"default"},"postgres-root":{"serviceName":"postgres-root","length":32,"useSpecial":true,"gcpSecretId":"postgres-root-password","k8sSecretName":"postgres-root-secret","k8sNamespace":"default"},"prometheus-grafana":{"serviceName":"prometheus-grafana","length":16,"useSpecial":true,"gcpSecretId":"prometheus-grafana","k8sSecretName":"grafana-password-secret","k8sNamespace":"monitoring"}}'
+    secure: v1:1x1nRySCJBpKALrw:P9GVRz+EBAfDb9jHSHGkhQi8aZ+8tN/rbZVQcV/DQAE=
+  dimo-node:password-configs: '{"identity-api-db":{"serviceName":"identity-api-db","length":32,"useSpecial":true,"gcpSecretId":"identity-api-db-password","k8sSecretName":"identity-api-db-secret","k8sNamespace":"identity-api"},"postgres-root":{"serviceName":"postgres-root","length":32,"useSpecial":true,"gcpSecretId":"postgres-root-password","k8sSecretName":"postgres-root-secret","k8sNamespace":"postgres"},"prometheus-grafana":{"serviceName":"prometheus-grafana","length":16,"useSpecial":true,"gcpSecretId":"prometheus-grafana","k8sSecretName":"grafana-password-secret","k8sNamespace":"monitoring"}}'
 encryptionsalt: v1:ZYOiy97tIDQ=:v1:uNzWn7IOw7o/v+xl:piqlzhLqKT2Fg3GDKT16UKQiu+Q/Mw==

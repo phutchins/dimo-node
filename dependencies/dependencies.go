@@ -24,6 +24,11 @@ func InstallDependencies(ctx *pulumi.Context, provider *kubernetes.Provider) (er
 		return err, nil
 	}
 
+	// Install database dependencies
+	if err := InstallDatabaseDependencies(ctx); err != nil {
+		return err, nil
+	}
+
 	return nil, secretsProvider
 }
 
